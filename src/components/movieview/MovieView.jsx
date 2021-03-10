@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class MovieView extends React.Component {
+class MovieView extends React.Component {
     constructor() {
         super();
 
@@ -8,7 +8,7 @@ export class MovieView extends React.Component {
     }
 
     render() {
-        const { movie } = this.props;
+        const { movie, onClick } = this.props;
 
         if (!movie) return null;
 
@@ -50,7 +50,7 @@ export class MovieView extends React.Component {
                 </div>
 
                 <div className="back-button">
-                    <button onClick={() => window.open("mainView", "_self")} className="back-button">
+                    <button onClick={() => onClick()} className="back-button">
                         Back
                     </button>
                 </div>
@@ -58,3 +58,5 @@ export class MovieView extends React.Component {
         )
     }
 }
+
+export default MovieView;

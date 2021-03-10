@@ -31556,13 +31556,13 @@ module.exports.default = axios;
 
 },{"./utils":"../node_modules/axios/lib/utils.js","./helpers/bind":"../node_modules/axios/lib/helpers/bind.js","./core/Axios":"../node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"../node_modules/axios/lib/core/mergeConfig.js","./defaults":"../node_modules/axios/lib/defaults.js","./cancel/Cancel":"../node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"../node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"../node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"../node_modules/axios/lib/helpers/spread.js"}],"../node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/movie-card/movie-card.jsx":[function(require,module,exports) {
+},{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/moviecard/MovieCard.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MovieCard = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -31620,14 +31620,15 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
   return MovieCard;
 }(_react.default.Component);
 
-exports.MovieCard = MovieCard;
-},{"react":"../node_modules/react/index.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
+var _default = MovieCard;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/movieview/MovieView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MovieView = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -31671,16 +31672,11 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MovieView, [{
-    key: "movieNull",
-    value: function movieNull() {
-      this.setState({
-        movie: null
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          _onClick = _this$props.onClick;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
@@ -31731,7 +31727,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "back-button"
       }, _react.default.createElement("button", {
         onClick: function onClick() {
-          return window.open("mainView", "_self");
+          return _onClick();
         },
         className: "back-button"
       }, "Back")));
@@ -31741,22 +31737,23 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   return MovieView;
 }(_react.default.Component);
 
-exports.MovieView = MovieView;
-},{"react":"../node_modules/react/index.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
+var _default = MovieView;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/mainview/MainView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MainView = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
-var _movieCard = require("../movie-card/movie-card");
+var _MovieCard = _interopRequireDefault(require("../moviecard/MovieCard"));
 
-var _movieView = require("../movie-view/movie-view");
+var _MovieView = _interopRequireDefault(require("../movieview/MovieView"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31796,7 +31793,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this); //initialises state to an empty object for destructuring later
 
     _this.state = {
-      movies: null,
+      movies: [],
       selectedMovie: null
     };
     return _this;
@@ -31824,13 +31821,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "movieNull",
-    value: function movieNull() {
-      this.setState({
-        selectedMovie: null
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -31846,10 +31836,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
       return _react.default.createElement("div", {
         className: "main-view"
-      }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie
+      }, selectedMovie ? _react.default.createElement(_MovieView.default, {
+        movie: selectedMovie,
+        onClick: function onClick() {
+          return _this3.onMovieClick(null);
+        }
       }) : movies.map(function (movie) {
-        return _react.default.createElement(_movieCard.MovieCard, {
+        return _react.default.createElement(_MovieCard.default, {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
@@ -31863,8 +31856,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   return MainView;
 }(_react.default.Component);
 
-exports.MainView = MainView;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../movie-card/movie-card":"components/movie-card/movie-card.jsx","../movie-view/movie-view":"components/movie-view/movie-view.jsx"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var _default = MainView;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../moviecard/MovieCard":"components/moviecard/MovieCard.jsx","../movieview/MovieView":"components/movieview/MovieView.jsx"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -31943,7 +31937,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-var _mainView = require("./components/main-view/main-view");
+var _MainView = _interopRequireDefault(require("./components/mainview/MainView"));
 
 require("./index.scss");
 
@@ -31986,18 +31980,16 @@ var MyMusicalFlix = /*#__PURE__*/function (_React$Component) {
   _createClass(MyMusicalFlix, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement(_mainView.MainView, null);
+      return _react.default.createElement(_MainView.default, null);
     }
   }]);
 
   return MyMusicalFlix;
-}(_react.default.Component); //finds root of app
+}(_react.default.Component); //tells React to render app in the root DOM element
 
 
-var container = document.getElementsByClassName('app-container')[0]; //tells React to render app in the root DOM element
-
-_reactDom.default.render(_react.default.createElement(MyMusicalFlix), container);
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/main-view/main-view":"components/main-view/main-view.jsx","./index.scss":"index.scss"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+_reactDom.default.render(_react.default.createElement(MyMusicalFlix, null), document.getElementById('root'));
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./components/mainview/MainView":"components/mainview/MainView.jsx","./index.scss":"index.scss"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -32025,7 +32017,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62586" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55561" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

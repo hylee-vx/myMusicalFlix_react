@@ -1,17 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import MovieCard from '../moviecard/MovieCard';
+import MovieView from '../movieview/MovieView';
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
     constructor() {
         //call superclass constructor so React can initialise it
         super();
 
         //initialises state to an empty object for destructuring later
         this.state = {
-            movies: null,
+            movies: [],
             selectedMovie: null
         };
     }
@@ -35,12 +35,6 @@ export class MainView extends React.Component {
         });
     }
 
-    movieNull() {
-        this.setState({
-            selectedMovie: null
-        });
-    }
-
     render() {
         //if no state initialised, this will throw an exception on runtime
         //before the data is initially loaded
@@ -52,12 +46,21 @@ export class MainView extends React.Component {
         return (
             <div className="main-view">
                 {selectedMovie
-                    ? <MovieView movie={selectedMovie} />
+                    ? <MovieView
+                        movie={selectedMovie}
+                        onClick={() => this.onMovieClick(null)}
+                    />
                     : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+                        <MovieCard
+                            key={movie._id}
+                            movie={movie}
+                            onClick={movie => this.onMovieClick(movie)}
+                        />
                     ))
                 }
             </div >
         );
     }
 }
+
+export default MainView;
