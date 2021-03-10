@@ -12,6 +12,9 @@ class MovieView extends React.Component {
 
         if (!movie) return null;
 
+        // convert ISO format date to display full year only
+        const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
+
         return (
             <div className="movie-view">
                 <img className="movie-poster" src={movie.ImagePath} />
@@ -22,7 +25,7 @@ class MovieView extends React.Component {
 
                 <div className="movie-year">
                     <span className="label">Release Year: </span>
-                    <span className="value">{movie.ReleaseYear}</span>
+                    <span className="value">{movieReleaseYear}</span>
                 </div>
 
                 <div className="movie-description">

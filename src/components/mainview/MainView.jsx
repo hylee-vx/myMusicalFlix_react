@@ -1,25 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 
+import Login from '../login/Login';
+import Registration from '../registration/Registration';
 import MovieCard from '../moviecard/MovieCard';
 import MovieView from '../movieview/MovieView';
 
 class MainView extends React.Component {
-    constructor() {
-        //call superclass constructor so React can initialise it
-        super();
-
-        //initialises state to an empty object for destructuring later
-        this.state = {
-            movies: [],
-            selectedMovie: null
-        };
-    }
+    state = {
+        movies: [],
+        selectedMovie: null,
+        user: null,
+        account: true
+    };
 
     componentDidMount() {
         axios.get('https://mymusicalflix.herokuapp.com/movies')
             .then(response => {
-                //assigns the result to the state
                 this.setState({
                     movies: response.data
                 });
@@ -35,12 +32,38 @@ class MainView extends React.Component {
         });
     }
 
-    render() {
-        //if no state initialised, this will throw an exception on runtime
-        //before the data is initially loaded
-        const { movies, selectedMovie } = this.state;
+    // allows automatic login with any user credentials for testing
+    onLoggedIn(user) {
+        this.setState({
+            user
+        });
+    }
 
-        //before the movies have been loaded
+    // toggles account state between true and false to switch between Login/Registration components
+    onToggleLoginRegistration() {
+        this.setState(previousState => ({
+            account: !previousState.account
+        }));
+    }
+
+    render() {
+        const { movies, selectedMovie, user, account } = this.state;
+
+        // if no user, renders either Login or Registration components based on whether account is true or false - default is Login
+        if (!user) {
+            return (
+                account
+                    ? <Login
+                        onLoggedIn={user => this.onLoggedIn(user)}
+                        onToggleLoginRegistration={account => this.onToggleLoginRegistration(account)}
+                    />
+                    : <Registration
+                        onLoggedIn={user => this.onLoggedIn(user)}
+                        onToggleLoginRegistration={account => this.onToggleLoginRegistration(account)}
+                    />
+            );
+        }
+
         if (!movies) return <div className="main-view" />;
 
         return (
