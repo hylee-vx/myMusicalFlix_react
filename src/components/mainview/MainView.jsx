@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
@@ -85,5 +86,25 @@ class MainView extends React.Component {
         );
     }
 }
+
+// triggers warning at initial render: empty movies array, no user details
+MainView.propTypes = {
+    movie: PropTypes.shape({
+        Title: PropTypes.string.isRequired,
+        ReleaseYear: PropTypes.string,
+        Description: PropTypes.string.isRequired,
+        Genre: PropTypes.shape({
+            Name: PropTypes.string.isRequired
+        }).isRequired,
+        Directors: PropTypes.array.isRequired,
+        Actors: PropTypes.array,
+        ImagePath: PropTypes.string.isRequired,
+        Featured: PropTypes.bool,
+    }).isRequired,
+    user: PropTypes.string,
+    account: PropTypes.bool,
+    onLoggedIn: PropTypes.func.isRequired,
+    onToggleLoginRegistration: PropTypes.func.isRequired
+};
 
 export default MainView;

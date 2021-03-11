@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class MovieCard extends React.Component {
     render() {
@@ -10,5 +11,21 @@ class MovieCard extends React.Component {
         );
     }
 }
+
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        Title: PropTypes.string.isRequired,
+        ReleaseYear: PropTypes.string,
+        Description: PropTypes.string.isRequired,
+        Genre: PropTypes.shape({
+            Name: PropTypes.string.isRequired
+        }).isRequired,
+        Directors: PropTypes.array.isRequired,
+        Actors: PropTypes.array,
+        ImagePath: PropTypes.string.isRequired,
+        Featured: PropTypes.bool
+    }).isRequired,
+    onClick: PropTypes.func.isRequired
+};
 
 export default MovieCard;

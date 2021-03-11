@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Login = props => {
     const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ const Login = props => {
     };
 
     // switches account state to false to render Registration view
-    const handleToggle = event => {
+    const handleToggle = () => {
         props.onToggleLoginRegistration();
     }
 
@@ -37,5 +38,13 @@ const Login = props => {
         </form>
     );
 }
+
+// triggers warning at initial render: no user details, toggle function not called
+Login.propTypes = {
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    onLoggedIn: PropTypes.func.isRequired,
+    onToggleLoginRegistration: PropTypes.func.isRequired
+};
 
 export default Login;

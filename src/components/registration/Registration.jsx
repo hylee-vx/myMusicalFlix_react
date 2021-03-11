@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Registration = props => {
     const [username, setUsername] = useState('');
@@ -56,5 +57,15 @@ const Registration = props => {
         </form>
     );
 }
+
+// triggers warning at initial render: no user details
+Registration.propTypes = {
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    dateOfBirth: PropTypes.string.isRequired,
+    onLoggedIn: PropTypes.func.isRequired,
+    onToggleLoginRegistration: PropTypes.func.isRequired
+};
 
 export default Registration;
