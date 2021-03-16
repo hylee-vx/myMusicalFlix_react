@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+
+import './Login.scss';
 
 const Login = props => {
     const [username, setUsername] = useState('');
@@ -16,26 +23,41 @@ const Login = props => {
     }
 
     return (
-        <form>
-            <label>
-                Username:
-                <input
-                    type="text"
-                    value={username}
-                    onChange={event => setUsername(event.target.value)}
-                />
-            </label>
-            <label>
-                Password:
-                <input
-                    type="password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
-                />
-            </label>
-            <button type="submit" onClick={handleSubmit}>Sign in</button>
-            <p>New to MyMusicalFlix?<span style={{ color: "teal" }} onClick={handleToggle}>     Sign up here     </span></p>
-        </form>
+        <Container>
+            <Row className="login-reg-heading">
+                <Col sm={{ span: 6, offset: 3 }}>
+                    <h1>Welcome back to myMusicalFlix!</h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col sm={{ span: 6, offset: 3 }}>
+                    <Form className="login-reg-form">
+                        <Form.Group controlId="formUsername">
+                            <Form.Label className="login-reg-form-label">Username:</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={username}
+                                onChange={event => setUsername(event.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Label className="login-reg-form-label">Password:</Form.Label>
+                            <Form.Control
+                                type="password"
+                                value={password}
+                                onChange={event => setPassword(event.target.value)}
+                            />
+                        </Form.Group>
+                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleSubmit}>Sign in</Button>
+                    </Form>
+                </Col>
+            </Row>
+            <Row>
+                <Col sm={{ span: 6, offset: 3 }}>
+                    <p className="login-reg-toggle-text">New to MyMusicalFlix?<span className="login-reg-toggle-click" onClick={handleToggle}>Sign up</span></p>
+                </Col>
+            </Row>
+        </Container >
     );
 }
 

@@ -1,13 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
+import './MovieCard.scss';
 
 class MovieCard extends React.Component {
     render() {
-        //data from main-view connection to database via movies endpoint of API
         const { movie, onClick } = this.props;
+        const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
 
         return (
-            <div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>
+            <Card>
+                <Card.Img variant="top" src={movie.ImagePath} />
+                <Card.Body>
+                    <Card.Title className="title">{movie.Title}</Card.Title>
+                    <Card.Subtitle className="release-year">{movieReleaseYear}</Card.Subtitle>
+                    <Card.Text className="description line-clamp">{movie.Description}</Card.Text>
+                    <Button className="more-details-btn float-right" onClick={() => onClick(movie)} variant="primary">More</Button>
+                </Card.Body>
+            </Card>
         );
     }
 }

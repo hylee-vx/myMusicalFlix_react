@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Container from 'react-bootstrap/Container';
 
 import MainView from './components/mainview/MainView';
 
@@ -9,7 +10,11 @@ import './index.scss';
 //main component
 class MyMusicalFlix extends React.Component {
     render() {
-        return <MainView />;
+        return (
+            <Container fluid>
+                <MainView />
+            </Container>
+        );
     }
 }
 

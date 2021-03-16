@@ -1,0 +1,55 @@
+:root {
+    --primary-color: #3e6391;
+    --secondary-color: #d29342;
+    --background-color: whitesmoke;
+    --primary-text-color: #0a3758;
+    --secondary-text-color: #008080;
+    --hover: #b84b35;
+    --active: #701300;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.login-reg-heading {
+    color: var(--primary-text-color);
+    text-align: center;
+    margin-top: 6rem;
+    margin-bottom: 4rem;
+}
+
+.login-reg-form-label {
+    color: var(--primary-text-color);
+}
+
+.login-reg-button {
+    background-color: var(--primary-color);
+    font-size: 17px;
+    margin-top: 2.5rem;
+    margin-bottom: 0.8rem;
+    border: none;
+}
+
+.login-reg-button:hover, .login-reg-button:focus {
+    background-color: var(--secondary-color);
+}
+
+.login-reg-toggle-text {
+    color: var(--primary-text-color);
+}
+
+.login-reg-toggle-click {
+    color: var(--secondary-text-color);
+    margin-left: 0.5rem;
+}
+
+.login-reg-toggle-click:hover, .login-reg-toggle-click:focus {
+    cursor: pointer;
+    color: var(--hover);
+    text-decoration: underline;
+}
+
+.login-reg-toggle-click:active {
+    color: var(--active);
+}

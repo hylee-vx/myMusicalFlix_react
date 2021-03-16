@@ -1,11 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
 import MovieCard from '../moviecard/MovieCard';
 import MovieView from '../movieview/MovieView';
+import './MainView.scss';
 
 class MainView extends React.Component {
     state = {
@@ -68,21 +73,30 @@ class MainView extends React.Component {
         if (!movies) return <div className="main-view" />;
 
         return (
-            <div className="main-view">
-                {selectedMovie
-                    ? <MovieView
-                        movie={selectedMovie}
-                        onClick={() => this.onMovieClick(null)}
-                    />
-                    : movies.map(movie => (
-                        <MovieCard
-                            key={movie._id}
-                            movie={movie}
-                            onClick={movie => this.onMovieClick(movie)}
-                        />
-                    ))
-                }
-            </div >
+            <Container fluid>
+                <Navbar>
+                    <Navbar.Brand href="#home">myMusicalFlix</Navbar.Brand>
+                </Navbar>
+                <Row className="main-view justify-content-md-center">
+                    {selectedMovie
+                        ? <Col md={9}>
+                            <MovieView
+                                movie={selectedMovie}
+                                onClick={() => this.onMovieClick(null)}
+                            />
+                        </Col>
+                        : movies.map(movie => (
+                            <Col md={3}>
+                                <MovieCard
+                                    key={movie._id}
+                                    movie={movie}
+                                    onClick={movie => this.onMovieClick(movie)}
+                                />
+                            </Col>
+                        ))
+                    }
+                </Row >
+            </Container>
         );
     }
 }
