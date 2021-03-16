@@ -37062,7 +37062,12 @@ MovieView.propTypes = {
     Genre: _propTypes.default.shape({
       Name: _propTypes.default.string.isRequired
     }).isRequired,
-    Directors: _propTypes.default.array.isRequired,
+    Directors: _propTypes.default.arrayOf(_propTypes.default.shape({
+      Name: _propTypes.default.string.isRequired
+    })).isRequired,
+    Actors: _propTypes.default.arrayOf(_propTypes.default.shape({
+      Name: _propTypes.default.string
+    })),
     ImagePath: _propTypes.default.string.isRequired
   }).isRequired,
   onClick: _propTypes.default.func.isRequired
@@ -37371,7 +37376,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65127" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61510" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

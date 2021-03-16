@@ -49,6 +49,15 @@ body {
         margin-bottom: 1rem;
     }
 
+    .form-group {
+        margin-bottom: 0.6rem;
+    }
+
+    label {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
     .login-reg-button {
         font-size: 1rem;
         margin-top: 1.2rem;
@@ -87,8 +96,12 @@ body {
         margin-left: 0;
     }
 
-    .label {
-        font-size: 1rem;
+    .movie-poster {
+        margin-bottom: 0.8rem;
+    }
+
+    .movie-view-content {
+        margin-bottom: 0;
     }
 
 }

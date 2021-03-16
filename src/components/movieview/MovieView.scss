@@ -48,22 +48,3 @@ h3 {
 .back-btn:active {
     background-color: var(--active);
 }
-
-@media (max-width: 576px) {
-    .movie-view-header {
-        font-size: 0.8rem;
-        margin-left: 0;
-        margin-top: 1rem;
-        margin-bottom: 0;
-    }
-
-    .movie-poster {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 0.8rem;
-    }
-
-    .movie-view-content {
-        margin-bottom: 0;
-    }
-}
