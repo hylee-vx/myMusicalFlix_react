@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -17,7 +18,6 @@ import './MainView.scss';
 class MainView extends React.Component {
     state = {
         movies: [],
-        selectedMovie: null,
         user: null,
         account: true
     };
@@ -74,7 +74,7 @@ class MainView extends React.Component {
     }
 
     render() {
-        const { movies, selectedMovie, user, account } = this.state;
+        const { movies, user, account } = this.state;
 
         // if no user, renders either Login or Registration components based on whether account is true or false - default is Login
         if (!user) {
@@ -94,31 +94,26 @@ class MainView extends React.Component {
         if (!movies) return <div className="main-view" />;
 
         return (
-            <Container fluid>
-                <Navbar>
-                    <Navbar.Brand href="#home">myMusicalFlix</Navbar.Brand>
-                    <Button variant="outline-primary" onClick={() => this.onLoggedOut()}>Sign Out</Button>
-                </Navbar>
-                <Row className="main-view justify-content-md-center">
-                    {selectedMovie
-                        ? <Col md={9}>
-                            <MovieView
-                                movie={selectedMovie}
-                            // onClick={() => this.onMovieClick(null)}
-                            />
-                        </Col>
-                        : movies.map(movie => (
-                            <Col md={3}>
-                                <MovieCard
-                                    key={movie._id}
-                                    movie={movie}
-                                // onClick={movie => this.onMovieClick(movie)}
-                                />
+            <Router>
+                <Container fluid>
+                    <Navbar>
+                        <Navbar.Brand href="#home">myMusicalFlix</Navbar.Brand>
+                        <Button variant="outline-primary" onClick={() => this.onLoggedOut()}>Sign Out</Button>
+                    </Navbar>
+                    <Row className="main-view justify-content-md-center">
+                        <Route exact path='/' render={() => movies.map(m =>
+                            <Col md={3} key={m._id}>
+                                <MovieCard movie={m} />
                             </Col>
-                        ))
-                    }
-                </Row >
-            </Container>
+                        )} />
+                        <Route exact path='/movies/:movieId' render={({ match }) =>
+                            <Col md={9}>
+                                <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+                            </Col>
+                        } />
+                    </Row >
+                </Container>
+            </Router>
         );
     }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -57,9 +59,11 @@ class MovieView extends React.Component {
                     </Col>
                 </Row>
                 <Row className="float-right">
-                    <Button className="back-btn" onClick={() => onClick()} variant="primary">Back</Button>
+                    <Link to={'/'}>
+                        <Button className="back-btn" variant="primary">Back</Button>
+                    </Link>
                 </Row>
-            </Container>
+            </Container >
         );
     }
 }

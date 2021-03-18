@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -7,7 +9,7 @@ import './MovieCard.scss';
 
 class MovieCard extends React.Component {
     render() {
-        const { movie, onClick } = this.props;
+        const { movie } = this.props;
         const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
 
         return (
@@ -17,7 +19,9 @@ class MovieCard extends React.Component {
                     <Card.Title className="title">{movie.Title}</Card.Title>
                     <Card.Subtitle className="release-year">{movieReleaseYear}</Card.Subtitle>
                     <Card.Text className="description line-clamp">{movie.Description}</Card.Text>
-                    <Button className="more-details-btn float-right" onClick={() => onClick(movie)} variant="primary">More</Button>
+                    <Link to={`/movies/${movie._id}`}>
+                        <Button className="more-details-btn float-right" variant="primary">More</Button>
+                    </Link>
                 </Card.Body>
             </Card>
         );
@@ -36,8 +40,7 @@ MovieCard.propTypes = {
         Actors: PropTypes.array,
         ImagePath: PropTypes.string.isRequired,
         Featured: PropTypes.bool
-    }).isRequired,
-    onClick: PropTypes.func.isRequired
+    }).isRequired
 };
 
 export default MovieCard;
