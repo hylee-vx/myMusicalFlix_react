@@ -4,6 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -55,6 +56,16 @@ class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
+    onLoggedOut() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                token: localStorage.removeItem('token'),
+                user: localStorage.removeItem('user')
+            });
+        }
+    }
+
     // toggles account state between true and false to switch between Login/Registration components
     onToggleLoginRegistration() {
         this.setState(previousState => ({
@@ -86,6 +97,7 @@ class MainView extends React.Component {
             <Container fluid>
                 <Navbar>
                     <Navbar.Brand href="#home">myMusicalFlix</Navbar.Brand>
+                    <Button variant="outline-primary" onClick={() => this.onLoggedOut()}>Sign Out</Button>
                 </Navbar>
                 <Row className="main-view justify-content-md-center">
                     {selectedMovie
