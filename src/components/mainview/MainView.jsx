@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
@@ -20,29 +21,38 @@ class MainView extends React.Component {
         account: true
     };
 
-    componentDidMount() {
-        axios.get('https://mymusicalflix.herokuapp.com/movies')
+    getMovies(token) {
+        axios.get('https://mymusicalflix.herokuapp.com/movies', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then(response => {
                 this.setState({
                     movies: response.data
                 });
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(error => console.log(error));
+    }
+
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
             });
+
+            this.getMovies(accessToken);
+        }
     }
 
-    onMovieClick(movie) {
+    onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-            selectedMovie: movie
+            user: authData.user.Username
         });
-    }
 
-    // allows automatic login with any user credentials for testing
-    onLoggedIn(user) {
-        this.setState({
-            user
-        });
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
     }
 
     // toggles account state between true and false to switch between Login/Registration components
@@ -82,7 +92,7 @@ class MainView extends React.Component {
                         ? <Col md={9}>
                             <MovieView
                                 movie={selectedMovie}
-                                onClick={() => this.onMovieClick(null)}
+                            // onClick={() => this.onMovieClick(null)}
                             />
                         </Col>
                         : movies.map(movie => (
@@ -90,7 +100,7 @@ class MainView extends React.Component {
                                 <MovieCard
                                     key={movie._id}
                                     movie={movie}
-                                    onClick={movie => this.onMovieClick(movie)}
+                                // onClick={movie => this.onMovieClick(movie)}
                                 />
                             </Col>
                         ))

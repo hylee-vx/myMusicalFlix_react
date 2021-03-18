@@ -36347,6 +36347,8 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
@@ -36392,7 +36394,16 @@ var Login = function Login(props) {
 
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
-    props.onLoggedIn(username);
+
+    _axios.default.post('https://mymusicalflix.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    }).then(function (response) {
+      var data = response.data;
+      props.onLoggedIn(data);
+    }).catch(function (error) {
+      return console.log(error + 'no such user');
+    });
   }; // switches account state to false to render Registration view
 
 
@@ -36462,7 +36473,7 @@ Login.propTypes = {
 };
 var _default = Login;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Login.scss":"components/login/Login.scss"}],"components/registration/Registration.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Login.scss":"components/login/Login.scss"}],"components/registration/Registration.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -37160,32 +37171,44 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MainView, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+    key: "getMovies",
+    value: function getMovies(token) {
       var _this2 = this;
 
-      _axios.default.get('https://mymusicalflix.herokuapp.com/movies').then(function (response) {
+      _axios.default.get('https://mymusicalflix.herokuapp.com/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
         _this2.setState({
           movies: response.data
         });
       }).catch(function (error) {
-        console.log(error);
+        return console.log(error);
       });
     }
   }, {
-    key: "onMovieClick",
-    value: function onMovieClick(movie) {
-      this.setState({
-        selectedMovie: movie
-      });
-    } // allows automatic login with any user credentials for testing
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var accessToken = localStorage.getItem('token');
 
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        });
+        this.getMovies(accessToken);
+      }
+    }
   }, {
     key: "onLoggedIn",
-    value: function onLoggedIn(user) {
+    value: function onLoggedIn(authData) {
+      console.log(authData);
       this.setState({
-        user: user
+        user: authData.user.Username
       });
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user.Username);
+      this.getMovies(authData.token);
     } // toggles account state between true and false to switch between Login/Registration components
 
   }, {
@@ -37238,19 +37261,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, selectedMovie ? _react.default.createElement(_Col.default, {
         md: 9
       }, _react.default.createElement(_MovieView.default, {
-        movie: selectedMovie,
-        onClick: function onClick() {
-          return _this3.onMovieClick(null);
-        }
+        movie: selectedMovie // onClick={() => this.onMovieClick(null)}
+
       })) : movies.map(function (movie) {
         return _react.default.createElement(_Col.default, {
           md: 3
         }, _react.default.createElement(_MovieCard.default, {
           key: movie._id,
-          movie: movie,
-          onClick: function onClick(movie) {
-            return _this3.onMovieClick(movie);
-          }
+          movie: movie // onClick={movie => this.onMovieClick(movie)}
+
         }));
       })));
     }
@@ -37376,7 +37395,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61510" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50349" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

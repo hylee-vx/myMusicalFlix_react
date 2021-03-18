@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,7 +16,16 @@ const Login = props => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        props.onLoggedIn(username);
+
+        axios.post('https://mymusicalflix.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        })
+            .then(response => {
+                const data = response.data;
+                props.onLoggedIn(data);
+            })
+            .catch(error => console.log(error + 'no such user'));
     };
 
     // switches account state to false to render Registration view
