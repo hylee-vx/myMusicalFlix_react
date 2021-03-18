@@ -1,3 +1,336 @@
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.login-reg-heading {
+  color: var(--primary-text-color);
+  text-align: center;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+}
+
+.login-reg-form-label {
+  color: var(--primary-text-color);
+}
+
+.login-reg-button {
+  background-color: var(--primary-color);
+  font-size: 17px;
+  margin-top: 2.5rem;
+  margin-bottom: 0.8rem;
+  border: none;
+}
+
+.login-reg-button:hover, .login-reg-button:focus {
+  background-color: var(--secondary-color);
+}
+
+.login-reg-toggle-text {
+  color: var(--primary-text-color);
+}
+
+.login-reg-toggle-click {
+  color: var(--secondary-text-color);
+  margin-left: 0.5rem;
+}
+
+.login-reg-toggle-click:hover, .login-reg-toggle-click:focus {
+  cursor: pointer;
+  color: var(--hover);
+  text-decoration: underline;
+}
+
+.login-reg-toggle-click:active {
+  color: var(--active);
+}
+
+@media (max-width: 576px) {
+  .login-reg-heading {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+  }
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.login-reg-heading {
+  color: var(--primary-text-color);
+  text-align: center;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+}
+
+.login-reg-form-label {
+  color: var(--primary-text-color);
+}
+
+.login-reg-button {
+  background-color: var(--primary-color);
+  font-size: 17px;
+  margin-top: 2.5rem;
+  margin-bottom: 0.8rem;
+  border: none;
+}
+
+.login-reg-button:hover, .login-reg-button:focus {
+  background-color: var(--secondary-color);
+}
+
+.login-reg-toggle-text {
+  color: var(--primary-text-color);
+}
+
+.login-reg-toggle-click {
+  color: var(--secondary-text-color);
+  margin-left: 0.5rem;
+}
+
+.login-reg-toggle-click:hover, .login-reg-toggle-click:focus {
+  cursor: pointer;
+  color: var(--hover);
+  text-decoration: underline;
+}
+
+.login-reg-toggle-click:active {
+  color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+.card {
+  padding: 0;
+  margin-top: 0.8rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+
+.title {
+  height: 2.5rem;
+  color: var(--primary-text-color);
+  margin-bottom: 1.25rem;
+}
+
+.release-year {
+  height: 2rem;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--primary-text-color);
+}
+
+.description {
+  height: 4.5rem;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.more-details-btn {
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.2rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.more-details-btn:hover, .more-details-btn:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.more-details-btn:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+h3 {
+  display: inline-block;
+}
+
+.movie-view-header {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.movie-release-year {
+  font-weight: 400;
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+.movie-view-content {
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.label {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.back-btn {
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.2rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-btn:hover, .back-btn:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-btn:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 2rem;
+}
+
+.col-sm-9 {
+  padding: 0;
+}
+
+.col-md-3 {
+  padding: 0;
+}
+
+@media (max-width: 576px) {
+  body {
+    font-size: 14px;
+    margin: 2.5rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    display: block;
+    font-size: 1.3rem;
+  }
+
+  .navbar {
+    font-weight: 500;
+    padding-left: 0;
+  }
+
+  .login-reg-heading {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.6rem;
+  }
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .login-reg-button {
+    font-size: 1rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-body {
+    padding: 0.9rem;
+  }
+
+  .card-subtitle {
+    line-height: 0.8rem;
+  }
+
+  .description {
+    height: 2.5rem;
+  }
+
+  .line-clamp {
+    -webkit-line-clamp: 2;
+  }
+
+  .more-details-btn, .back-btn {
+    font-size: 0.9rem;
+    padding: 0.15rem 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .movie-view-header {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .movie-release-year {
+    margin-left: 0;
+  }
+
+  .movie-poster {
+    margin-bottom: 0.8rem;
+  }
+
+  .movie-view-content {
+    margin-bottom: 0;
+  }
+}
 .my-musical-flix {
   color: steelblue;
 }

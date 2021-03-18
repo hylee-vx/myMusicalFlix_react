@@ -1,0 +1,107 @@
+:root {
+    --primary-color: #3e6391;
+    --secondary-color: #d29342;
+    --background-color: whitesmoke;
+    --primary-text-color: #0a3758;
+    --secondary-text-color: #008080;
+    --hover: #b84b35;
+    --active: #701300;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 2rem;
+}
+
+.col-sm-9 {
+    padding: 0;
+}
+
+.col-md-3 {
+    padding: 0;
+}
+
+@media (max-width: 576px) {
+    body {
+        font-size: 14px;
+        margin: 2.5rem;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h3 {
+        display: block;
+        font-size: 1.3rem;
+    }
+
+    .navbar {
+        font-weight: 500;
+        padding-left: 0;
+    }
+
+    .login-reg-heading {
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 0.6rem;
+    }
+
+    label {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .login-reg-button {
+        font-size: 1rem;
+        margin-top: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .card-body {
+        padding: 0.9rem;
+    }
+
+    .card-subtitle {
+        line-height: 0.8rem;
+    }
+
+    .description {
+        height: 2.5rem;
+    }
+
+    .line-clamp {
+        -webkit-line-clamp: 2;
+    }
+
+    .more-details-btn, .back-btn {
+        font-size: 0.9rem;
+        padding: 0.15rem 0.4rem;
+        margin-top: 0.5rem;
+    }
+
+    .movie-view-header {
+        display: block;
+        margin-top: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .movie-release-year {
+        margin-left: 0;
+    }
+
+    .movie-poster {
+        margin-bottom: 0.8rem;
+    }
+
+    .movie-view-content {
+        margin-bottom: 0;
+    }
+
+}
