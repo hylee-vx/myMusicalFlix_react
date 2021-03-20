@@ -14,7 +14,7 @@ const Login = props => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = event => {
+    const handleLogin = event => {
         event.preventDefault();
 
         axios.post('https://mymusicalflix.herokuapp.com/login', {
@@ -59,7 +59,7 @@ const Login = props => {
                                 onChange={event => setPassword(event.target.value)}
                             />
                         </Form.Group>
-                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleSubmit}>Sign in</Button>
+                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleLogin}>Sign in</Button>
                     </Form>
                 </Col>
             </Row>

@@ -7,26 +7,25 @@ import Card from 'react-bootstrap/Card';
 
 import './MovieCard.scss';
 
-class MovieCard extends React.Component {
-    render() {
-        const { movie } = this.props;
-        const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
+const MovieCard = props => {
+    const { movie } = props;
+    const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
 
-        return (
-            <Card>
-                <Card.Img variant="top" src={movie.ImagePath} />
-                <Card.Body>
-                    <Card.Title className="title">{movie.Title}</Card.Title>
-                    <Card.Subtitle className="release-year">{movieReleaseYear}</Card.Subtitle>
-                    <Card.Text className="description line-clamp">{movie.Description}</Card.Text>
-                    <Link to={`/movies/${movie._id}`}>
-                        <Button className="more-details-btn float-right" variant="primary">More</Button>
-                    </Link>
-                </Card.Body>
-            </Card>
-        );
-    }
+    return (
+        <Card>
+            <Card.Img variant="top" src={movie.ImagePath} />
+            <Card.Body>
+                <Card.Title className="title">{movie.Title}</Card.Title>
+                <Card.Subtitle className="release-year">{movieReleaseYear}</Card.Subtitle>
+                <Card.Text className="description line-clamp">{movie.Description}</Card.Text>
+                <Link to={`/movies/${movie._id}`}>
+                    <Button className="more-details-btn float-right" variant="primary">More</Button>
+                </Link>
+            </Card.Body>
+        </Card>
+    );
 }
+
 
 MovieCard.propTypes = {
     movie: PropTypes.shape({
