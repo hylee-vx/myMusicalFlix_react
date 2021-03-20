@@ -39538,6 +39538,8 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
@@ -39591,13 +39593,25 @@ var Registration = function Registration(props) {
       dateOfBirth = _useState8[0],
       setDateOfBirth = _useState8[1];
 
-  var handleSubmit = function handleSubmit(event) {
+  var handleRegistration = function handleRegistration(event) {
     event.preventDefault();
-    props.onLoggedIn(username);
+
+    _axios.default.post('https://mymusicalFlix.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      DateOfBirth: dateOfBirth
+    }).then(function (response) {
+      var data = response.data;
+      console.log(data);
+      props.onRegistration(data);
+    }).catch(function (error) {
+      return console.log("Error registering the user: ".concat(error));
+    });
   }; // switches account state to true to render Login view
 
 
-  var handleToggle = function handleToggle(event) {
+  var handleToggle = function handleToggle() {
     props.onToggleLoginRegistration();
   };
 
@@ -39660,7 +39674,7 @@ var Registration = function Registration(props) {
     variant: "primary",
     block: true,
     type: "submit",
-    onClick: handleSubmit
+    onClick: handleRegistration
   }, "Sign up")))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     sm: {
       span: 6,
@@ -39685,7 +39699,7 @@ Registration.propTypes = {
 };
 var _default = Registration;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Registration.scss":"components/registration/Registration.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Registration.scss":"components/registration/Registration.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40129,8 +40143,7 @@ MovieView.propTypes = {
       Name: _propTypes.default.string
     })),
     ImagePath: _propTypes.default.string.isRequired
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }).isRequired
 };
 var _default = MovieView;
 exports.default = _default;
@@ -40273,6 +40286,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           user: localStorage.removeItem('user')
         });
       }
+    } // sets registration data to account to render Login page (account is true but !user)
+
+  }, {
+    key: "onRegistration",
+    value: function onRegistration(data) {
+      this.setState({
+        account: data
+      });
     } // toggles account state between true and false to switch between Login/Registration components
 
   }, {
@@ -40303,8 +40324,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             return _this3.onToggleLoginRegistration(account);
           }
         }) : _react.default.createElement(_Registration.default, {
-          onLoggedIn: function onLoggedIn(user) {
-            return _this3.onLoggedIn(user);
+          onRegistration: function onRegistration(data) {
+            return _this3.onRegistration(data);
           },
           onToggleLoginRegistration: function onToggleLoginRegistration(account) {
             return _this3.onToggleLoginRegistration(account);
@@ -40476,7 +40497,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64012" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56818" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

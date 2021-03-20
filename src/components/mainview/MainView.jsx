@@ -66,6 +66,13 @@ class MainView extends React.Component {
         }
     }
 
+    // sets registration data to account to render Login page (account is true but !user)
+    onRegistration(data) {
+        this.setState({
+            account: data
+        });
+    }
+
     // toggles account state between true and false to switch between Login/Registration components
     onToggleLoginRegistration() {
         this.setState(previousState => ({
@@ -85,7 +92,7 @@ class MainView extends React.Component {
                         onToggleLoginRegistration={account => this.onToggleLoginRegistration(account)}
                     />
                     : <Registration
-                        onLoggedIn={user => this.onLoggedIn(user)}
+                        onRegistration={data => this.onRegistration(data)}
                         onToggleLoginRegistration={account => this.onToggleLoginRegistration(account)}
                     />
             );

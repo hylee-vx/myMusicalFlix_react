@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,13 +16,25 @@ const Registration = props => {
     const [password, setPassword] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
 
-    const handleSubmit = event => {
+    const handleRegistration = event => {
         event.preventDefault();
-        props.onLoggedIn(username);
+
+        axios.post('https://mymusicalFlix.herokuapp.com/users', {
+            Username: username,
+            Password: password,
+            Email: email,
+            DateOfBirth: dateOfBirth
+        })
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+                props.onRegistration(data);
+            })
+            .catch(error => console.log(`Error registering the user: ${error}`));
     };
 
     // switches account state to true to render Login view
-    const handleToggle = event => {
+    const handleToggle = () => {
         props.onToggleLoginRegistration();
     }
 
@@ -66,7 +80,7 @@ const Registration = props => {
                                 onChange={event => setDateOfBirth(event.target.value)}
                             />
                         </Form.Group>
-                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleSubmit}>Sign up</Button>
+                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleRegistration}>Sign up</Button>
                     </Form>
                 </Col>
             </Row>

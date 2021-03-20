@@ -83,8 +83,7 @@ MovieView.propTypes = {
             Name: PropTypes.string
         })),
         ImagePath: PropTypes.string.isRequired
-    }).isRequired,
-    onClick: PropTypes.func.isRequired
+    }).isRequired
 };
 
 export default MovieView;
