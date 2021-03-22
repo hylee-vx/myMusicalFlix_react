@@ -39983,11 +39983,9 @@ var MovieView = function MovieView(props) {
   var movieActors = movie.Actors.map(function (actor) {
     return actor.Name;
   });
-  var movieActorsFormatted = movieActors.join(', ');
-  var movieDirectors = movie.Directors.map(function (director) {
-    return director.Name;
-  });
-  var movieDirectorsFormatted = movieDirectors.join(', ');
+  var movieActorsFormatted = movieActors.join(', '); // const movieDirectors = movie.Directors.map(director => director.Name);
+  // const movieDirectorsFormatted = movieDirectors.join(', ');
+
   return _react.default.createElement(_Container.default, {
     className: "movie-view",
     fluid: true
@@ -40017,7 +40015,14 @@ var MovieView = function MovieView(props) {
     className: "label"
   }, "Directors: "), _react.default.createElement("span", {
     className: "value"
-  }, movieDirectorsFormatted)), _react.default.createElement("div", {
+  }, movie.Directors.map(function (director) {
+    return _react.default.createElement(_reactRouterDom.Link, {
+      to: "/directors/".concat(director.Name)
+    }, _react.default.createElement(_Button.default, {
+      className: "value",
+      variant: "link"
+    }, director.Name));
+  }))), _react.default.createElement("div", {
     className: "movie-actors"
   }, _react.default.createElement("span", {
     className: "label"
@@ -40027,9 +40032,12 @@ var MovieView = function MovieView(props) {
     className: "movie-genre"
   }, _react.default.createElement("span", {
     className: "label"
-  }, "Genre: "), _react.default.createElement("span", {
-    className: "value"
-  }, movie.Genre.Name)))), _react.default.createElement(_Row.default, {
+  }, "Genre: "), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/genre/".concat(movie.Genre.Name)
+  }, _react.default.createElement(_Button.default, {
+    className: "value",
+    variant: "link"
+  }, movie.Genre.Name))))), _react.default.createElement(_Row.default, {
     className: "float-right"
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: '/'
@@ -40058,7 +40066,78 @@ MovieView.propTypes = {
 };
 var _default = MovieView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./MovieView.scss":"components/movieview/MovieView.scss"}],"components/mainview/MainView.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./MovieView.scss":"components/movieview/MovieView.scss"}],"components/genreview/GenreView.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GenreView = function GenreView(props) {
+  var genre = props.genre;
+  return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+    className: "genre-name"
+  }, genre.Name), _react.default.createElement(_Card.default.Text, {
+    className: "genre-description"
+  }, genre.Description), _react.default.createElement(_reactRouterDom.Link, {
+    to: '/'
+  }, _react.default.createElement(_Button.default, {
+    className: "back-btn"
+  }, "Back to movies"))));
+};
+
+var _default = GenreView;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/directorview/DirectorView.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DirectorView = function DirectorView(props) {
+  var director = props.director;
+  return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
+    variant: "top",
+    src: director.ImagePath
+  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+    className: "director-name"
+  }, director.Name), _react.default.createElement(_Card.default.Subtitle, {
+    className: "director-birth-death-years"
+  }, director.BirthYear, " \u2014\u2014 ", director.DeathYear), _react.default.createElement(_Card.default.Text, {
+    className: "director-bio"
+  }, director.Bio), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
+  }, _react.default.createElement(_Button.default, {
+    className: "back-btn"
+  }, "Back to movies"))));
+};
+
+var _default = DirectorView;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/mainview/MainView.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -40096,6 +40175,10 @@ var _Registration = _interopRequireDefault(require("../registration/Registration
 var _MovieCard = _interopRequireDefault(require("../moviecard/MovieCard"));
 
 var _MovieView = _interopRequireDefault(require("../movieview/MovieView"));
+
+var _GenreView = _interopRequireDefault(require("../genreview/GenreView"));
+
+var _DirectorView = _interopRequireDefault(require("../directorview/DirectorView"));
 
 require("./MainView.scss");
 
@@ -40284,6 +40367,34 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             })
           }));
         }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/directors/:name",
+        render: function render(_ref2) {
+          var match = _ref2.match;
+          return _react.default.createElement(_Col.default, {
+            md: 9
+          }, _react.default.createElement(_DirectorView.default, {
+            director: movies.find(function (m) {
+              return m.Directors.map(function (d) {
+                return d.Name;
+              }) === match.params.name;
+            }).Director
+          }));
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/genre/:name",
+        render: function render(_ref3) {
+          var match = _ref3.match;
+          return _react.default.createElement(_Col.default, {
+            md: 9
+          }, _react.default.createElement(_GenreView.default, {
+            genre: movies.find(function (m) {
+              return m.Genre.Name === match.params.name;
+            }).Genre
+          }));
+        }
       }))));
     }
   }]);
@@ -40312,7 +40423,7 @@ MainView.propTypes = {
 };
 var _default = MainView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","../login/Login":"components/login/Login.jsx","../registration/Registration":"components/registration/Registration.jsx","../moviecard/MovieCard":"components/moviecard/MovieCard.jsx","../movieview/MovieView":"components/movieview/MovieView.jsx","./MainView.scss":"components/mainview/MainView.scss"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","../login/Login":"components/login/Login.jsx","../registration/Registration":"components/registration/Registration.jsx","../moviecard/MovieCard":"components/moviecard/MovieCard.jsx","../movieview/MovieView":"components/movieview/MovieView.jsx","../genreview/GenreView":"components/genreview/GenreView.jsx","../directorview/DirectorView":"components/directorview/DirectorView.jsx","./MainView.scss":"components/mainview/MainView.scss"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -40408,7 +40519,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49474" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54685" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

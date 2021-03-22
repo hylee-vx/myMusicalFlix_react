@@ -13,6 +13,8 @@ import Login from '../login/Login';
 import Registration from '../registration/Registration';
 import MovieCard from '../moviecard/MovieCard';
 import MovieView from '../movieview/MovieView';
+import GenreView from '../genreview/GenreView';
+import DirectorView from '../directorview/DirectorView';
 import './MainView.scss';
 
 class MainView extends React.Component {
@@ -116,6 +118,11 @@ class MainView extends React.Component {
                         <Route exact path='/movies/:movieId' render={({ match }) =>
                             <Col md={9}>
                                 <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+                            </Col>
+                        } />
+                        <Route exact path='/genre/:name' render={({ match }) =>
+                            <Col md={9}>
+                                <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
                             </Col>
                         } />
                     </Row >

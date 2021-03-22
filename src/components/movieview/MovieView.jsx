@@ -49,7 +49,10 @@ const MovieView = props => {
 
                     <div className="movie-genre">
                         <span className="label">Genre: </span>
-                        <span className="value">{movie.Genre.Name}</span>
+                        <Link to={`/genre/${movie.Genre.Name}`}>
+                            {/* <span className="value">{movie.Genre.Name}</span> */}
+                            <Button className="value" variant="link">{movie.Genre.Name}</Button>
+                        </Link>
                     </div>
                 </Col>
             </Row>
@@ -60,7 +63,7 @@ const MovieView = props => {
             </Row>
         </Container >
     );
-}
+};
 
 
 MovieView.propTypes = {
