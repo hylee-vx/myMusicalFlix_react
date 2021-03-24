@@ -15,6 +15,7 @@ import MovieCard from '../moviecard/MovieCard';
 import MovieView from '../movieview/MovieView';
 import GenreView from '../genreview/GenreView';
 import DirectorView from '../directorview/DirectorView';
+import ActorView from '../actorview/ActorView';
 import './MainView.scss';
 
 class MainView extends React.Component {
@@ -120,9 +121,22 @@ class MainView extends React.Component {
                                 <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
                             </Col>
                         } />
-                        <Route exact path='/genre/:name' render={({ match }) =>
+                        <Route exact path='/genres/:name' render={({ match }) =>
                             <Col md={9}>
                                 <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+                            </Col>
+                        } />
+                        <Route exact path="/directors/:name" render={({ match }) =>
+                            <Col md={9}>
+                                <DirectorView director={movies.reduce((director, movie) => !director ? movie.Directors.find(d =>
+                                    d.Name === match.params.name) : director, null)} />
+                            </Col>
+                        } />
+                        <Route exact path="/actors/:name" render={({ match }) =>
+                            <Col md={9}>
+                                <ActorView actor={movies.reduce((actor, movie) =>
+                                    !actor ? movie.Actors.find(a =>
+                                        a.Name === match.params.name) : actor, null)} />
                             </Col>
                         } />
                     </Row >

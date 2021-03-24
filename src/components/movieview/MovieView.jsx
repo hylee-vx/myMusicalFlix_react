@@ -15,11 +15,8 @@ const MovieView = props => {
     // convert ISO format date to display full year only
     const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
 
-    // separate actors/directors with comma and space
-    const movieActors = movie.Actors.map(actor => actor.Name);
-    const movieActorsFormatted = movieActors.join(', ');
-    const movieDirectors = movie.Directors.map(director => director.Name);
-    const movieDirectorsFormatted = movieDirectors.join(', ');
+    const directors = movie.Directors;
+    const actors = movie.Actors;
 
     return (
         <Container className="movie-view" fluid>
@@ -39,18 +36,25 @@ const MovieView = props => {
 
                     <div className="movie-directors">
                         <span className="label">Directors: </span>
-                        <span className="value">{movieDirectorsFormatted}</span>
+                        {directors.map(d =>
+                            <Link to={`/directors/${d.Name}`}>
+                                <Button className="value" variant="link">{d.Name}</Button>
+                            </Link>
+                        )}
                     </div>
 
                     <div className="movie-actors">
                         <span className="label">Actors: </span>
-                        <span className="value">{movieActorsFormatted}</span>
+                        {actors.map(a =>
+                            <Link to={`/actors/${a.Name}`}>
+                                <Button className="value" variant="link">{a.Name}</Button>
+                            </Link>
+                        )}
                     </div>
 
                     <div className="movie-genre">
                         <span className="label">Genre: </span>
-                        <Link to={`/genre/${movie.Genre.Name}`}>
-                            {/* <span className="value">{movie.Genre.Name}</span> */}
+                        <Link to={`/genres/${movie.Genre.Name}`}>
                             <Button className="value" variant="link">{movie.Genre.Name}</Button>
                         </Link>
                     </div>
