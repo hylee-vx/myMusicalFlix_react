@@ -26,7 +26,6 @@ const MovieCard = props => {
     );
 }
 
-
 MovieCard.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string.isRequired,

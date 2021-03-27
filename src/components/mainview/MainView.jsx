@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -21,8 +21,7 @@ import './MainView.scss';
 class MainView extends React.Component {
     state = {
         movies: [],
-        user: null,
-        account: true
+        user: null
     };
 
     getMovies(token) {
@@ -69,37 +68,9 @@ class MainView extends React.Component {
         }
     }
 
-    // sets registration data to account to render Login page (account is true but !user)
-    onRegistration(data) {
-        this.setState({
-            account: data
-        });
-    }
-
-    // toggles account state between true and false to switch between Login/Registration components
-    onToggleLoginRegistration() {
-        this.setState(previousState => ({
-            account: !previousState.account
-        }));
-    }
-
     render() {
-        const { movies, user, account } = this.state;
-
-        // if no user, renders either Login or Registration components based on whether account is true or false - default is Login
-        if (!user) {
-            return (
-                account
-                    ? <Login
-                        onLoggedIn={user => this.onLoggedIn(user)}
-                        onToggleLoginRegistration={account => this.onToggleLoginRegistration(account)}
-                    />
-                    : <Registration
-                        onRegistration={data => this.onRegistration(data)}
-                        onToggleLoginRegistration={account => this.onToggleLoginRegistration(account)}
-                    />
-            );
-        }
+        const { movies, user } = this.state;
+        console.log(user);
 
         if (!movies) return <div className="main-view" />;
 
@@ -107,31 +78,48 @@ class MainView extends React.Component {
             <Router>
                 <Container fluid>
                     <Navbar>
-                        <Navbar.Brand href="#home">myMusicalFlix</Navbar.Brand>
-                        <Button variant="outline-primary" onClick={() => this.onLoggedOut()}>Sign Out</Button>
+                        <Navbar.Brand as={Link} to="/">myMusicalFlix</Navbar.Brand>
+                        <Link to={`/users/${user}`}>
+                            <Button className="link-to-profile" variant="link">{user}</Button>
+                        </Link>
+                        <Button className="sign-out-button" variant="outline-primary" onClick={() => this.onLoggedOut()}>Sign Out</Button>
                     </Navbar>
+
                     <Row className="main-view justify-content-md-center">
-                        <Route exact path='/' render={() => movies.map(m =>
-                            <Col md={3} key={m._id}>
-                                <MovieCard movie={m} />
-                            </Col>
-                        )} />
+                        <Route exact path='/' render={() => {
+                            if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
+                            return movies.map(m =>
+                                <Col md={3} key={m._id}>
+                                    <MovieCard movie={m} />
+                                </Col>
+                            )
+                        }} />
+
+                        <Route exact path="/login" render={() =>
+                            <Login onLoggedIn={user => this.onLoggedIn(user)} />} />
+
+                        <Route exact path="/users" render={() =>
+                            <Registration />} />
+
                         <Route exact path='/movies/:movieId' render={({ match }) =>
                             <Col md={9}>
                                 <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
                             </Col>
                         } />
+
                         <Route exact path='/genres/:name' render={({ match }) =>
                             <Col md={9}>
                                 <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
                             </Col>
                         } />
+
                         <Route exact path="/directors/:name" render={({ match }) =>
                             <Col md={9}>
                                 <DirectorView director={movies.reduce((director, movie) => !director ? movie.Directors.find(d =>
                                     d.Name === match.params.name) : director, null)} />
                             </Col>
                         } />
+
                         <Route exact path="/actors/:name" render={({ match }) =>
                             <Col md={9}>
                                 <ActorView actor={movies.reduce((actor, movie) =>

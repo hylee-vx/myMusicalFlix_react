@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -10,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 
 import './Registration.scss';
 
-const Registration = props => {
+const Registration = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,15 +29,9 @@ const Registration = props => {
             .then(response => {
                 const data = response.data;
                 console.log(data);
-                props.onRegistration(data);
             })
             .catch(error => console.log(`Error registering the user: ${error}`));
     };
-
-    // switches account state to true to render Login view
-    const handleToggle = () => {
-        props.onToggleLoginRegistration();
-    }
 
     return (
         <Container>
@@ -86,7 +81,13 @@ const Registration = props => {
             </Row>
             <Row>
                 <Col sm={{ span: 6, offset: 3 }}>
-                    <p className="login-reg-toggle-text">I have an account!<span className="login-reg-toggle-click" onClick={handleToggle}>Sign in</span></p>
+                    <p className="login-reg-toggle-text">I have an account!<span className="login-reg-toggle-click">
+                        <Link to={"/login"}>
+                            <Button className="link-to-login" variant="link">
+                                Sign in
+                            </Button>
+                        </Link>
+                    </span></p>
                 </Col>
             </Row>
         </Container>

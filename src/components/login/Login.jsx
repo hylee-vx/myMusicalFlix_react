@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -27,11 +28,6 @@ const Login = props => {
             })
             .catch(error => console.log(error + 'no such user'));
     };
-
-    // switches account state to false to render Registration view
-    const handleToggle = () => {
-        props.onToggleLoginRegistration();
-    }
 
     return (
         <Container>
@@ -65,7 +61,13 @@ const Login = props => {
             </Row>
             <Row>
                 <Col sm={{ span: 6, offset: 3 }}>
-                    <p className="login-reg-toggle-text">New to MyMusicalFlix?<span className="login-reg-toggle-click" onClick={handleToggle}>Sign up</span></p>
+                    <p className="login-reg-toggle-text">New to MyMusicalFlix?<span className="login-reg-toggle-click">
+                        <Link to={"/users"}>
+                            <Button className="link-to-registration" variant="link">
+                                Sign up
+                            </Button>
+                        </Link>
+                    </span></p>
                 </Col>
             </Row>
         </Container >
@@ -76,8 +78,7 @@ const Login = props => {
 Login.propTypes = {
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    onLoggedIn: PropTypes.func.isRequired,
-    onToggleLoginRegistration: PropTypes.func.isRequired
+    onLoggedIn: PropTypes.func.isRequired
 };
 
 export default Login;

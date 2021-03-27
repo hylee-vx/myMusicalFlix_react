@@ -39399,6 +39399,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _reactRouterDom = require("react-router-dom");
+
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
@@ -39454,11 +39456,6 @@ var Login = function Login(props) {
     }).catch(function (error) {
       return console.log(error + 'no such user');
     });
-  }; // switches account state to false to render Registration view
-
-
-  var handleToggle = function handleToggle() {
-    props.onToggleLoginRegistration();
   };
 
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, {
@@ -39509,21 +39506,24 @@ var Login = function Login(props) {
   }, _react.default.createElement("p", {
     className: "login-reg-toggle-text"
   }, "New to MyMusicalFlix?", _react.default.createElement("span", {
-    className: "login-reg-toggle-click",
-    onClick: handleToggle
-  }, "Sign up")))));
+    className: "login-reg-toggle-click"
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/users"
+  }, _react.default.createElement(_Button.default, {
+    className: "link-to-registration",
+    variant: "link"
+  }, "Sign up")))))));
 }; // triggers warning at initial render: no user details, toggle function not called
 
 
 Login.propTypes = {
   username: _propTypes.default.string.isRequired,
   password: _propTypes.default.string.isRequired,
-  onLoggedIn: _propTypes.default.func.isRequired,
-  onToggleLoginRegistration: _propTypes.default.func.isRequired
+  onLoggedIn: _propTypes.default.func.isRequired
 };
 var _default = Login;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Login.scss":"components/login/Login.scss"}],"components/registration/Registration.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Login.scss":"components/login/Login.scss"}],"components/registration/Registration.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -39539,6 +39539,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _reactRouterDom = require("react-router-dom");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -39572,7 +39574,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var Registration = function Registration(props) {
+var Registration = function Registration() {
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -39604,15 +39606,9 @@ var Registration = function Registration(props) {
     }).then(function (response) {
       var data = response.data;
       console.log(data);
-      props.onRegistration(data);
     }).catch(function (error) {
       return console.log("Error registering the user: ".concat(error));
     });
-  }; // switches account state to true to render Login view
-
-
-  var handleToggle = function handleToggle() {
-    props.onToggleLoginRegistration();
   };
 
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, {
@@ -39683,9 +39679,13 @@ var Registration = function Registration(props) {
   }, _react.default.createElement("p", {
     className: "login-reg-toggle-text"
   }, "I have an account!", _react.default.createElement("span", {
-    className: "login-reg-toggle-click",
-    onClick: handleToggle
-  }, "Sign in")))));
+    className: "login-reg-toggle-click"
+  }, _react.default.createElement(_reactRouterDom.Link, {
+    to: "/login"
+  }, _react.default.createElement(_Button.default, {
+    className: "link-to-login",
+    variant: "link"
+  }, "Sign in")))))));
 }; // triggers warning at initial render: no user details
 
 
@@ -39699,7 +39699,7 @@ Registration.propTypes = {
 };
 var _default = Registration;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Registration.scss":"components/registration/Registration.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./Registration.scss":"components/registration/Registration.scss"}],"../node_modules/react-bootstrap/esm/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40266,8 +40266,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _super.call.apply(_super, [this].concat(args)), _this.state = {
       movies: [],
-      user: null,
-      account: true
+      user: null
     }, _temp));
   }
 
@@ -40322,24 +40321,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           user: localStorage.removeItem('user')
         });
       }
-    } // sets registration data to account to render Login page (account is true but !user)
-
-  }, {
-    key: "onRegistration",
-    value: function onRegistration(data) {
-      this.setState({
-        account: data
-      });
-    } // toggles account state between true and false to switch between Login/Registration components
-
-  }, {
-    key: "onToggleLoginRegistration",
-    value: function onToggleLoginRegistration() {
-      this.setState(function (previousState) {
-        return {
-          account: !previousState.account
-        };
-      });
     }
   }, {
     key: "render",
@@ -40348,35 +40329,23 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
       var _this$state = this.state,
           movies = _this$state.movies,
-          user = _this$state.user,
-          account = _this$state.account; // if no user, renders either Login or Registration components based on whether account is true or false - default is Login
-
-      if (!user) {
-        return account ? _react.default.createElement(_Login.default, {
-          onLoggedIn: function onLoggedIn(user) {
-            return _this3.onLoggedIn(user);
-          },
-          onToggleLoginRegistration: function onToggleLoginRegistration(account) {
-            return _this3.onToggleLoginRegistration(account);
-          }
-        }) : _react.default.createElement(_Registration.default, {
-          onRegistration: function onRegistration(data) {
-            return _this3.onRegistration(data);
-          },
-          onToggleLoginRegistration: function onToggleLoginRegistration(account) {
-            return _this3.onToggleLoginRegistration(account);
-          }
-        });
-      }
-
+          user = _this$state.user;
+      console.log(user);
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Container.default, {
         fluid: true
       }, _react.default.createElement(_Navbar.default, null, _react.default.createElement(_Navbar.default.Brand, {
-        href: "#home"
-      }, "myMusicalFlix"), _react.default.createElement(_Button.default, {
+        as: _reactRouterDom.Link,
+        to: "/"
+      }, "myMusicalFlix"), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/users/".concat(user)
+      }, _react.default.createElement(_Button.default, {
+        className: "link-to-profile",
+        variant: "link"
+      }, user)), _react.default.createElement(_Button.default, {
+        className: "sign-out-button",
         variant: "outline-primary",
         onClick: function onClick() {
           return _this3.onLoggedOut();
@@ -40387,6 +40356,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/",
         render: function render() {
+          if (!user) return _react.default.createElement(_Login.default, {
+            onLoggedIn: function onLoggedIn(user) {
+              return _this3.onLoggedIn(user);
+            }
+          });
           return movies.map(function (m) {
             return _react.default.createElement(_Col.default, {
               md: 3,
@@ -40395,6 +40369,22 @@ var MainView = /*#__PURE__*/function (_React$Component) {
               movie: m
             }));
           });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/login",
+        render: function render() {
+          return _react.default.createElement(_Login.default, {
+            onLoggedIn: function onLoggedIn(user) {
+              return _this3.onLoggedIn(user);
+            }
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: "/users",
+        render: function render() {
+          return _react.default.createElement(_Registration.default, null);
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -40576,7 +40566,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51999" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60595" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
