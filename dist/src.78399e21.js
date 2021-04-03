@@ -39574,7 +39574,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var Registration = function Registration() {
+var Registration = function Registration(props) {
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -39605,7 +39605,8 @@ var Registration = function Registration() {
       DateOfBirth: dateOfBirth
     }).then(function (response) {
       var data = response.data;
-      console.log(data);
+      console.log("successfully registered user account ".concat(data.Username));
+      props.onRegistration(data);
     }).catch(function (error) {
       return console.log("Error registering the user: ".concat(error));
     });
@@ -39694,8 +39695,7 @@ Registration.propTypes = {
   email: _propTypes.default.string.isRequired,
   password: _propTypes.default.string.isRequired,
   dateOfBirth: _propTypes.default.string.isRequired,
-  onLoggedIn: _propTypes.default.func.isRequired,
-  onToggleLoginRegistration: _propTypes.default.func.isRequired
+  onRegistration: _propTypes.default.func.isRequired
 };
 var _default = Registration;
 exports.default = _default;
@@ -40266,11 +40266,59 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _super.call.apply(_super, [this].concat(args)), _this.state = {
       movies: [],
-      user: null
+      user: null,
+      username: null,
+      id: null
     }, _temp));
   }
 
   _createClass(MainView, [{
+    key: "onRegistration",
+    value: function onRegistration(regData) {
+      this.setState({
+        username: regData.Username
+      });
+    }
+  }, {
+    key: "onLoggedIn",
+    value: function onLoggedIn(authData) {
+      console.log(authData);
+      this.setState({
+        username: authData.user.Username,
+        id: authData.user._id
+      });
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('userID', authData.user._id);
+      this.getMovies(authData.token);
+      this.getUser(authData.user._id, authData.token);
+    }
+  }, {
+    key: "onLoggedOut",
+    value: function onLoggedOut() {
+      var accessToken = localStorage.getItem('token');
+
+      if (accessToken !== null) {
+        this.setState({
+          movies: [],
+          user: null,
+          username: null,
+          id: null
+        });
+        localStorage.clear();
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var accessToken = localStorage.getItem('token');
+      var accessID = localStorage.getItem('userID');
+
+      if (accessToken !== null && accessID !== null) {
+        this.getMovies(accessToken);
+        this.getUser(accessID, accessToken);
+      }
+    }
+  }, {
     key: "getMovies",
     value: function getMovies(token) {
       var _this2 = this;
@@ -40284,53 +40332,44 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           movies: response.data
         });
       }).catch(function (error) {
-        return console.log(error);
+        return console.log(error + " error fetching movie list");
       });
     }
   }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var accessToken = localStorage.getItem('token');
+    key: "getUser",
+    value: function getUser(userID, token) {
+      var _this3 = this;
 
-      if (accessToken !== null) {
-        this.setState({
-          user: localStorage.getItem('user')
+      _axios.default.get("https://mymusicalflix.herokuapp.com/users/".concat(userID), {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        var data = response.data;
+
+        _this3.setState({
+          user: {
+            id: data._id,
+            username: data.Username,
+            emails: data.Email,
+            dateOfBirth: data.DateOfBirth.slice(0, 10),
+            favouriteMovies: data.FavouriteMovies
+          }
         });
-        this.getMovies(accessToken);
-      }
-    }
-  }, {
-    key: "onLoggedIn",
-    value: function onLoggedIn(authData) {
-      console.log(authData);
-      this.setState({
-        user: authData.user.Username
+      }).catch(function (error) {
+        return console.log(error + " error fetching user");
       });
-      localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username);
-      this.getMovies(authData.token);
-    }
-  }, {
-    key: "onLoggedOut",
-    value: function onLoggedOut() {
-      var accessToken = localStorage.getItem('token');
-
-      if (accessToken !== null) {
-        this.setState({
-          token: localStorage.removeItem('token'),
-          user: localStorage.removeItem('user')
-        });
-      }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
-          user = _this$state.user;
-      console.log(user);
+          user = _this$state.user,
+          username = _this$state.username,
+          id = _this$state.id;
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -40340,15 +40379,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         as: _reactRouterDom.Link,
         to: "/"
       }, "myMusicalFlix"), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/users/".concat(user)
+        to: "/users/".concat(id)
       }, _react.default.createElement(_Button.default, {
         className: "link-to-profile",
         variant: "link"
-      }, user)), _react.default.createElement(_Button.default, {
+      }, username)), _react.default.createElement(_Button.default, {
         className: "sign-out-button",
         variant: "outline-primary",
         onClick: function onClick() {
-          return _this3.onLoggedOut();
+          return _this4.onLoggedOut();
         }
       }, "Sign Out")), _react.default.createElement(_Row.default, {
         className: "main-view justify-content-md-center"
@@ -40358,7 +40397,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render() {
           if (!user) return _react.default.createElement(_Login.default, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this3.onLoggedIn(user);
+              return _this4.onLoggedIn(user);
             }
           });
           return movies.map(function (m) {
@@ -40374,17 +40413,34 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/login",
         render: function render() {
-          return _react.default.createElement(_Login.default, {
+          if (!user) return _react.default.createElement(_Login.default, {
             onLoggedIn: function onLoggedIn(user) {
-              return _this3.onLoggedIn(user);
+              return _this4.onLoggedIn(user);
             }
+          });
+          return movies.map(function (m) {
+            return _react.default.createElement(_Col.default, {
+              m: 3,
+              key: m._id
+            }, _react.default.createElement(_MovieCard.default, {
+              movie: m
+            }));
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/users",
         render: function render() {
-          return _react.default.createElement(_Registration.default, null);
+          if (!username) return _react.default.createElement(_Registration.default, {
+            onRegistration: function onRegistration(newUser) {
+              return _this4.onRegistration(newUser);
+            }
+          });
+          return _react.default.createElement(_Login.default, {
+            onLoggedIn: function onLoggedIn(user) {
+              return _this4.onLoggedIn(user);
+            }
+          });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -40465,8 +40521,7 @@ MainView.propTypes = {
   }).isRequired,
   user: _propTypes.default.string,
   account: _propTypes.default.bool,
-  onLoggedIn: _propTypes.default.func.isRequired,
-  onToggleLoginRegistration: _propTypes.default.func.isRequired
+  onLoggedIn: _propTypes.default.func.isRequired
 };
 var _default = MainView;
 exports.default = _default;
@@ -40566,7 +40621,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60595" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61974" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -21,8 +21,52 @@ import './MainView.scss';
 class MainView extends React.Component {
     state = {
         movies: [],
-        user: null
+        user: null,
+        username: null,
+        id: null
     };
+
+    onRegistration(regData) {
+        this.setState({
+            username: regData.Username
+        });
+    }
+
+    onLoggedIn(authData) {
+        console.log(authData);
+        this.setState({
+            username: authData.user.Username,
+            id: authData.user._id
+        });
+
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('userID', authData.user._id);
+        this.getMovies(authData.token);
+        this.getUser(authData.user._id, authData.token);
+    }
+
+    onLoggedOut() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                movies: [],
+                user: null,
+                username: null,
+                id: null
+            });
+            localStorage.clear();
+        }
+    }
+
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        let accessID = localStorage.getItem('userID');
+
+        if (accessToken !== null && accessID !== null) {
+            this.getMovies(accessToken);
+            this.getUser(accessID, accessToken);
+        }
+    }
 
     getMovies(token) {
         axios.get('https://mymusicalflix.herokuapp.com/movies', {
@@ -33,44 +77,30 @@ class MainView extends React.Component {
                     movies: response.data
                 });
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error + ` error fetching movie list`));
     }
 
-    componentDidMount() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
-
-            this.getMovies(accessToken);
-        }
-    }
-
-    onLoggedIn(authData) {
-        console.log(authData);
-        this.setState({
-            user: authData.user.Username
-        });
-
-        localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user.Username);
-        this.getMovies(authData.token);
-    }
-
-    onLoggedOut() {
-        let accessToken = localStorage.getItem('token');
-        if (accessToken !== null) {
-            this.setState({
-                token: localStorage.removeItem('token'),
-                user: localStorage.removeItem('user')
-            });
-        }
+    getUser(userID, token) {
+        axios.get(`https://mymusicalflix.herokuapp.com/users/${userID}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(response => {
+                const data = response.data;
+                this.setState({
+                    user: {
+                        id: data._id,
+                        username: data.Username,
+                        emails: data.Email,
+                        dateOfBirth: data.DateOfBirth.slice(0, 10),
+                        favouriteMovies: data.FavouriteMovies
+                    }
+                });
+            })
+            .catch(error => console.log(error + ` error fetching user`));
     }
 
     render() {
-        const { movies, user } = this.state;
-        console.log(user);
+        const { movies, user, username, id } = this.state;
 
         if (!movies) return <div className="main-view" />;
 
@@ -79,10 +109,21 @@ class MainView extends React.Component {
                 <Container fluid>
                     <Navbar>
                         <Navbar.Brand as={Link} to="/">myMusicalFlix</Navbar.Brand>
-                        <Link to={`/users/${user}`}>
-                            <Button className="link-to-profile" variant="link">{user}</Button>
+                        <Link to={`/users/${id}`}>
+                            <Button
+                                className="link-to-profile"
+                                variant="link"
+                            >
+                                {username}
+                            </Button>
                         </Link>
-                        <Button className="sign-out-button" variant="outline-primary" onClick={() => this.onLoggedOut()}>Sign Out</Button>
+                        <Button
+                            className="sign-out-button"
+                            variant="outline-primary"
+                            onClick={() => this.onLoggedOut()}
+                        >
+                            Sign Out
+                        </Button>
                     </Navbar>
 
                     <Row className="main-view justify-content-md-center">
@@ -95,11 +136,19 @@ class MainView extends React.Component {
                             )
                         }} />
 
-                        <Route exact path="/login" render={() =>
-                            <Login onLoggedIn={user => this.onLoggedIn(user)} />} />
+                        <Route exact path="/login" render={() => {
+                            if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
+                            return movies.map(m =>
+                                <Col m={3} key={m._id}>
+                                    <MovieCard movie={m} />
+                                </Col>
+                            )
+                        }} />
 
-                        <Route exact path="/users" render={() =>
-                            <Registration />} />
+                        <Route exact path="/users" render={() => {
+                            if (!username) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
+                            return <Login onLoggedIn={user => this.onLoggedIn(user)} />
+                        }} />
 
                         <Route exact path='/movies/:movieId' render={({ match }) =>
                             <Col md={9}>
@@ -150,8 +199,7 @@ MainView.propTypes = {
     }).isRequired,
     user: PropTypes.string,
     account: PropTypes.bool,
-    onLoggedIn: PropTypes.func.isRequired,
-    onToggleLoginRegistration: PropTypes.func.isRequired
+    onLoggedIn: PropTypes.func.isRequired
 };
 
 export default MainView;

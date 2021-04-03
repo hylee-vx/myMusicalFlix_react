@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 
 import './Registration.scss';
 
-const Registration = () => {
+const Registration = props => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,7 +28,8 @@ const Registration = () => {
         })
             .then(response => {
                 const data = response.data;
-                console.log(data);
+                console.log(`successfully registered user account ${data.Username}`);
+                props.onRegistration(data);
             })
             .catch(error => console.log(`Error registering the user: ${error}`));
     };
@@ -75,7 +76,14 @@ const Registration = () => {
                                 onChange={event => setDateOfBirth(event.target.value)}
                             />
                         </Form.Group>
-                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleRegistration}>Sign up</Button>
+                        <Button
+                            className="login-reg-button"
+                            variant="primary"
+                            block type="submit"
+                            onClick={handleRegistration}
+                        >
+                            Sign up
+                        </Button>
                     </Form>
                 </Col>
             </Row>
@@ -92,7 +100,7 @@ const Registration = () => {
             </Row>
         </Container>
     );
-}
+};
 
 // triggers warning at initial render: no user details
 Registration.propTypes = {
@@ -100,8 +108,7 @@ Registration.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     dateOfBirth: PropTypes.string.isRequired,
-    onLoggedIn: PropTypes.func.isRequired,
-    onToggleLoginRegistration: PropTypes.func.isRequired
+    onRegistration: PropTypes.func.isRequired,
 };
 
 export default Registration;
