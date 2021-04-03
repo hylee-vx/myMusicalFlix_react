@@ -16,6 +16,7 @@ import MovieView from '../movieview/MovieView';
 import GenreView from '../genreview/GenreView';
 import DirectorView from '../directorview/DirectorView';
 import ActorView from '../actorview/ActorView';
+import ProfileView from '../profile/ProfileView';
 import './MainView.scss';
 
 class MainView extends React.Component {
@@ -90,7 +91,7 @@ class MainView extends React.Component {
                     user: {
                         id: data._id,
                         username: data.Username,
-                        emails: data.Email,
+                        email: data.Email,
                         dateOfBirth: data.DateOfBirth.slice(0, 10),
                         favouriteMovies: data.FavouriteMovies
                     }
@@ -101,7 +102,6 @@ class MainView extends React.Component {
 
     render() {
         const { movies, user, username, id } = this.state;
-
         if (!movies) return <div className="main-view" />;
 
         return (
@@ -175,6 +175,10 @@ class MainView extends React.Component {
                                     !actor ? movie.Actors.find(a =>
                                         a.Name === match.params.name) : actor, null)} />
                             </Col>
+                        } />
+
+                        <Route exact path="/users/:ID" render={() =>
+                            <ProfileView user={user} onLoggedOut={this.onLoggedOut} />
                         } />
                     </Row >
                 </Container>
