@@ -17,6 +17,9 @@ import GenreView from '../genreview/GenreView';
 import DirectorView from '../directorview/DirectorView';
 import ActorView from '../actorview/ActorView';
 import ProfileView from '../profile/ProfileView';
+import ProfileEdit from '../profile/ProfileEdit';
+import PasswordEdit from '../profile/PasswordEdit';
+
 import './MainView.scss';
 
 class MainView extends React.Component {
@@ -24,7 +27,8 @@ class MainView extends React.Component {
         movies: [],
         user: null,
         username: null,
-        id: null
+        id: null,
+        onEdit: false
     };
 
     onRegistration(regData) {
@@ -100,8 +104,28 @@ class MainView extends React.Component {
             .catch(error => console.log(error + ` error fetching user`));
     }
 
+    setEditOn = () => {
+        this.setState({
+            onEdit: true
+        });
+    }
+
+    setEditOff = () => {
+        this.setState({
+            onEdit: false
+        });
+    }
+
+    updateProfile = updatedUser => {
+        this.setState({
+            onEdit: false,
+            user: updatedUser,
+            username: updatedUser.username
+        });
+    }
+
     render() {
-        const { movies, user, username, id } = this.state;
+        const { movies, user, username, id, onEdit } = this.state;
         if (!movies) return <div className="main-view" />;
 
         return (
@@ -177,9 +201,21 @@ class MainView extends React.Component {
                             </Col>
                         } />
 
-                        <Route exact path="/users/:ID" render={() =>
-                            <ProfileView user={user} onLoggedOut={this.onLoggedOut} />
-                        } />
+                        <Route exact path="/users/:ID" render={() => {
+                            if (!onEdit) {
+                                return <ProfileView user={user} setEditOn={this.setEditOn} onLoggedOut={this.onLoggedOut} />
+                            } else {
+                                return <ProfileEdit user={user} setEditOff={this.setEditOff} updateProfile={updatedUser => this.updateProfile(updatedUser)} />
+                            }
+                        }} />
+
+                        <Route exact path="/users/:ID/password" render={() => {
+                            if (!onEdit) {
+                                return <ProfileView user={user} setEditOn={this.setEditOn} onLoggedOut={this.onLoggedOut} />
+                            } else {
+                                return <PasswordEdit user={user} setEditOff={this.setEditOff} />
+                            }
+                        }} />
                     </Row >
                 </Container>
             </Router>
