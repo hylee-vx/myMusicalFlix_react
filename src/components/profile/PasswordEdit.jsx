@@ -56,7 +56,6 @@ const PasswordEdit = props => {
                             variant="primary"
                             onClick={() => {
                                 handleUpdatePassword();
-                                props.setEditOff();
                             }}
                         >
                             Update password
@@ -68,7 +67,7 @@ const PasswordEdit = props => {
                                 variant="primary"
                                 onClick={() => props.setEditOff()}
                             >
-                                Cancel
+                                Back to profile
                             </Button>
                         </Link>
                     </Form>

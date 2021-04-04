@@ -2,13 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
 import MovieCard from '../moviecard/MovieCard';
@@ -20,20 +13,27 @@ import ProfileView from '../profile/ProfileView';
 import ProfileEdit from '../profile/ProfileEdit';
 import PasswordEdit from '../profile/PasswordEdit';
 
+import PropTypes from 'prop-types';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import './MainView.scss';
 
 class MainView extends React.Component {
     state = {
         movies: [],
         user: null,
-        username: null,
-        id: null,
         onEdit: false
     };
 
     onRegistration(regData) {
         this.setState({
-            username: regData.Username
+            user: {
+                username: regData.Username
+            }
         });
     }
 
@@ -53,14 +53,16 @@ class MainView extends React.Component {
     onLoggedOut() {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
+            localStorage.clear();
             this.setState({
                 movies: [],
                 user: null,
-                username: null,
-                id: null
+                // username: null,
+                // id: null
             });
-            localStorage.clear();
         }
+        this.onLoggedIn(authData);
+        console.log('onLoggedOut called');
     }
 
     componentDidMount() {
@@ -90,6 +92,7 @@ class MainView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
+                console.log('getUser called again');
                 const data = response.data;
                 this.setState({
                     user: {
@@ -119,36 +122,41 @@ class MainView extends React.Component {
     updateProfile = updatedUser => {
         this.setState({
             onEdit: false,
-            user: updatedUser,
-            username: updatedUser.username
+            user: updatedUser
         });
+        let accessID = localStorage.getItem('userID');
+        let accessToken = localStorage.getItem('token');
+
+        this.getUser(accessID, accessToken);
     }
 
     render() {
-        const { movies, user, username, id, onEdit } = this.state;
+        const { movies, user, onEdit } = this.state;
         if (!movies) return <div className="main-view" />;
 
         return (
             <Router>
                 <Container fluid>
-                    <Navbar>
-                        <Navbar.Brand as={Link} to="/">myMusicalFlix</Navbar.Brand>
-                        <Link to={`/users/${id}`}>
+                    {user
+                        ? <Navbar>
+                            <Navbar.Brand as={Link} to="/">myMusicalFlix</Navbar.Brand>
+                            <Link to={`/users/${user.id}`}>
+                                <Button
+                                    className="link-to-profile"
+                                    variant="link"
+                                >
+                                    {user.username}
+                                </Button>
+                            </Link>
                             <Button
-                                className="link-to-profile"
-                                variant="link"
+                                className="sign-out-button"
+                                variant="outline-primary"
+                                onClick={() => this.onLoggedOut()}
                             >
-                                {username}
-                            </Button>
-                        </Link>
-                        <Button
-                            className="sign-out-button"
-                            variant="outline-primary"
-                            onClick={() => this.onLoggedOut()}
-                        >
-                            Sign Out
+                                Sign Out
                         </Button>
-                    </Navbar>
+                        </Navbar>
+                        : null}
 
                     <Row className="main-view justify-content-md-center">
                         <Route exact path='/' render={() => {
@@ -163,57 +171,77 @@ class MainView extends React.Component {
                         <Route exact path="/login" render={() => {
                             if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
                             return movies.map(m =>
-                                <Col m={3} key={m._id}>
+                                <Col md={3} key={m._id}>
                                     <MovieCard movie={m} />
                                 </Col>
                             )
                         }} />
 
                         <Route exact path="/users" render={() => {
-                            if (!username) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
+                            if (!user.username) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
                             return <Login onLoggedIn={user => this.onLoggedIn(user)} />
                         }} />
 
                         <Route exact path='/movies/:movieId' render={({ match }) =>
                             <Col md={9}>
-                                <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
+                                <MovieView movie={movies.find(m =>
+                                    m._id === match.params.movieId)}
+                                    user={user}
+                                    updateProfile={updatedUser => this.updateProfile(updatedUser)} />
                             </Col>
                         } />
 
                         <Route exact path='/genres/:name' render={({ match }) =>
                             <Col md={9}>
-                                <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+                                <GenreView genre={movies.find(m =>
+                                    m.Genre.Name === match.params.name).Genre} />
                             </Col>
                         } />
 
                         <Route exact path="/directors/:name" render={({ match }) =>
                             <Col md={9}>
-                                <DirectorView director={movies.reduce((director, movie) => !director ? movie.Directors.find(d =>
-                                    d.Name === match.params.name) : director, null)} />
+                                <DirectorView director={movies.reduce((director, movie) => !director
+                                    ? movie.Directors.find(d =>
+                                        d.Name === match.params.name)
+                                    : director, null)} />
                             </Col>
                         } />
 
                         <Route exact path="/actors/:name" render={({ match }) =>
                             <Col md={9}>
                                 <ActorView actor={movies.reduce((actor, movie) =>
-                                    !actor ? movie.Actors.find(a =>
-                                        a.Name === match.params.name) : actor, null)} />
+                                    !actor
+                                        ? movie.Actors.find(a =>
+                                            a.Name === match.params.name)
+                                        : actor, null)} />
                             </Col>
                         } />
 
                         <Route exact path="/users/:ID" render={() => {
                             if (!onEdit) {
-                                return <ProfileView user={user} setEditOn={this.setEditOn} onLoggedOut={this.onLoggedOut} />
+                                return <ProfileView
+                                    user={user}
+                                    movies={movies}
+                                    setEditOn={this.setEditOn}
+                                    onLoggedOut={this.onLoggedOut} />
                             } else {
-                                return <ProfileEdit user={user} setEditOff={this.setEditOff} updateProfile={updatedUser => this.updateProfile(updatedUser)} />
+                                return <ProfileEdit
+                                    user={user}
+                                    setEditOff={this.setEditOff}
+                                    updateProfile={updatedUser => this.updateProfile(updatedUser)} />
                             }
                         }} />
 
                         <Route exact path="/users/:ID/password" render={() => {
                             if (!onEdit) {
-                                return <ProfileView user={user} setEditOn={this.setEditOn} onLoggedOut={this.onLoggedOut} />
+                                return <ProfileView
+                                    user={user}
+                                    setEditOn={this.setEditOn}
+                                    onLoggedOut={this.onLoggedOut} />
                             } else {
-                                return <PasswordEdit user={user} setEditOff={this.setEditOff} />
+                                return <PasswordEdit
+                                    user={user}
+                                    setEditOff={this.setEditOff} />
                             }
                         }} />
                     </Row >

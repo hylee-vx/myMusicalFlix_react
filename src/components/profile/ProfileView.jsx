@@ -7,9 +7,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 const ProfileView = props => {
-    const { user } = props;
+    const { user, movies } = props;
+    const favouriteMovies = props.user.favouriteMovies;
 
     // add warning before delete request fulfulled
     const handleDeleteUser = () => {
@@ -21,9 +23,14 @@ const ProfileView = props => {
         })
             .then(() => {
                 console.log('user deleted');
+                props.onLoggedOut();
             })
             .catch(error => error + ` error deleting user ${user.username}`);
     };
+
+    const favouriteMovieData = movies.filter(m =>
+        favouriteMovies.find(f =>
+            f === m._id));
 
     return (
         <Container>
@@ -78,10 +85,7 @@ const ProfileView = props => {
                             <Button
                                 className="profile-button"
                                 variant="primary"
-                                onClick={() => {
-                                    handleDeleteUser();
-                                    props.onLoggedOut();
-                                }}
+                                onClick={() => handleDeleteUser()}
                             >
                                 Delete account
                             </Button>
@@ -98,6 +102,23 @@ const ProfileView = props => {
 
                     </Form>
                 </Col>
+            </Row>
+
+            <Row>
+                {favouriteMovies.length === 0
+                    ? <h5>You have no favourite movies</h5>
+                    : favouriteMovieData.map(m => {
+                        return (
+                            <Col md={3}>
+                                <Card>
+                                    <Card.Img variant="top" src={m.ImagePath} />
+                                    <Card.Title>{m.Title}</Card.Title>
+                                    <Card.Subtitle>{new Date(m.ReleaseYear).getFullYear()}</Card.Subtitle>
+                                </Card>
+                            </Col>
+                        );
+                    })
+                }
             </Row>
         </Container>
     );

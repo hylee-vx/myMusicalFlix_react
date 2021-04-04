@@ -33,18 +33,22 @@ h3 {
     font-weight: 600;
 }
 
-.back-btn {
+.add-movie-btn, .back-btn {
     background-color: var(--secondary-color);
     border: none;
     padding: 0.2rem 0.5rem;
     margin-top: 0.8rem;
 }
 
-.back-btn:hover, .back-btn:focus {
+.add-movie-btn {
+    margin-right: 0.8rem;
+}
+
+.add-movie-btn:hover, .add-movie-btn:focus, .back-btn:hover, .back-btn:focus {
     cursor: pointer;
     background-color: var(--hover);
 }
 
-.back-btn:active {
+.add-movie-btn:active, .back-btn:active {
     background-color: var(--active);
 }
