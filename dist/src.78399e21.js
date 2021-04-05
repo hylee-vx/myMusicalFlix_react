@@ -37527,10 +37527,9 @@ var Registration = function Registration(props) {
       Password: password,
       Email: email,
       DateOfBirth: dateOfBirth
-    }).then(function (response) {
-      var data = response.data;
-      console.log("successfully registered user account ".concat(data.Username));
-      props.onRegistration(data);
+    }).then(function () {
+      console.log("successfully registered user");
+      props.onRegistration();
     }).catch(function (error) {
       return console.log("Error registering the user: ".concat(error));
     });
@@ -37990,13 +37989,15 @@ var MovieView = function MovieView(props) {
     className: "favourite-movie-btn",
     variant: "primary",
     onClick: function onClick() {
-      props.handleAddFavourite(user, movie._id); // setFavourites(user.favouriteMovies);
+      props.handleAddFavourite(user, movie._id);
+      setFavourites(user.favouriteMovies);
     }
   }, "Add to favourites") : _react.default.createElement(_Button.default, {
     className: "favourite-movie-btn",
     variant: "primary",
     onClick: function onClick() {
-      props.handleDeleteFavourite(user, movie._id); // setFavourites(user.favouriteMovies);
+      props.handleDeleteFavourite(user, movie._id);
+      setFavourites(user.favouriteMovies);
     }
   }, "Remove from favourites"), _react.default.createElement(_reactRouterDom.Link, {
     to: '/'
@@ -38169,8 +38170,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProfileView = function ProfileView(props) {
   var user = props.user,
       movies = props.movies,
-      favouriteMovies = props.favouriteMovies; // const favouriteMovies = props.user.favouriteMovies;
-  // add warning before delete request fulfulled
+      favouriteMovies = props.favouriteMovies; // add warning before delete request fulfulled
 
   var handleDeleteUser = function handleDeleteUser() {
     var accessToken = localStorage.getItem('token');
@@ -52128,7 +52128,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       movies: [],
       user: null,
       favouriteMovies: [],
-      onEdit: false
+      onEdit: false,
+      hasAccount: false
     }, _this.setEditOn = function () {
       _this.setState({
         onEdit: true
@@ -52189,11 +52190,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
   _createClass(MainView, [{
     key: "onRegistration",
-    value: function onRegistration(regData) {
+    value: function onRegistration() {
       this.setState({
-        user: {
-          username: regData.Username
-        }
+        hasAccount: true
       });
     }
   }, {
@@ -52222,8 +52221,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           favouriteMovies: []
         });
       }
-
-      console.log('onLoggedOut called');
     }
   }, {
     key: "componentDidMount",
@@ -52289,7 +52286,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           movies = _this$state.movies,
           user = _this$state.user,
           favouriteMovies = _this$state.favouriteMovies,
-          onEdit = _this$state.onEdit;
+          onEdit = _this$state.onEdit,
+          hasAccount = _this$state.hasAccount;
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -52331,35 +52329,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/login",
-        render: function render() {
-          if (!user) return _react.default.createElement(_Login.default, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
-          });
-          return movies.map(function (m) {
-            return _react.default.createElement(_Col.default, {
-              md: 3,
-              key: m._id
-            }, _react.default.createElement(_MovieCard.default, {
-              movie: m
-            }));
-          });
-        }
-      }), _react.default.createElement(_reactRouterDom.Route, {
-        exact: true,
         path: "/users",
         render: function render() {
-          if (!user.username) return _react.default.createElement(_Registration.default, {
+          if (!hasAccount) return _react.default.createElement(_Registration.default, {
             onRegistration: function onRegistration(newUser) {
               return _this4.onRegistration(newUser);
             }
           });
-          return _react.default.createElement(_Login.default, {
-            onLoggedIn: function onLoggedIn(user) {
-              return _this4.onLoggedIn(user);
-            }
+          return _react.default.createElement(_reactRouterDom.Redirect, {
+            to: "/"
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -52460,20 +52438,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/users/:ID/password",
         render: function render() {
-          if (!onEdit) {
-            return _react.default.createElement(_ProfileView.default, {
-              user: user,
-              movies: movies,
-              favouriteMovies: favouriteMovies,
-              setEditOn: _this4.setEditOn,
-              onLoggedOut: _this4.onLoggedOut
-            });
-          } else {
-            return _react.default.createElement(_PasswordEdit.default, {
-              user: user,
-              setEditOff: _this4.setEditOff
-            });
-          }
+          if (onEdit) return _react.default.createElement(_PasswordEdit.default, {
+            user: user,
+            setEditOff: _this4.setEditOff
+          });
+          return _react.default.createElement(_reactRouterDom.Redirect, {
+            to: "/users/:ID"
+          });
         }
       }))));
     }
@@ -52598,7 +52569,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50147" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61634" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

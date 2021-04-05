@@ -26,10 +26,9 @@ const Registration = props => {
             Email: email,
             DateOfBirth: dateOfBirth
         })
-            .then(response => {
-                const data = response.data;
-                console.log(`successfully registered user account ${data.Username}`);
-                props.onRegistration(data);
+            .then(() => {
+                console.log(`successfully registered user`);
+                props.onRegistration();
             })
             .catch(error => console.log(`Error registering the user: ${error}`));
     };

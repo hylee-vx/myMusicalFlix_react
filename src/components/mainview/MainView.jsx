@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
@@ -27,14 +27,13 @@ class MainView extends React.Component {
         movies: [],
         user: null,
         favouriteMovies: [],
-        onEdit: false
+        onEdit: false,
+        hasAccount: false
     };
 
-    onRegistration(regData) {
+    onRegistration() {
         this.setState({
-            user: {
-                username: regData.Username
-            }
+            hasAccount: true
         });
     }
 
@@ -61,7 +60,6 @@ class MainView extends React.Component {
                 favouriteMovies: []
             });
         }
-        console.log('onLoggedOut called');
     }
 
     componentDidMount() {
@@ -164,7 +162,7 @@ class MainView extends React.Component {
     }
 
     render() {
-        const { movies, user, favouriteMovies, onEdit } = this.state;
+        const { movies, user, favouriteMovies, onEdit, hasAccount } = this.state;
         if (!movies) return <div className="main-view" />;
 
         return (
@@ -201,18 +199,9 @@ class MainView extends React.Component {
                             )
                         }} />
 
-                        <Route exact path="/login" render={() => {
-                            if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
-                            return movies.map(m =>
-                                <Col md={3} key={m._id}>
-                                    <MovieCard movie={m} />
-                                </Col>
-                            )
-                        }} />
-
                         <Route exact path="/users" render={() => {
-                            if (!user.username) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
-                            return <Login onLoggedIn={user => this.onLoggedIn(user)} />
+                            if (!hasAccount) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
+                            return <Redirect to="/" />
                         }} />
 
                         <Route exact path='/movies/:movieId' render={({ match }) =>
@@ -276,18 +265,8 @@ class MainView extends React.Component {
                         }} />
 
                         <Route exact path="/users/:ID/password" render={() => {
-                            if (!onEdit) {
-                                return <ProfileView
-                                    user={user}
-                                    movies={movies}
-                                    favouriteMovies={favouriteMovies}
-                                    setEditOn={this.setEditOn}
-                                    onLoggedOut={this.onLoggedOut} />
-                            } else {
-                                return <PasswordEdit
-                                    user={user}
-                                    setEditOff={this.setEditOff} />
-                            }
+                            if (onEdit) return <PasswordEdit user={user} setEditOff={this.setEditOff} />
+                            return <Redirect to="/users/:ID" />
                         }} />
                     </Row >
                 </Container>
