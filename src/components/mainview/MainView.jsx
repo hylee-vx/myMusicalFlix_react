@@ -26,6 +26,7 @@ class MainView extends React.Component {
     state = {
         movies: [],
         user: null,
+        favouriteMovies: [],
         onEdit: false
     };
 
@@ -57,11 +58,9 @@ class MainView extends React.Component {
             this.setState({
                 movies: [],
                 user: null,
-                // username: null,
-                // id: null
+                favouriteMovies: []
             });
         }
-        this.onLoggedIn(authData);
         console.log('onLoggedOut called');
     }
 
@@ -101,7 +100,8 @@ class MainView extends React.Component {
                         email: data.Email,
                         dateOfBirth: data.DateOfBirth.slice(0, 10),
                         favouriteMovies: data.FavouriteMovies
-                    }
+                    },
+                    favouriteMovies: data.FavouriteMovies
                 });
             })
             .catch(error => console.log(error + ` error fetching user`));
@@ -122,7 +122,8 @@ class MainView extends React.Component {
     updateProfile = updatedUser => {
         this.setState({
             onEdit: false,
-            user: updatedUser
+            user: updatedUser,
+            favouriteMovies: updatedUser.FavouriteMovies
         });
         let accessID = localStorage.getItem('userID');
         let accessToken = localStorage.getItem('token');
@@ -130,8 +131,40 @@ class MainView extends React.Component {
         this.getUser(accessID, accessToken);
     }
 
+    handleAddFavourite = (user, movieID) => {
+        const accessToken = localStorage.getItem('token');
+
+        axios({
+            method: 'post',
+            url: `https://mymusicalflix.herokuapp.com/users/${user.id}/movies/${movieID}`,
+            headers: { Authorization: `Bearer ${accessToken}` },
+            data: { FavouriteMovies: movieID }
+        })
+            .then(response => {
+                this.updateProfile(response.data);
+                console.log(`successfully added to favourites`);
+            })
+            .catch(error => error + ` error removing from favourites`);
+    }
+
+    handleDeleteFavourite = (user, movieID) => {
+        const accessToken = localStorage.getItem('token');
+
+        axios({
+            method: 'put',
+            url: `https://mymusicalflix.herokuapp.com/users/${user.id}/movies/${movieID}`,
+            headers: { Authorization: `Bearer ${accessToken}` },
+            data: { FavouriteMovies: movieID }
+        })
+            .then(response => {
+                this.updateProfile(response.data);
+                console.log(`successfully removed from favourites`);
+            })
+            .catch(error => error + ` error removing from favourites`);
+    }
+
     render() {
-        const { movies, user, onEdit } = this.state;
+        const { movies, user, favouriteMovies, onEdit } = this.state;
         if (!movies) return <div className="main-view" />;
 
         return (
@@ -184,10 +217,15 @@ class MainView extends React.Component {
 
                         <Route exact path='/movies/:movieId' render={({ match }) =>
                             <Col md={9}>
-                                <MovieView movie={movies.find(m =>
-                                    m._id === match.params.movieId)}
+                                <MovieView
+                                    movie={movies.find(m =>
+                                        m._id === match.params.movieId)}
                                     user={user}
-                                    updateProfile={updatedUser => this.updateProfile(updatedUser)} />
+                                    favouriteMovies={favouriteMovies}
+                                    updateProfile={updatedUser => this.updateProfile(updatedUser)}
+                                    handleAddFavourite={(user, movieID) => this.handleAddFavourite(user, movieID)}
+                                    handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
+                                />
                             </Col>
                         } />
 
@@ -222,13 +260,18 @@ class MainView extends React.Component {
                                 return <ProfileView
                                     user={user}
                                     movies={movies}
+                                    favouriteMovies={favouriteMovies}
                                     setEditOn={this.setEditOn}
                                     onLoggedOut={this.onLoggedOut} />
                             } else {
                                 return <ProfileEdit
                                     user={user}
+                                    movies={movies}
+                                    favouriteMovies={favouriteMovies}
                                     setEditOff={this.setEditOff}
-                                    updateProfile={updatedUser => this.updateProfile(updatedUser)} />
+                                    updateProfile={updatedUser => this.updateProfile(updatedUser)}
+                                    handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
+                                />
                             }
                         }} />
 
@@ -236,6 +279,8 @@ class MainView extends React.Component {
                             if (!onEdit) {
                                 return <ProfileView
                                     user={user}
+                                    movies={movies}
+                                    favouriteMovies={favouriteMovies}
                                     setEditOn={this.setEditOn}
                                     onLoggedOut={this.onLoggedOut} />
                             } else {

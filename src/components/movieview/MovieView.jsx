@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -11,31 +10,14 @@ import Button from 'react-bootstrap/Button';
 import './MovieView.scss';
 
 const MovieView = props => {
-    const { movie, user } = props;
-    const [favourites, setFavourites] = useState([]);
+    const { movie, user, favouriteMovies } = props;
+    const [favourites, setFavourites] = useState(favouriteMovies);
     if (!movie) return null;
 
     // convert ISO format date to display full year only
     const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
     const directors = movie.Directors;
     const actors = movie.Actors;
-
-    const handleAddFavourite = () => {
-        const accessToken = localStorage.getItem('token');
-
-        axios({
-            method: 'post',
-            url: `https://mymusicalflix.herokuapp.com/users/${user.id}/movies/${movie._id}`,
-            headers: { Authorization: `Bearer ${accessToken}` },
-            data: { FavouriteMovies: movie._id }
-        })
-            .then(response => {
-                setFavourites([response.data]);
-                console.log(`${movie.Title} successfully added to favourites`);
-            })
-            .then(() => props.updateProfile(user))
-            .catch(error => error + ` error adding ${movie.Title} to favourites`);
-    };
 
     return (
         <Container className="movie-view" fluid>
@@ -81,15 +63,28 @@ const MovieView = props => {
             </Row>
 
             <Row className="float-right">
-                <Button
-                    className="add-movie-btn"
-                    variant="primary"
-                    onClick={() => {
-                        handleAddFavourite();
-                    }}
-                >
-                    Add to favourites
+                {!favourites.includes(movie._id)
+                    ? <Button
+                        className="favourite-movie-btn"
+                        variant="primary"
+                        onClick={() => {
+                            props.handleAddFavourite(user, movie._id);
+                            // setFavourites(user.favouriteMovies);
+                        }}
+                    >
+                        Add to favourites
                 </Button>
+                    : <Button
+                        className="favourite-movie-btn"
+                        variant="primary"
+                        onClick={() => {
+                            props.handleDeleteFavourite(user, movie._id);
+                            // setFavourites(user.favouriteMovies);
+                        }}
+                    >
+                        Remove from favourites
+                </Button>
+                }
 
                 <Link to={'/'}>
                     <Button className="back-btn" variant="primary">Back</Button>

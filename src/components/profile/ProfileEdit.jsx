@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -7,9 +7,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { Card } from 'react-bootstrap';
 
 const ProfileEdit = props => {
     const [user, setUser] = useState(props.user);
+    const [favouriteMovies, setFavouriteMovies] = useState(props.favouriteMovies);
+    const movies = props.movies;
 
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -36,11 +39,16 @@ const ProfileEdit = props => {
                 setUser({
                     username: data.Username,
                     email: data.Email,
-                    dateOfBirth: data.DateOfBirth.slice(0, 10)
+                    dateOfBirth: data.DateOfBirth.slice(0, 10),
+                    favouriteMovies: data.FavouriteMovies
                 });
             })
             .catch(error => console.log(error + ` error updating user ${user.username}`));
     };
+
+    const favouriteMovieData = movies.filter(m =>
+        favouriteMovies.find(f =>
+            f === m._id));
 
     return (
         <Container>
@@ -115,8 +123,34 @@ const ProfileEdit = props => {
                     </Form>
                 </Col>
             </Row>
+
+            <Row>
+                {favouriteMovies.length === 0
+                    ? <h5>You have no favourite movies</h5>
+                    : favouriteMovieData.map(m => {
+                        return (
+                            <Col md={3}>
+                                <Card>
+                                    <Card.Img variant="top" src={m.ImagePath} />
+                                    <Card.Body>
+                                        <Card.Title>{m.Title}</Card.Title>
+                                        <Card.Subtitle>{new Date(m.ReleaseYear).getFullYear()}</Card.Subtitle>
+                                        <Button
+                                            className="favourite-movie-btn float-right"
+                                            variant="primary"
+                                            onClick={() => props.handleDeleteFavourite(user, m._id)}
+                                        >
+                                            Remove
+                                    </Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        );
+                    })
+                }
+            </Row>
         </Container>
-    )
+    );
 };
 
 export default ProfileEdit;

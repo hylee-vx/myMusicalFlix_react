@@ -10,8 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 const ProfileView = props => {
-    const { user, movies } = props;
-    const favouriteMovies = props.user.favouriteMovies;
+    const { user, movies, favouriteMovies } = props;
+    // const favouriteMovies = props.user.favouriteMovies;
 
     // add warning before delete request fulfulled
     const handleDeleteUser = () => {
@@ -85,7 +85,10 @@ const ProfileView = props => {
                             <Button
                                 className="profile-button"
                                 variant="primary"
-                                onClick={() => handleDeleteUser()}
+                                onClick={() => {
+                                    handleDeleteUser();
+                                    props.onLoggedOut();
+                                }}
                             >
                                 Delete account
                             </Button>
