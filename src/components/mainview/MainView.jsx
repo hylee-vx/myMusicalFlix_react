@@ -140,6 +140,9 @@ class MainView extends React.Component {
         })
             .then(response => {
                 this.updateProfile(response.data);
+                this.setState({
+                    favouriteMovies: response.data.FavouriteMovies
+                });
                 console.log(`successfully added to favourites`);
             })
             .catch(error => error + ` error removing from favourites`);
@@ -156,6 +159,9 @@ class MainView extends React.Component {
         })
             .then(response => {
                 this.updateProfile(response.data);
+                this.setState({
+                    favouriteMovies: response.data.FavouriteMovies
+                });
                 console.log(`successfully removed from favourites`);
             })
             .catch(error => error + ` error removing from favourites`);

@@ -69,7 +69,7 @@ const MovieView = props => {
                         variant="primary"
                         onClick={() => {
                             props.handleAddFavourite(user, movie._id);
-                            setFavourites(user.favouriteMovies);
+                            setFavourites(favouriteMovies);
                         }}
                     >
                         Add to favourites
@@ -79,7 +79,7 @@ const MovieView = props => {
                         variant="primary"
                         onClick={() => {
                             props.handleDeleteFavourite(user, movie._id);
-                            setFavourites(user.favouriteMovies);
+                            setFavourites(favouriteMovies);
                         }}
                     >
                         Remove from favourites
