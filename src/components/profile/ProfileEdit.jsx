@@ -31,7 +31,8 @@ const ProfileEdit = props => {
             data: {
                 Username: user.username,
                 Email: user.email,
-                DateOfBirth: user.dateOfBirth
+                DateOfBirth: user.dateOfBirth,
+                FavouriteMovies: user.favouriteMovies
             }
         })
             .then(response => {

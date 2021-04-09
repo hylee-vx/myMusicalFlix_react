@@ -10,7 +10,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 const ProfileView = props => {
-    const { user, movies, favouriteMovies } = props;
+    const { user, movies, favouriteMovies = [] } = props;
+    if (!user) return null;
 
     // add warning before delete request fulfulled
     const handleDeleteUser = () => {

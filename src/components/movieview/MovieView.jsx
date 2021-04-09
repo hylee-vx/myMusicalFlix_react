@@ -11,7 +11,6 @@ import './MovieView.scss';
 
 const MovieView = props => {
     const { movie, user, favouriteMovies } = props;
-    const [favourites, setFavourites] = useState(favouriteMovies);
     if (!movie) return null;
 
     // convert ISO format date to display full year only
@@ -63,13 +62,12 @@ const MovieView = props => {
             </Row>
 
             <Row className="float-right">
-                {!favourites.includes(movie._id)
+                {!favouriteMovies.includes(movie._id)
                     ? <Button
                         className="favourite-movie-btn"
                         variant="primary"
                         onClick={() => {
                             props.handleAddFavourite(user, movie._id);
-                            setFavourites(favouriteMovies);
                         }}
                     >
                         Add to favourites
@@ -79,7 +77,6 @@ const MovieView = props => {
                         variant="primary"
                         onClick={() => {
                             props.handleDeleteFavourite(user, movie._id);
-                            setFavourites(favouriteMovies);
                         }}
                     >
                         Remove from favourites

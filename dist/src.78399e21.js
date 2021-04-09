@@ -37902,28 +37902,10 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 var MovieView = function MovieView(props) {
   var movie = props.movie,
       user = props.user,
       favouriteMovies = props.favouriteMovies;
-
-  var _useState = (0, _react.useState)(favouriteMovies),
-      _useState2 = _slicedToArray(_useState, 2),
-      favourites = _useState2[0],
-      setFavourites = _useState2[1];
-
   if (!movie) return null; // convert ISO format date to display full year only
 
   var movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
@@ -37985,19 +37967,17 @@ var MovieView = function MovieView(props) {
     variant: "link"
   }, movie.Genre.Name))))), _react.default.createElement(_Row.default, {
     className: "float-right"
-  }, !favourites.includes(movie._id) ? _react.default.createElement(_Button.default, {
+  }, !favouriteMovies.includes(movie._id) ? _react.default.createElement(_Button.default, {
     className: "favourite-movie-btn",
     variant: "primary",
     onClick: function onClick() {
       props.handleAddFavourite(user, movie._id);
-      setFavourites(user.favouriteMovies);
     }
   }, "Add to favourites") : _react.default.createElement(_Button.default, {
     className: "favourite-movie-btn",
     variant: "primary",
     onClick: function onClick() {
       props.handleDeleteFavourite(user, movie._id);
-      setFavourites(user.favouriteMovies);
     }
   }, "Remove from favourites"), _react.default.createElement(_reactRouterDom.Link, {
     to: '/'
@@ -38170,7 +38150,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProfileView = function ProfileView(props) {
   var user = props.user,
       movies = props.movies,
-      favouriteMovies = props.favouriteMovies; // add warning before delete request fulfulled
+      _props$favouriteMovie = props.favouriteMovies,
+      favouriteMovies = _props$favouriteMovie === void 0 ? [] : _props$favouriteMovie;
+  if (!user) return null; // add warning before delete request fulfulled
 
   var handleDeleteUser = function handleDeleteUser() {
     var accessToken = localStorage.getItem('token');
@@ -51820,7 +51802,8 @@ var ProfileEdit = function ProfileEdit(props) {
       data: {
         Username: user.username,
         Email: user.email,
-        DateOfBirth: user.dateOfBirth
+        DateOfBirth: user.dateOfBirth,
+        FavouriteMovies: user.favouriteMovies
       }
     }).then(function (response) {
       var data = response.data;
@@ -52163,6 +52146,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).then(function (response) {
         _this.updateProfile(response.data);
 
+        _this.setState({
+          favouriteMovies: response.data.FavouriteMovies
+        });
+
         console.log("successfully added to favourites");
       }).catch(function (error) {
         return error + " error removing from favourites";
@@ -52180,6 +52167,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function (response) {
         _this.updateProfile(response.data);
+
+        _this.setState({
+          favouriteMovies: response.data.FavouriteMovies
+        });
 
         console.log("successfully removed from favourites");
       }).catch(function (error) {
@@ -52219,7 +52210,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           movies: [],
           user: null,
           favouriteMovies: []
-        });
+        }); // return <Redirect to="/" />; how do I add Redirect/Link to this function?
       }
     }
   }, {
@@ -52260,7 +52251,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        console.log('getUser called again');
         var data = response.data;
 
         _this3.setState({
@@ -52268,7 +52258,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             id: data._id,
             username: data.Username,
             email: data.Email,
-            dateOfBirth: data.DateOfBirth.slice(0, 10),
+            dateOfBirth: data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
             favouriteMovies: data.FavouriteMovies
           },
           favouriteMovies: data.FavouriteMovies
@@ -52301,13 +52291,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_Button.default, {
         className: "link-to-profile",
         variant: "link"
-      }, user.username)), _react.default.createElement(_Button.default, {
+      }, user.username)), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
         className: "sign-out-button",
         variant: "outline-primary",
         onClick: function onClick() {
           return _this4.onLoggedOut();
         }
-      }, "Sign Out")) : null, _react.default.createElement(_Row.default, {
+      }, "Sign Out"))) : null, _react.default.createElement(_Row.default, {
         className: "main-view justify-content-md-center"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -52569,7 +52561,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60593" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -59,6 +59,7 @@ class MainView extends React.Component {
                 user: null,
                 favouriteMovies: []
             });
+            // return <Redirect to="/" />; how do I add Redirect/Link to this function?
         }
     }
 
@@ -89,14 +90,14 @@ class MainView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
-                console.log('getUser called again');
                 const data = response.data;
                 this.setState({
                     user: {
                         id: data._id,
                         username: data.Username,
                         email: data.Email,
-                        dateOfBirth: data.DateOfBirth.slice(0, 10),
+                        dateOfBirth:
+                            data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
                         favouriteMovies: data.FavouriteMovies
                     },
                     favouriteMovies: data.FavouriteMovies
@@ -185,13 +186,15 @@ class MainView extends React.Component {
                                     {user.username}
                                 </Button>
                             </Link>
-                            <Button
-                                className="sign-out-button"
-                                variant="outline-primary"
-                                onClick={() => this.onLoggedOut()}
-                            >
-                                Sign Out
-                        </Button>
+                            <Link to={"/"}>
+                                <Button
+                                    className="sign-out-button"
+                                    variant="outline-primary"
+                                    onClick={() => this.onLoggedOut()}
+                                >
+                                    Sign Out
+                                </Button>
+                            </Link>
                         </Navbar>
                         : null}
 
