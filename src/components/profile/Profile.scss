@@ -1,0 +1,73 @@
+:root {
+    --primary-color: #3e6391;
+    --secondary-color: #d29342;
+    --background-color: whitesmoke;
+    --primary-text-color: #0a3758;
+    --secondary-text-color: #008080;
+    --hover: #b84b35;
+    --active: #701300;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.profile-heading {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.profile-navbar {
+    margin-bottom: 1.5rem;
+}
+
+.profile-form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+}
+
+.profile-form-value {
+    margin-bottom: 0.9rem;
+}
+
+.subheading {
+    text-align: center;
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.favourites-body {
+    padding-bottom: 0;
+}
+
+.title {
+    height: 2.5rem;
+    color: var(--primary-text-color);
+    margin-bottom: 1.25rem;
+}
+
+.release-year {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--primary-text-color);
+}
+
+.card-footer {
+    background-color: #fff;
+}
+
+.favourites-button, .profile-button {
+    background-color: var(--secondary-color);
+    border: none;
+}
+
+.profile-button {
+    margin: 1rem auto;
+}
+
+.account-setting {
+    padding: 0.9rem;
+    margin: 2rem 0.5rem;
+}

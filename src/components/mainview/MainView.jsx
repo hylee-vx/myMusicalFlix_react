@@ -12,6 +12,7 @@ import ActorView from '../actorview/ActorView';
 import ProfileView from '../profile/ProfileView';
 import ProfileEdit from '../profile/ProfileEdit';
 import PasswordEdit from '../profile/PasswordEdit';
+import ProfileDelete from '../profile/ProfileDelete';
 
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -282,12 +283,13 @@ class MainView extends React.Component {
                                     movies={movies}
                                     favouriteMovies={favouriteMovies}
                                     setEditOn={this.setEditOn}
-                                    onLoggedOut={this.onLoggedOut} />
+                                    setEditOff={this.setEditOff} />
                             } else {
                                 return <ProfileEdit
                                     user={user}
                                     movies={movies}
                                     favouriteMovies={favouriteMovies}
+                                    setEditOn={this.setEditOff}
                                     setEditOff={this.setEditOff}
                                     updateProfile={updatedUser => this.updateProfile(updatedUser)}
                                     handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
@@ -295,10 +297,13 @@ class MainView extends React.Component {
                             }
                         }} />
 
-                        <Route exact path="/users/:ID/password" render={() => {
-                            if (onEdit) return <PasswordEdit user={user} setEditOff={this.setEditOff} />
-                            return <Redirect to="/users/:ID" />
-                        }} />
+                        <Route exact path="/users/:ID/password" render={() =>
+                            <PasswordEdit user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} />
+                        } />
+
+                        <Route exact path="/users/:ID/delete" render={() =>
+                            <ProfileDelete user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} />
+                        } />
                     </Row >
                 </Container>
             </Router>
