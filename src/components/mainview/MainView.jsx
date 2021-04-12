@@ -16,6 +16,7 @@ import PasswordEdit from '../profile/PasswordEdit';
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -82,6 +83,14 @@ class MainView extends React.Component {
                     movies: response.data
                 });
             })
+            // .then(() => {
+            //     // try to sort movies by alphabetical order
+            //     movies.sort((a, b) => {
+            //         if (a.Title < b.Title) return -1;
+            //         if (a.Title > b.Title) return 1;
+            //         return 0;
+            //     })
+            // })
             .catch(error => console.log(error + ` error fetching movie list`));
     }
 
@@ -176,25 +185,38 @@ class MainView extends React.Component {
             <Router>
                 <Container fluid>
                     {user
-                        ? <Navbar>
+                        ? <Navbar collapseOnSelect expand="sm" className="navbar">
                             <Navbar.Brand as={Link} to="/">myMusicalFlix</Navbar.Brand>
-                            <Link to={`/users/${user.id}`}>
-                                <Button
-                                    className="link-to-profile"
-                                    variant="link"
-                                >
-                                    {user.username}
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                            <Navbar.Collapse id="responsive-navbar-nav">
+                                <Nav className="nav justify-content-end">
+                                    <Link to={"/"}>
+                                        <Button
+                                            className="home-link"
+                                            variant="link"
+                                        >
+                                            Home
                                 </Button>
-                            </Link>
-                            <Link to={"/"}>
-                                <Button
-                                    className="sign-out-button"
-                                    variant="outline-primary"
-                                    onClick={() => this.onLoggedOut()}
-                                >
-                                    Sign Out
+                                    </Link>
+                                    <Link to={`/users/${user.id}`}>
+                                        <Button
+                                            className="profile-link"
+                                            variant="link"
+                                        >
+                                            {user.username}
+                                        </Button>
+                                    </Link>
+                                    <Link to={"/"}>
+                                        <Button
+                                            className="sign-out-link"
+                                            variant="link"
+                                            onClick={() => this.onLoggedOut()}
+                                        >
+                                            Sign Out
                                 </Button>
-                            </Link>
+                                    </Link>
+                                </Nav>
+                            </Navbar.Collapse>
                         </Navbar>
                         : null}
 
@@ -202,7 +224,7 @@ class MainView extends React.Component {
                         <Route exact path='/' render={() => {
                             if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
                             return movies.map(m =>
-                                <Col md={3} key={m._id}>
+                                <Col sm={6} md={3} key={m._id}>
                                     <MovieCard movie={m} />
                                 </Col>
                             )
@@ -214,7 +236,7 @@ class MainView extends React.Component {
                         }} />
 
                         <Route exact path='/movies/:movieId' render={({ match }) =>
-                            <Col md={9}>
+                            <Col sm={12} md={9}>
                                 <MovieView
                                     movie={movies.find(m =>
                                         m._id === match.params.movieId)}
@@ -228,14 +250,14 @@ class MainView extends React.Component {
                         } />
 
                         <Route exact path='/genres/:name' render={({ match }) =>
-                            <Col md={9}>
+                            <Col lg={9}>
                                 <GenreView genre={movies.find(m =>
                                     m.Genre.Name === match.params.name).Genre} />
                             </Col>
                         } />
 
                         <Route exact path="/directors/:name" render={({ match }) =>
-                            <Col md={9}>
+                            <Col lg={9}>
                                 <DirectorView director={movies.reduce((director, movie) => !director
                                     ? movie.Directors.find(d =>
                                         d.Name === match.params.name)
@@ -244,7 +266,7 @@ class MainView extends React.Component {
                         } />
 
                         <Route exact path="/actors/:name" render={({ match }) =>
-                            <Col md={9}>
+                            <Col lg={9}>
                                 <ActorView actor={movies.reduce((actor, movie) =>
                                     !actor
                                         ? movie.Actors.find(a =>

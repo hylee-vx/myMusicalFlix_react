@@ -16,6 +16,29 @@ body {
     margin: 2rem;
 }
 
+.navbar {
+    border-bottom: 2px solid var(--primary-text-color);
+    margin-bottom: 1.2rem;
+}
+
+.navbar-light .navbar-brand {
+    font-size: 1.5rem;
+    color: var(--primary-text-color);
+}
+
+
+.btn-link {
+    color: var(--secondary-text-color);
+}
+
+.btn-link:hover, .btn-link:focus {
+    color: var(--hover);
+}
+
+.btn-link:active {
+    color: var(--active);
+}
+
 .col-sm-9 {
     padding: 0;
 }
@@ -25,11 +48,6 @@ body {
 }
 
 @media (max-width: 576px) {
-    body {
-        font-size: 14px;
-        margin: 2.5rem;
-    }
-
     h1 {
         font-size: 1.6rem;
     }

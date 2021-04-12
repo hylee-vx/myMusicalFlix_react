@@ -37902,6 +37902,8 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+// import CardGroup from 'react-bootstrap/CardGroup';
+// import Card from 'react-bootstrap/Card';
 var MovieView = function MovieView(props) {
   var movie = props.movie,
       user = props.user,
@@ -37912,69 +37914,79 @@ var MovieView = function MovieView(props) {
   var directors = movie.Directors;
   var actors = movie.Actors;
   return _react.default.createElement(_Container.default, {
-    className: "movie-view",
+    className: "movie-view border rounded",
     fluid: true
-  }, _react.default.createElement(_Row.default, {
+  }, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+    xs: 12,
     className: "movie-view-header"
-  }, _react.default.createElement("h3", {
-    className: "movie-title"
+  }, _react.default.createElement("h2", {
+    className: "movie-title d-block"
   }, movie.Title), _react.default.createElement("h3", {
-    className: "movie-release-year"
-  }, "(".concat(movieReleaseYear, ")"))), _react.default.createElement(_Row.default, {
+    className: "movie-release-year d-block"
+  }, "(".concat(movieReleaseYear, ")")))), _react.default.createElement(_Row.default, {
     className: "movie-view-content"
   }, _react.default.createElement(_Col.default, {
-    className: "movie-poster"
+    xs: 12,
+    sm: 6
   }, _react.default.createElement("img", {
-    src: movie.ImagePath
+    className: "movie-poster",
+    src: movie.ImagePath,
+    alt: ""
   })), _react.default.createElement(_Col.default, {
+    xs: 12,
+    sm: 6,
     className: "movie-details"
   }, _react.default.createElement("div", {
     className: "movie-description"
-  }, _react.default.createElement("span", {
+  }, _react.default.createElement("h5", {
     className: "label"
-  }, "Description: "), _react.default.createElement("span", {
+  }, "Description: "), _react.default.createElement("p", {
     className: "value"
   }, movie.Description)), _react.default.createElement("div", {
     className: "movie-directors"
-  }, _react.default.createElement("span", {
+  }, _react.default.createElement("h5", {
     className: "label"
-  }, "Directors: "), directors.map(function (d) {
+  }, "Directors:"), directors.map(function (d) {
     return _react.default.createElement(_reactRouterDom.Link, {
       to: "/directors/".concat(d.Name)
     }, _react.default.createElement(_Button.default, {
-      className: "value",
+      className: "value d-block",
       variant: "link"
     }, d.Name));
   })), _react.default.createElement("div", {
     className: "movie-actors"
-  }, _react.default.createElement("span", {
+  }, _react.default.createElement("h5", {
     className: "label"
-  }, "Actors: "), actors.map(function (a) {
+  }, "Actors"), actors.map(function (a) {
     return _react.default.createElement(_reactRouterDom.Link, {
       to: "/actors/".concat(a.Name)
     }, _react.default.createElement(_Button.default, {
-      className: "value",
+      className: "value d-block",
       variant: "link"
     }, a.Name));
   })), _react.default.createElement("div", {
     className: "movie-genre"
-  }, _react.default.createElement("span", {
+  }, _react.default.createElement("h5", {
     className: "label"
   }, "Genre: "), _react.default.createElement(_reactRouterDom.Link, {
     to: "/genres/".concat(movie.Genre.Name)
   }, _react.default.createElement(_Button.default, {
-    className: "value",
+    className: "value genre-name",
     variant: "link"
   }, movie.Genre.Name))))), _react.default.createElement(_Row.default, {
     className: "float-right"
+  }, _react.default.createElement(_Col.default, {
+    className: "buttons"
   }, !favouriteMovies.includes(movie._id) ? _react.default.createElement(_Button.default, {
-    className: "favourite-movie-btn",
+    block: true,
+    className: "favourite-movie-button d-block",
     variant: "primary",
     onClick: function onClick() {
       props.handleAddFavourite(user, movie._id);
     }
   }, "Add to favourites") : _react.default.createElement(_Button.default, {
-    className: "favourite-movie-btn",
+    block: true,
+    className: "favourite-movie-button d-block",
     variant: "primary",
     onClick: function onClick() {
       props.handleDeleteFavourite(user, movie._id);
@@ -37982,9 +37994,10 @@ var MovieView = function MovieView(props) {
   }, "Remove from favourites"), _react.default.createElement(_reactRouterDom.Link, {
     to: '/'
   }, _react.default.createElement(_Button.default, {
-    className: "back-btn",
+    block: true,
+    className: "back-button d-block",
     variant: "primary"
-  }, "Back"))));
+  }, "Back")))));
 };
 
 MovieView.propTypes = {
@@ -52059,6 +52072,8 @@ var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
 var _Navbar = _interopRequireDefault(require("react-bootstrap/Navbar"));
 
+var _Nav = _interopRequireDefault(require("react-bootstrap/Nav"));
+
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
@@ -52237,7 +52252,15 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         _this2.setState({
           movies: response.data
         });
-      }).catch(function (error) {
+      }) // .then(() => {
+      //     // try to sort movies by alphabetical order
+      //     movies.sort((a, b) => {
+      //         if (a.Title < b.Title) return -1;
+      //         if (a.Title > b.Title) return 1;
+      //         return 0;
+      //     })
+      // })
+      .catch(function (error) {
         return console.log(error + " error fetching movie list");
       });
     }
@@ -52283,23 +52306,38 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Container.default, {
         fluid: true
-      }, user ? _react.default.createElement(_Navbar.default, null, _react.default.createElement(_Navbar.default.Brand, {
+      }, user ? _react.default.createElement(_Navbar.default, {
+        collapseOnSelect: true,
+        expand: "sm",
+        className: "navbar"
+      }, _react.default.createElement(_Navbar.default.Brand, {
         as: _reactRouterDom.Link,
         to: "/"
-      }, "myMusicalFlix"), _react.default.createElement(_reactRouterDom.Link, {
+      }, "myMusicalFlix"), _react.default.createElement(_Navbar.default.Toggle, {
+        "aria-controls": "responsive-navbar-nav"
+      }), _react.default.createElement(_Navbar.default.Collapse, {
+        id: "responsive-navbar-nav"
+      }, _react.default.createElement(_Nav.default, {
+        className: "nav justify-content-end"
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, _react.default.createElement(_Button.default, {
+        className: "home-link",
+        variant: "link"
+      }, "Home")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/users/".concat(user.id)
       }, _react.default.createElement(_Button.default, {
-        className: "link-to-profile",
+        className: "profile-link",
         variant: "link"
       }, user.username)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
-        className: "sign-out-button",
-        variant: "outline-primary",
+        className: "sign-out-link",
+        variant: "link",
         onClick: function onClick() {
           return _this4.onLoggedOut();
         }
-      }, "Sign Out"))) : null, _react.default.createElement(_Row.default, {
+      }, "Sign Out"))))) : null, _react.default.createElement(_Row.default, {
         className: "main-view justify-content-md-center"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -52312,6 +52350,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           });
           return movies.map(function (m) {
             return _react.default.createElement(_Col.default, {
+              sm: 6,
               md: 3,
               key: m._id
             }, _react.default.createElement(_MovieCard.default, {
@@ -52338,6 +52377,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render(_ref) {
           var match = _ref.match;
           return _react.default.createElement(_Col.default, {
+            sm: 12,
             md: 9
           }, _react.default.createElement(_MovieView.default, {
             movie: movies.find(function (m) {
@@ -52362,7 +52402,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render(_ref2) {
           var match = _ref2.match;
           return _react.default.createElement(_Col.default, {
-            md: 9
+            lg: 9
           }, _react.default.createElement(_GenreView.default, {
             genre: movies.find(function (m) {
               return m.Genre.Name === match.params.name;
@@ -52375,7 +52415,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render(_ref3) {
           var match = _ref3.match;
           return _react.default.createElement(_Col.default, {
-            md: 9
+            lg: 9
           }, _react.default.createElement(_DirectorView.default, {
             director: movies.reduce(function (director, movie) {
               return !director ? movie.Directors.find(function (d) {
@@ -52390,7 +52430,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render(_ref4) {
           var match = _ref4.match;
           return _react.default.createElement(_Col.default, {
-            md: 9
+            lg: 9
           }, _react.default.createElement(_ActorView.default, {
             actor: movies.reduce(function (actor, movie) {
               return !actor ? movie.Actors.find(function (a) {
@@ -52465,7 +52505,7 @@ MainView.propTypes = {
 };
 var _default = MainView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../login/Login":"components/login/Login.jsx","../registration/Registration":"components/registration/Registration.jsx","../moviecard/MovieCard":"components/moviecard/MovieCard.jsx","../movieview/MovieView":"components/movieview/MovieView.jsx","../genreview/GenreView":"components/genreview/GenreView.jsx","../directorview/DirectorView":"components/directorview/DirectorView.jsx","../actorview/ActorView":"components/actorview/ActorView.jsx","../profile/ProfileView":"components/profile/ProfileView.jsx","../profile/ProfileEdit":"components/profile/ProfileEdit.jsx","../profile/PasswordEdit":"components/profile/PasswordEdit.jsx","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","./MainView.scss":"components/mainview/MainView.scss"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../login/Login":"components/login/Login.jsx","../registration/Registration":"components/registration/Registration.jsx","../moviecard/MovieCard":"components/moviecard/MovieCard.jsx","../movieview/MovieView":"components/movieview/MovieView.jsx","../genreview/GenreView":"components/genreview/GenreView.jsx","../directorview/DirectorView":"components/directorview/DirectorView.jsx","../actorview/ActorView":"components/actorview/ActorView.jsx","../profile/ProfileView":"components/profile/ProfileView.jsx","../profile/ProfileEdit":"components/profile/ProfileEdit.jsx","../profile/PasswordEdit":"components/profile/PasswordEdit.jsx","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","./MainView.scss":"components/mainview/MainView.scss"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -52561,7 +52601,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60593" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54738" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
