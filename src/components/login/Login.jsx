@@ -76,8 +76,6 @@ const Login = props => {
 
 // triggers warning at initial render: no user details, toggle function not called
 Login.propTypes = {
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
     onLoggedIn: PropTypes.func.isRequired
 };
 

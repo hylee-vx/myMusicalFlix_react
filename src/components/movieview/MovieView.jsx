@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
-// import CardGroup from 'react-bootstrap/CardGroup';
-// import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -74,7 +72,7 @@ const MovieView = props => {
                     {!favouriteMovies.includes(movie._id)
                         ? <Button
                             block
-                            className="favourite-movie-button d-block"
+                            className="favourite-movie-button add-movie d-block"
                             variant="primary"
                             onClick={() => {
                                 props.handleAddFavourite(user, movie._id);
@@ -84,7 +82,7 @@ const MovieView = props => {
                         </Button>
                         : <Button
                             block
-                            className="favourite-movie-button d-block"
+                            className="favourite-movie-button remove-movie d-block"
                             variant="primary"
                             onClick={() => {
                                 props.handleDeleteFavourite(user, movie._id);
@@ -118,7 +116,17 @@ MovieView.propTypes = {
             Name: PropTypes.string
         })),
         ImagePath: PropTypes.string.isRequired
-    }).isRequired
+    }).isRequired,
+    user: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        Username: PropTypes.string.isRequired,
+        Email: PropTypes.string.isRequired,
+        FavouriteMovies: PropTypes.array.isRequired
+    }).isRequired,
+    favouriteMovies: PropTypes.array.isRequired,
+    updateProfile: PropTypes.func.isRequired,
+    handleAddFavourite: PropTypes.func.isRequired,
+    handleDeleteFavourite: PropTypes.func.isRequired
 };
 
 export default MovieView;

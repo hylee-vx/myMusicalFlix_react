@@ -58,3 +58,12 @@ body {
 .more-details-btn:active {
     background-color: var(--active);
 }
+
+@media (max-width: 576px) {
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 2.5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}

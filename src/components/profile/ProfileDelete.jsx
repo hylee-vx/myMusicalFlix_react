@@ -22,6 +22,8 @@ const ProfileDelete = props => {
     const handleShow = () => setShow(true);
 
     const handleDeleteUser = () => {
+        handleClose();
+
         let accessToken = localStorage.getItem('token');
         axios({
             method: 'delete',
@@ -47,45 +49,23 @@ const ProfileDelete = props => {
                 <Col sm={{ span: 10, offset: 1 }}>
                     <Nav fill variant="tabs">
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`}>
-                                <Button
-                                    className="profile-tab active"
-                                    variant="link"
-                                    onClick={() => props.setEditOff()}
-                                >
-                                    View
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} onClick={() => props.setEditOff()}>
+                                View
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                    onClick={() => props.setEditOn()}
-                                >
-                                    Edit
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} onClick={() => props.setEditOn()}>
+                                Edit
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/password`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Password
-                                    </Button>
+                                Password
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/delete`} className="active">
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Account
-                                    </Button>
+                                Account
                             </NavLink>
                         </Nav.Item>
                     </Nav>
@@ -93,46 +73,37 @@ const ProfileDelete = props => {
             </Row>
 
             <Row>
-                <Col sm={{ span: 8, offset: 2 }}>
-                    <h3 className="subheading">Manage Your Account</h3>
-
-                    <div className="account-setting border rounded">
-                        <h5>Delete account</h5>
-                        <p>
-                            Delete your account and all your account data.
+                <Col sm={{ span: 8, offset: 2 }} className="account-setting">
+                    <h5 className="profile-form-label">Delete account</h5>
+                    <p>
+                        Delete your account and all your account data.
                     </p>
-                        <Button className="profile-button" variant="primary" onClick={handleShow}>
-                            Delete account
+                    <Button className="profile-button" variant="primary" onClick={handleShow}>
+                        Delete account
                     </Button>
-                    </div>
 
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Permanently delete account</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>We are very sad to see you go but we hope myMusicalFlix brought you some joy.
-                            <br />
-                            <br />
-                            Some parting words, courtesy of Fiddler On The Roof:
-                            <br />
-                            <br />
-                            Be happy! Be healthy! Long life!
-                            <br />
-                            And if our good fortune never comes,
-                            <br />
-                            Here's to whatever comes.
-                            <br />
-                            Drink l'chaim, to life!
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                            <Button variant="primary" onClick={handleDeleteUser}>Confirm</Button>
+                            <Link to={"/"}>
+                                <Button
+                                    variant="primary"
+                                    className="modal-button"
+                                    onClick={handleDeleteUser}
+                                >
+                                    Confirm
+                                </Button>
+                            </Link>
                         </Modal.Footer>
                     </Modal>
                 </Col>
             </Row>
         </Container>
-
     );
 };
 

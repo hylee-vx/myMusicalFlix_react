@@ -103,10 +103,6 @@ const Registration = props => {
 
 // triggers warning at initial render: no user details
 Registration.propTypes = {
-    username: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    dateOfBirth: PropTypes.string.isRequired,
     onRegistration: PropTypes.func.isRequired,
 };
 

@@ -17,9 +17,11 @@ const PasswordEdit = props => {
     if (!user) return null;
 
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleInputChange = event => {
         setPassword(event.target.value);
+        setConfirmPassword(event.target.value);
     };
 
     const handleUpdatePassword = () => {
@@ -38,10 +40,10 @@ const PasswordEdit = props => {
     };
 
     return (
-        <Container>
-            <Row className="profile-heading">
-                <Col sm={{ span: 8, offset: 2 }}>
-                    <h1 className="profile-heading">Change Password</h1>
+        <Container className="profile">
+            <Row>
+                <Col sm={{ span: 6, offset: 3 }}>
+                    <h1 className="profile-heading">Password</h1>
                 </Col>
             </Row>
 
@@ -49,45 +51,23 @@ const PasswordEdit = props => {
                 <Col sm={{ span: 10, offset: 1 }}>
                     <Nav fill variant="tabs">
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`}>
-                                <Button
-                                    className="profile-tab active"
-                                    variant="link"
-                                    onClick={() => props.setEditOff()}
-                                >
-                                    View
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} onClick={() => props.setEditOff()}>
+                                View
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                    onClick={() => props.setEditOn()}
-                                >
-                                    Edit
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} onClick={() => props.setEditOn()}>
+                                Edit
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/password`} className="active">
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Password
-                                    </Button>
+                                Password
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/delete`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Account
-                                    </Button>
+                                Account
                             </NavLink>
                         </Nav.Item>
                     </Nav>
@@ -106,6 +86,9 @@ const PasswordEdit = props => {
                                 value={password}
                                 onChange={handleInputChange}
                             />
+                            <Form.Text className="text-muted">
+                                Password must have at least 8 characters
+                            </Form.Text>
                         </Form.Group>
 
                         <Button
@@ -122,7 +105,6 @@ const PasswordEdit = props => {
             </Row>
         </Container>
     );
-
 };
 
 export default PasswordEdit;

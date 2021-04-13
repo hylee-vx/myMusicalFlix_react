@@ -37441,8 +37441,6 @@ var Login = function Login(props) {
 
 
 Login.propTypes = {
-  username: _propTypes.default.string.isRequired,
-  password: _propTypes.default.string.isRequired,
   onLoggedIn: _propTypes.default.func.isRequired
 };
 var _default = Login;
@@ -37614,10 +37612,6 @@ var Registration = function Registration(props) {
 
 
 Registration.propTypes = {
-  username: _propTypes.default.string.isRequired,
-  email: _propTypes.default.string.isRequired,
-  password: _propTypes.default.string.isRequired,
-  dateOfBirth: _propTypes.default.string.isRequired,
   onRegistration: _propTypes.default.func.isRequired
 };
 var _default = Registration;
@@ -37902,8 +37896,6 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// import CardGroup from 'react-bootstrap/CardGroup';
-// import Card from 'react-bootstrap/Card';
 var MovieView = function MovieView(props) {
   var movie = props.movie,
       user = props.user,
@@ -37979,14 +37971,14 @@ var MovieView = function MovieView(props) {
     className: "buttons"
   }, !favouriteMovies.includes(movie._id) ? _react.default.createElement(_Button.default, {
     block: true,
-    className: "favourite-movie-button d-block",
+    className: "favourite-movie-button add-movie d-block",
     variant: "primary",
     onClick: function onClick() {
       props.handleAddFavourite(user, movie._id);
     }
   }, "Add to favourites") : _react.default.createElement(_Button.default, {
     block: true,
-    className: "favourite-movie-button d-block",
+    className: "favourite-movie-button remove-movie d-block",
     variant: "primary",
     onClick: function onClick() {
       props.handleDeleteFavourite(user, movie._id);
@@ -38015,11 +38007,26 @@ MovieView.propTypes = {
       Name: _propTypes.default.string
     })),
     ImagePath: _propTypes.default.string.isRequired
-  }).isRequired
+  }).isRequired,
+  user: _propTypes.default.shape({
+    _id: _propTypes.default.string.isRequired,
+    Username: _propTypes.default.string.isRequired,
+    Email: _propTypes.default.string.isRequired,
+    FavouriteMovies: _propTypes.default.array.isRequired
+  }).isRequired,
+  favouriteMovies: _propTypes.default.array.isRequired,
+  updateProfile: _propTypes.default.func.isRequired,
+  handleAddFavourite: _propTypes.default.func.isRequired,
+  handleDeleteFavourite: _propTypes.default.func.isRequired
 };
 var _default = MovieView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./MovieView.scss":"components/movieview/MovieView.scss"}],"components/genreview/GenreView.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./MovieView.scss":"components/movieview/MovieView.scss"}],"components/genreview/GenreView.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genreview/GenreView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38034,25 +38041,33 @@ var _reactRouterDom = require("react-router-dom");
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+require("./GenreView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GenreView = function GenreView(props) {
   var genre = props.genre;
-  return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+  return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, _react.default.createElement("h2", {
     className: "genre-name"
-  }, genre.Name), _react.default.createElement(_Card.default.Text, {
-    className: "genre-description"
-  }, genre.Description), _react.default.createElement(_reactRouterDom.Link, {
-    to: '/'
+  }, genre.Name)), _react.default.createElement(_Card.default.Text, null, _react.default.createElement("p", {
+    className: "value"
+  }, genre.Description)), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
   }, _react.default.createElement(_Button.default, {
-    className: "back-btn"
+    className: "back-button float-right",
+    variant: "primary"
   }, "Back to movies"))));
 };
 
 var _default = GenreView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/directorview/DirectorView.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./GenreView.scss":"components/genreview/GenreView.scss"}],"components/directorview/DirectorView.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/directorview/DirectorView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38067,6 +38082,8 @@ var _reactRouterDom = require("react-router-dom");
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
+require("./DirectorView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38077,22 +38094,28 @@ var DirectorView = function DirectorView(props) {
   return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
     variant: "top",
     src: director.ImagePath
-  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, _react.default.createElement("h2", {
     className: "director-name"
-  }, director.Name), _react.default.createElement(_Card.default.Subtitle, {
+  }, director.Name)), _react.default.createElement(_Card.default.Subtitle, null, _react.default.createElement("h5", {
     className: "director-birth-death"
-  }, "".concat(directorBirthYear, " - \n                    ").concat(directorDeathYear ? directorDeathYear : '')), _react.default.createElement(_Card.default.Text, {
-    className: "director-bio"
+  }, "".concat(directorBirthYear, " - \n                    ").concat(directorDeathYear ? directorDeathYear : ''))), _react.default.createElement(_Card.default.Text, {
+    className: "value"
   }, director.Bio), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, _react.default.createElement(_Button.default, {
-    className: "back-btn"
+    className: "back-button float-right",
+    variant: "primary"
   }, "Back to movies"))));
 };
 
 var _default = DirectorView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/actorview/ActorView.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./DirectorView.scss":"components/directorview/DirectorView.scss"}],"components/actorview/ActorView.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/actorview/ActorView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38108,6 +38131,8 @@ var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+require("./ActorView.scss");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ActorView = function ActorView(props) {
@@ -38117,22 +38142,23 @@ var ActorView = function ActorView(props) {
   return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
     variant: "top",
     src: actor.ImagePath
-  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, _react.default.createElement("h2", {
     className: "actor-name"
-  }, actor.Name), _react.default.createElement(_Card.default.Subtitle, {
+  }, actor.Name)), _react.default.createElement(_Card.default.Subtitle, null, _react.default.createElement("h5", {
     className: "actor-birth-death"
-  }, "".concat(actorBirthYear, " - \n                    ").concat(actorDeathYear ? actorDeathYear : '')), _react.default.createElement(_Card.default.Text, {
-    className: "actor-bio"
+  }, "".concat(actorBirthYear, " - \n                    ").concat(actorDeathYear ? actorDeathYear : ''))), _react.default.createElement(_Card.default.Text, {
+    className: "value"
   }, actor.Bio), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, _react.default.createElement(_Button.default, {
-    className: "back-btn"
+    className: "back-button float-right",
+    variant: "primary"
   }, "Back to movies"))));
 };
 
 var _default = ActorView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./ActorView.scss":"components/actorview/ActorView.scss"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -39332,8 +39358,6 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _axios = _interopRequireDefault(require("axios"));
-
 var _reactRouterDom = require("react-router-dom");
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
@@ -39389,40 +39413,30 @@ var ProfileView = function ProfileView(props) {
   }, _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id),
-    className: "active"
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab active",
-    variant: "link",
+    className: "active",
     onClick: function onClick() {
       return props.setEditOff();
     }
-  }, "View"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "View")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
-    to: "/users/".concat(user.id)
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link",
+    to: "/users/".concat(user.id),
     onClick: function onClick() {
       return props.setEditOn();
     }
-  }, "Edit"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Edit")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/password")
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Password"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Password")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/delete")
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Account")))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+  }, "Account"))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     sm: {
       span: 8,
       offset: 2
     }
-  }, _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
+  }, _react.default.createElement(_Form.default, {
+    className: "profile-form"
+  }, _react.default.createElement(_Form.default.Group, {
     controlId: "formUsername"
   }, _react.default.createElement(_Form.default.Label, {
     className: "profile-form-label"
@@ -39461,7 +39475,14 @@ var ProfileView = function ProfileView(props) {
     }
   }, _react.default.createElement("h3", {
     className: "subheading"
-  }, "Favourite Movies"))), _react.default.createElement(_Row.default, null, favouriteMovies.length === 0 ? _react.default.createElement("h5", null, "You have no favourite movies") : favouriteMovieData.map(function (m) {
+  }, "Favourite Movies"))), _react.default.createElement(_Row.default, null, favouriteMovies.length === 0 ? _react.default.createElement(_Col.default, {
+    sm: {
+      span: 8,
+      offset: 2
+    }
+  }, _react.default.createElement("p", {
+    className: "no-favourites-text"
+  }, "You have no favourite movies")) : favouriteMovieData.map(function (m) {
     return _react.default.createElement(_Col.default, {
       sm: 6,
       md: 4,
@@ -39479,7 +39500,7 @@ var ProfileView = function ProfileView(props) {
 
 var _default = ProfileView;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/NavLink":"../node_modules/react-bootstrap/esm/NavLink.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","./Profile.scss":"components/profile/Profile.scss"}],"../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Nav":"../node_modules/react-bootstrap/esm/Nav.js","react-bootstrap/NavLink":"../node_modules/react-bootstrap/esm/NavLink.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","./Profile.scss":"components/profile/Profile.scss"}],"../node_modules/react-bootstrap/esm/AccordionContext.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51828,12 +51849,11 @@ var ProfileEdit = function ProfileEdit(props) {
       user = _useState2[0],
       setUser = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(props.favouriteMovies),
-      _useState4 = _slicedToArray(_useState3, 2),
-      favouriteMovies = _useState4[0],
-      setFavouriteMovies = _useState4[1];
+  if (!user) return null; // const [favouriteMovies, setFavouriteMovies] = useState(props.favouriteMovies);
 
-  var movies = props.movies;
+  var movies = props.movies,
+      _props$favouriteMovie = props.favouriteMovies,
+      favouriteMovies = _props$favouriteMovie === void 0 ? [] : _props$favouriteMovie;
 
   var handleInputChange = function handleInputChange(event) {
     var _event$target = event.target,
@@ -51896,36 +51916,24 @@ var ProfileEdit = function ProfileEdit(props) {
     variant: "tabs"
   }, _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
-    to: "/users/".concat(user.id)
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab active",
-    variant: "link",
+    to: "/users/".concat(user.id),
     onClick: function onClick() {
       return props.setEditOff();
     }
-  }, "View"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "View")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id),
-    className: "active"
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link",
+    className: "active",
     onClick: function onClick() {
       return props.setEditOn();
     }
-  }, "Edit"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Edit")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/password")
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Password"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Password")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/delete")
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Account")))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+  }, "Account"))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     sm: {
       span: 8,
       offset: 2
@@ -51971,7 +51979,14 @@ var ProfileEdit = function ProfileEdit(props) {
     }
   }, _react.default.createElement("h3", {
     className: "subheading"
-  }, "Favourite Movies"))), _react.default.createElement(_Row.default, null, favouriteMovies.length === 0 ? _react.default.createElement("h5", null, "You have no favourite movies") : favouriteMovieData.map(function (m) {
+  }, "Favourite Movies"))), _react.default.createElement(_Row.default, null, favouriteMovies.length === 0 ? _react.default.createElement(_Col.default, {
+    sm: {
+      span: 8,
+      offset: 2
+    }
+  }, _react.default.createElement("p", {
+    className: "no-favourites-text"
+  }, "You have no favourite movies")) : favouriteMovieData.map(function (m) {
     return _react.default.createElement(_Col.default, {
       sm: 6,
       md: 4,
@@ -51982,9 +51997,9 @@ var ProfileEdit = function ProfileEdit(props) {
     }), _react.default.createElement(_reactBootstrap.Card.Body, {
       className: "favourites-body"
     }, _react.default.createElement(_reactBootstrap.Card.Title, {
-      className: "title"
+      className: "favourites-title"
     }, m.Title), _react.default.createElement(_reactBootstrap.Card.Subtitle, {
-      className: "release-year"
+      className: "favourites-release-year"
     }, new Date(m.ReleaseYear).getFullYear())), _react.default.createElement(_reactBootstrap.Card.Footer, {
       className: "border-top-0"
     }, _react.default.createElement(_Button.default, {
@@ -51998,7 +52013,6 @@ var ProfileEdit = function ProfileEdit(props) {
   })), _react.default.createElement(_Row.default, {
     className: "justify-content-center"
   }, _react.default.createElement(_Button.default, {
-    block: true,
     className: "profile-button",
     variant: "primary",
     onClick: function onClick() {
@@ -52067,8 +52081,14 @@ var PasswordEdit = function PasswordEdit(props) {
       password = _useState2[0],
       setPassword = _useState2[1];
 
+  var _useState3 = (0, _react.useState)(''),
+      _useState4 = _slicedToArray(_useState3, 2),
+      confirmPassword = _useState4[0],
+      setConfirmPassword = _useState4[1];
+
   var handleInputChange = function handleInputChange(event) {
     setPassword(event.target.value);
+    setConfirmPassword(event.target.value);
   };
 
   var handleUpdatePassword = function handleUpdatePassword() {
@@ -52089,16 +52109,16 @@ var PasswordEdit = function PasswordEdit(props) {
     });
   };
 
-  return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, {
-    className: "profile-heading"
-  }, _react.default.createElement(_Col.default, {
+  return _react.default.createElement(_Container.default, {
+    className: "profile"
+  }, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     sm: {
-      span: 8,
-      offset: 2
+      span: 6,
+      offset: 3
     }
   }, _react.default.createElement("h1", {
     className: "profile-heading"
-  }, "Change Password"))), _react.default.createElement(_Row.default, {
+  }, "Password"))), _react.default.createElement(_Row.default, {
     className: "profile-navbar"
   }, _react.default.createElement(_Col.default, {
     sm: {
@@ -52110,36 +52130,24 @@ var PasswordEdit = function PasswordEdit(props) {
     variant: "tabs"
   }, _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
-    to: "/users/".concat(user.id)
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab active",
-    variant: "link",
+    to: "/users/".concat(user.id),
     onClick: function onClick() {
       return props.setEditOff();
     }
-  }, "View"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "View")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
-    to: "/users/".concat(user.id)
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link",
+    to: "/users/".concat(user.id),
     onClick: function onClick() {
       return props.setEditOn();
     }
-  }, "Edit"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Edit")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/password"),
     className: "active"
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Password"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Password")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/delete")
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Account")))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+  }, "Account"))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     sm: {
       span: 8,
       offset: 2
@@ -52156,7 +52164,9 @@ var PasswordEdit = function PasswordEdit(props) {
     name: "password",
     value: password,
     onChange: handleInputChange
-  })), _react.default.createElement(_Button.default, {
+  }), _react.default.createElement(_Form.default.Text, {
+    className: "text-muted"
+  }, "Password must have at least 8 characters")), _react.default.createElement(_Button.default, {
     className: "profile-button",
     variant: "primary",
     onClick: function onClick() {
@@ -52233,6 +52243,7 @@ var ProfileDelete = function ProfileDelete(props) {
   };
 
   var handleDeleteUser = function handleDeleteUser() {
+    handleClose();
     var accessToken = localStorage.getItem('token');
     (0, _axios.default)({
       method: 'delete',
@@ -52269,60 +52280,50 @@ var ProfileDelete = function ProfileDelete(props) {
     variant: "tabs"
   }, _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
-    to: "/users/".concat(user.id)
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab active",
-    variant: "link",
+    to: "/users/".concat(user.id),
     onClick: function onClick() {
       return props.setEditOff();
     }
-  }, "View"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "View")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
-    to: "/users/".concat(user.id)
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link",
+    to: "/users/".concat(user.id),
     onClick: function onClick() {
       return props.setEditOn();
     }
-  }, "Edit"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Edit")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/password")
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Password"))), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
+  }, "Password")), _react.default.createElement(_Nav.default.Item, null, _react.default.createElement(_NavLink.default, {
     as: _reactRouterDom.Link,
     to: "/users/".concat(user.id, "/delete"),
     className: "active"
-  }, _react.default.createElement(_Button.default, {
-    className: "profile-tab",
-    variant: "link"
-  }, "Account")))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
+  }, "Account"))))), _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     sm: {
       span: 8,
       offset: 2
-    }
-  }, _react.default.createElement("h3", {
-    className: "subheading"
-  }, "Manage Your Account"), _react.default.createElement("div", {
-    className: "account-setting border rounded"
-  }, _react.default.createElement("h5", null, "Delete account"), _react.default.createElement("p", null, "Delete your account and all your account data."), _react.default.createElement(_Button.default, {
+    },
+    className: "account-setting"
+  }, _react.default.createElement("h5", {
+    className: "profile-form-label"
+  }, "Delete account"), _react.default.createElement("p", null, "Delete your account and all your account data."), _react.default.createElement(_Button.default, {
     className: "profile-button",
     variant: "primary",
     onClick: handleShow
-  }, "Delete account")), _react.default.createElement(_Modal.default, {
+  }, "Delete account"), _react.default.createElement(_Modal.default, {
     show: show,
     onHide: handleClose
   }, _react.default.createElement(_Modal.default.Header, {
     closeButton: true
-  }, _react.default.createElement(_Modal.default.Title, null, "Permanently delete account")), _react.default.createElement(_Modal.default.Body, null, "We are very sad to see you go but we hope myMusicalFlix brought you some joy.", _react.default.createElement("br", null), _react.default.createElement("br", null), "Some parting words, courtesy of Fiddler On The Roof:", _react.default.createElement("br", null), _react.default.createElement("br", null), "Be happy! Be healthy! Long life!", _react.default.createElement("br", null), "And if our good fortune never comes,", _react.default.createElement("br", null), "Here's to whatever comes.", _react.default.createElement("br", null), "Drink l'chaim, to life!"), _react.default.createElement(_Modal.default.Footer, null, _react.default.createElement(_Button.default, {
+  }, _react.default.createElement(_Modal.default.Title, null, "Permanently delete account")), _react.default.createElement(_Modal.default.Body, null, "We are very sad to see you go but we hope myMusicalFlix brought you some joy."), _react.default.createElement(_Modal.default.Footer, null, _react.default.createElement(_Button.default, {
     variant: "secondary",
     onClick: handleClose
-  }, "Cancel"), _react.default.createElement(_Button.default, {
+  }, "Cancel"), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
+  }, _react.default.createElement(_Button.default, {
     variant: "primary",
+    className: "modal-button",
     onClick: handleDeleteUser
-  }, "Confirm"))))));
+  }, "Confirm")))))));
 };
 
 var _default = ProfileDelete;
@@ -52440,7 +52441,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     }, _this.updateProfile = function (updatedUser) {
       _this.setState({
-        onEdit: false,
         user: updatedUser,
         favouriteMovies: updatedUser.FavouriteMovies
       });
@@ -52614,7 +52614,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "navbar"
       }, _react.default.createElement(_Navbar.default.Brand, {
         as: _reactRouterDom.Link,
-        to: "/"
+        to: "/",
+        onClick: function onClick() {
+          return _this4.setEditOff();
+        }
       }, "myMusicalFlix"), _react.default.createElement(_Navbar.default.Toggle, {
         "aria-controls": "responsive-navbar-nav"
       }), _react.default.createElement(_Navbar.default.Collapse, {
@@ -52625,13 +52628,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         className: "home-link",
-        variant: "link"
+        variant: "link",
+        onClick: function onClick() {
+          return _this4.setEditOff();
+        }
       }, "Home")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/users/".concat(user.id)
       }, _react.default.createElement(_Button.default, {
         className: "profile-link",
         variant: "link"
-      }, user.username)), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Profile")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, {
         className: "sign-out-link",
@@ -52654,6 +52660,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             return _react.default.createElement(_Col.default, {
               sm: 6,
               md: 3,
+              xl: 2,
               key: m._id
             }, _react.default.createElement(_MovieCard.default, {
               movie: m
@@ -52786,7 +52793,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           return _react.default.createElement(_ProfileDelete.default, {
             user: user,
             setEditOn: _this4.setEditOn,
-            setEditOff: _this4.setEditOff
+            setEditOff: _this4.setEditOff,
+            onLoggedOut: _this4.onLoggedOut
           });
         }
       }))));
@@ -52810,9 +52818,11 @@ MainView.propTypes = {
     ImagePath: _propTypes.default.string.isRequired,
     Featured: _propTypes.default.bool
   }).isRequired,
-  user: _propTypes.default.string,
-  account: _propTypes.default.bool,
-  onLoggedIn: _propTypes.default.func.isRequired
+  user: _propTypes.default.shape({
+    _id: _propTypes.default.string.isRequired,
+    Username: _propTypes.default.string.isRequired,
+    Email: _propTypes.default.string.isRequired
+  }).isRequired
 };
 var _default = MainView;
 exports.default = _default;
@@ -52912,7 +52922,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57205" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63284" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

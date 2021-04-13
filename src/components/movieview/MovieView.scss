@@ -32,6 +32,10 @@ img {
     margin-bottom: 0.2rem;
 }
 
+.label:first-child {
+    margin-top: 0;
+}
+
 .value {
     padding: 0;
 }
@@ -46,21 +50,36 @@ img {
 
 .favourite-movie-button, .back-button {
     font-size: 1rem;
-    background-color: var(--secondary-color);
     border: none;
     padding: 0.5rem 0.5rem;
     margin-top: 0.8rem;
 }
 
+.back-button {
+    background-color: var(--secondary-color);
+}
+
+.add-movie {
+    background-color: var(--secondary-color);
+}
+
+.remove-movie {
+    background-color: var(--hover);
+}
 .favourite-movie-button {
     margin-top: 1.5rem;
 }
 
-.favourite-movie-button:hover, .favourite-movie-button:focus, .back-button:hover, .back-button:focus {
+.add-movie:hover, .add-movie:focus, .back-button:hover, .back-button:focus {
     cursor: pointer;
     background-color: var(--hover);
 }
 
 .favourite-movie-button:active, .back-button:active {
     background-color: var(--active);
+}
+
+.remove-movie:hover, .remove-movie:focus {
+    cursor: pointer;
+    background-color: var(--secondary-color);
 }

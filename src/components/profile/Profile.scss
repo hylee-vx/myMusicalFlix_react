@@ -22,6 +22,10 @@
     margin-bottom: 1.5rem;
 }
 
+.nav-link {
+    color: var(--secondary-text-color);
+}
+
 .profile-form-label {
     font-size: 1.1rem;
     font-weight: 600;
@@ -38,17 +42,21 @@
     margin-bottom: 1rem;
 }
 
+.no-favourites-text {
+    text-align: center;
+}
+
 .favourites-body {
     padding-bottom: 0;
 }
 
-.title {
+.favourites-title {
     height: 2.5rem;
     color: var(--primary-text-color);
     margin-bottom: 1.25rem;
 }
 
-.release-year {
+.favourites-release-year {
     font-size: 1rem;
     font-style: italic;
     color: var(--primary-text-color);
@@ -59,15 +67,29 @@
 }
 
 .favourites-button, .profile-button {
-    background-color: var(--secondary-color);
     border: none;
 }
 
-.profile-button {
-    margin: 1rem auto;
+.favourites-button {
+    background-color: var(--hover);
 }
 
-.account-setting {
-    padding: 0.9rem;
-    margin: 2rem 0.5rem;
+.favourites-button:hover, .favourites-button:focus {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+.profile-button {
+    background-color: var(--secondary-color);
+    margin-top: 2rem;
+}
+
+.modal-button {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.modal-button:hover, .modal-button:focus{
+    cursor: pointer;
+    background-color: var(--hover);   
 }

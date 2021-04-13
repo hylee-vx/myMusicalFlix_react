@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
@@ -33,45 +32,23 @@ const ProfileView = props => {
                 <Col sm={{ span: 10, offset: 1 }}>
                     <Nav fill variant="tabs">
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`} className="active">
-                                <Button
-                                    className="profile-tab active"
-                                    variant="link"
-                                    onClick={() => props.setEditOff()}
-                                >
-                                    View
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} className="active" onClick={() => props.setEditOff()}>
+                                View
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                    onClick={() => props.setEditOn()}
-                                >
-                                    Edit
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} onClick={() => props.setEditOn()}>
+                                Edit
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/password`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Password
-                                    </Button>
+                                Password
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/delete`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Account
-                                    </Button>
+                                Account
                             </NavLink>
                         </Nav.Item>
                     </Nav>
@@ -80,7 +57,7 @@ const ProfileView = props => {
 
             <Row>
                 <Col sm={{ span: 8, offset: 2 }}>
-                    <Form>
+                    <Form className="profile-form">
                         <Form.Group controlId="formUsername">
                             <Form.Label className="profile-form-label">Username:</Form.Label>
                             <Form.Control
@@ -124,7 +101,9 @@ const ProfileView = props => {
             </Row>
             <Row>
                 {favouriteMovies.length === 0
-                    ? <h5>You have no favourite movies</h5>
+                    ? <Col sm={{ span: 8, offset: 2 }}>
+                        <p className="no-favourites-text">You have no favourite movies</p>
+                    </Col>
                     : favouriteMovieData.map(m => {
                         return (
                             <Col sm={6} md={4} lg={3}>

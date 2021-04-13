@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
+import './ActorView.scss';
+
 const ActorView = props => {
     const { actor } = props;
 
@@ -14,14 +16,18 @@ const ActorView = props => {
         <Card>
             <Card.Img variant="top" src={actor.ImagePath} />
             <Card.Body>
-                <Card.Title className="actor-name">{actor.Name}</Card.Title>
-                <Card.Subtitle className="actor-birth-death">
-                    {`${actorBirthYear} - 
+                <Card.Title>
+                    <h2 className="actor-name">{actor.Name}</h2>
+                </Card.Title>
+                <Card.Subtitle>
+                    <h5 className="actor-birth-death">
+                        {`${actorBirthYear} - 
                     ${(actorDeathYear ? actorDeathYear : '')}`}
+                    </h5>
                 </Card.Subtitle>
-                <Card.Text className="actor-bio">{actor.Bio}</Card.Text>
-                <Link to={`/`}>
-                    <Button className="back-btn">Back to movies</Button>
+                <Card.Text className="value">{actor.Bio}</Card.Text>
+                <Link to={"/"}>
+                    <Button className="back-button float-right" variant="primary">Back to movies</Button>
                 </Link>
             </Card.Body>
         </Card>

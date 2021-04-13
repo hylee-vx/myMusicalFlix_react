@@ -130,7 +130,6 @@ class MainView extends React.Component {
 
     updateProfile = updatedUser => {
         this.setState({
-            onEdit: false,
             user: updatedUser,
             favouriteMovies: updatedUser.FavouriteMovies
         });
@@ -187,7 +186,7 @@ class MainView extends React.Component {
                 <Container fluid>
                     {user
                         ? <Navbar collapseOnSelect expand="sm" className="navbar">
-                            <Navbar.Brand as={Link} to="/">myMusicalFlix</Navbar.Brand>
+                            <Navbar.Brand as={Link} to="/" onClick={() => this.setEditOff()}>myMusicalFlix</Navbar.Brand>
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav className="nav justify-content-end">
@@ -195,16 +194,17 @@ class MainView extends React.Component {
                                         <Button
                                             className="home-link"
                                             variant="link"
+                                            onClick={() => this.setEditOff()}
                                         >
                                             Home
-                                </Button>
+                                        </Button>
                                     </Link>
                                     <Link to={`/users/${user.id}`}>
                                         <Button
                                             className="profile-link"
                                             variant="link"
                                         >
-                                            {user.username}
+                                            Profile
                                         </Button>
                                     </Link>
                                     <Link to={"/"}>
@@ -214,7 +214,7 @@ class MainView extends React.Component {
                                             onClick={() => this.onLoggedOut()}
                                         >
                                             Sign Out
-                                </Button>
+                                        </Button>
                                     </Link>
                                 </Nav>
                             </Navbar.Collapse>
@@ -225,7 +225,7 @@ class MainView extends React.Component {
                         <Route exact path='/' render={() => {
                             if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
                             return movies.map(m =>
-                                <Col sm={6} md={3} key={m._id}>
+                                <Col sm={6} md={3} xl={2} key={m._id}>
                                     <MovieCard movie={m} />
                                 </Col>
                             )
@@ -302,7 +302,7 @@ class MainView extends React.Component {
                         } />
 
                         <Route exact path="/users/:ID/delete" render={() =>
-                            <ProfileDelete user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} />
+                            <ProfileDelete user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} onLoggedOut={this.onLoggedOut} />
                         } />
                     </Row >
                 </Container>
@@ -325,9 +325,11 @@ MainView.propTypes = {
         ImagePath: PropTypes.string.isRequired,
         Featured: PropTypes.bool,
     }).isRequired,
-    user: PropTypes.string,
-    account: PropTypes.bool,
-    onLoggedIn: PropTypes.func.isRequired
+    user: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        Username: PropTypes.string.isRequired,
+        Email: PropTypes.string.isRequired
+    }).isRequired
 };
 
 export default MainView;

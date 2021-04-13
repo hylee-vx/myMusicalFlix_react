@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
+import './DirectorView.scss';
+
 const DirectorView = props => {
     const { director } = props;
 
@@ -14,14 +16,18 @@ const DirectorView = props => {
         <Card>
             <Card.Img variant="top" src={director.ImagePath} />
             <Card.Body>
-                <Card.Title className="director-name">{director.Name}</Card.Title>
-                <Card.Subtitle className="director-birth-death">
-                    {`${directorBirthYear} - 
+                <Card.Title>
+                    <h2 className="director-name">{director.Name}</h2>
+                </Card.Title>
+                <Card.Subtitle>
+                    <h5 className="director-birth-death">
+                        {`${directorBirthYear} - 
                     ${(directorDeathYear ? directorDeathYear : '')}`}
+                    </h5>
                 </Card.Subtitle>
-                <Card.Text className="director-bio">{director.Bio}</Card.Text>
-                <Link to={`/`}>
-                    <Button className="back-btn">Back to movies</Button>
+                <Card.Text className="value">{director.Bio}</Card.Text>
+                <Link to={"/"}>
+                    <Button className="back-button float-right" variant="primary">Back to movies</Button>
                 </Link>
             </Card.Body>
         </Card>

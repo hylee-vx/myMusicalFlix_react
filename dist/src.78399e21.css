@@ -175,6 +175,15 @@ body {
 .more-details-btn:active {
   background-color: var(--active);
 }
+
+@media (max-width: 576px) {
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2.5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
 :root {
   --primary-color: #3e6391;
   --secondary-color: #d29342;
@@ -209,6 +218,10 @@ img {
   margin-bottom: 0.2rem;
 }
 
+.label:first-child {
+  margin-top: 0;
+}
+
 .value {
   padding: 0;
 }
@@ -223,22 +236,146 @@ img {
 
 .favourite-movie-button, .back-button {
   font-size: 1rem;
-  background-color: var(--secondary-color);
   border: none;
   padding: 0.5rem 0.5rem;
   margin-top: 0.8rem;
+}
+
+.back-button {
+  background-color: var(--secondary-color);
+}
+
+.add-movie {
+  background-color: var(--secondary-color);
+}
+
+.remove-movie {
+  background-color: var(--hover);
 }
 
 .favourite-movie-button {
   margin-top: 1.5rem;
 }
 
-.favourite-movie-button:hover, .favourite-movie-button:focus, .back-button:hover, .back-button:focus {
+.add-movie:hover, .add-movie:focus, .back-button:hover, .back-button:focus {
   cursor: pointer;
   background-color: var(--hover);
 }
 
 .favourite-movie-button:active, .back-button:active {
+  background-color: var(--active);
+}
+
+.remove-movie:hover, .remove-movie:focus {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+.value {
+  padding: 0;
+}
+
+.back-button {
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-button:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+img {
+  width: 100%;
+}
+
+.director-birth-death {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.value {
+  padding: 0;
+}
+
+.back-button {
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-button:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+img {
+  width: 100%;
+}
+
+.actor-birth-death {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.value {
+  padding: 0;
+}
+
+.back-button {
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-button:active {
   background-color: var(--active);
 }
 :root {
@@ -265,6 +402,10 @@ img {
   margin-bottom: 1.5rem;
 }
 
+.nav-link {
+  color: var(--secondary-text-color);
+}
+
 .profile-form-label {
   font-size: 1.1rem;
   font-weight: 600;
@@ -281,17 +422,21 @@ img {
   margin-bottom: 1rem;
 }
 
+.no-favourites-text {
+  text-align: center;
+}
+
 .favourites-body {
   padding-bottom: 0;
 }
 
-.title {
+.favourites-title {
   height: 2.5rem;
   color: var(--primary-text-color);
   margin-bottom: 1.25rem;
 }
 
-.release-year {
+.favourites-release-year {
   font-size: 1rem;
   font-style: italic;
   color: var(--primary-text-color);
@@ -302,17 +447,31 @@ img {
 }
 
 .favourites-button, .profile-button {
-  background-color: var(--secondary-color);
   border: none;
 }
 
-.profile-button {
-  margin: 1rem auto;
+.favourites-button {
+  background-color: var(--hover);
 }
 
-.account-setting {
-  padding: 0.9rem;
-  margin: 2rem 0.5rem;
+.favourites-button:hover, .favourites-button:focus {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
+
+.profile-button {
+  background-color: var(--secondary-color);
+  margin-top: 2rem;
+}
+
+.modal-button {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.modal-button:hover, .modal-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
 }
 :root {
   --primary-color: #3e6391;
@@ -363,8 +522,16 @@ body {
 }
 
 @media (max-width: 576px) {
+  body {
+    margin: 0.7rem;
+  }
+
   h1 {
     font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
   }
 
   h3 {
@@ -372,9 +539,18 @@ body {
     font-size: 1.3rem;
   }
 
+  h5 {
+    font-size: 1.1rem;
+  }
+
   .navbar {
     font-weight: 500;
     padding-left: 0;
+  }
+
+  .navbar-light .navbar-brand {
+    font-size: 1.2rem;
+    color: var(--primary-text-color);
   }
 
   .login-reg-heading {
@@ -386,9 +562,13 @@ body {
     margin-bottom: 0.6rem;
   }
 
-  label {
-    font-size: 1rem;
+  .label {
+    font-size: 1.1rem;
     margin-bottom: 0.3rem;
+  }
+
+  .value {
+    font-size: 0.9rem;
   }
 
   .login-reg-button {
@@ -401,12 +581,16 @@ body {
     padding: 0.9rem;
   }
 
+  .card-title {
+    margin-bottom: 0;
+  }
+
   .card-subtitle {
     line-height: 0.8rem;
   }
 
   .description {
-    height: 2.5rem;
+    height: 3rem;
   }
 
   .line-clamp {

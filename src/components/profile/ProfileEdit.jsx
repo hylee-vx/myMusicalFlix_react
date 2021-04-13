@@ -15,8 +15,9 @@ import './Profile.scss';
 
 const ProfileEdit = props => {
     const [user, setUser] = useState(props.user);
-    const [favouriteMovies, setFavouriteMovies] = useState(props.favouriteMovies);
-    const movies = props.movies;
+    if (!user) return null;
+    // const [favouriteMovies, setFavouriteMovies] = useState(props.favouriteMovies);
+    const { movies, favouriteMovies = [] } = props;
 
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -67,45 +68,23 @@ const ProfileEdit = props => {
                 <Col sm={{ span: 10, offset: 1 }}>
                     <Nav fill variant="tabs">
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`}>
-                                <Button
-                                    className="profile-tab active"
-                                    variant="link"
-                                    onClick={() => props.setEditOff()}
-                                >
-                                    View
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} onClick={() => props.setEditOff()}>
+                                View
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink as={Link} to={`/users/${user.id}`} className="active">
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                    onClick={() => props.setEditOn()}
-                                >
-                                    Edit
-                                    </Button>
+                            <NavLink as={Link} to={`/users/${user.id}`} className="active" onClick={() => props.setEditOn()}>
+                                Edit
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/password`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Password
-                                    </Button>
+                                Password
                             </NavLink>
                         </Nav.Item>
                         <Nav.Item>
                             <NavLink as={Link} to={`/users/${user.id}/delete`}>
-                                <Button
-                                    className="profile-tab"
-                                    variant="link"
-                                >
-                                    Account
-                                    </Button>
+                                Account
                             </NavLink>
                         </Nav.Item>
                     </Nav>
@@ -158,15 +137,17 @@ const ProfileEdit = props => {
             </Row>
             <Row>
                 {favouriteMovies.length === 0
-                    ? <h5>You have no favourite movies</h5>
+                    ? <Col sm={{ span: 8, offset: 2 }}>
+                        <p className="no-favourites-text">You have no favourite movies</p>
+                    </Col>
                     : favouriteMovieData.map(m => {
                         return (
                             <Col sm={6} md={4} lg={3}>
                                 <Card>
                                     <Card.Img variant="top" src={m.ImagePath} />
                                     <Card.Body className="favourites-body">
-                                        <Card.Title className="title">{m.Title}</Card.Title>
-                                        <Card.Subtitle className="release-year">{new Date(m.ReleaseYear).getFullYear()}</Card.Subtitle>
+                                        <Card.Title className="favourites-title">{m.Title}</Card.Title>
+                                        <Card.Subtitle className="favourites-release-year">{new Date(m.ReleaseYear).getFullYear()}</Card.Subtitle>
                                     </Card.Body>
                                     <Card.Footer className="border-top-0">
                                         <Button
@@ -187,7 +168,6 @@ const ProfileEdit = props => {
 
             <Row className="justify-content-center">
                 <Button
-                    block
                     className="profile-button"
                     variant="primary"
                     onClick={() => {
