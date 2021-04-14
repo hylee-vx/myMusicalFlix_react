@@ -31027,7 +31027,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"./../utils":"../node_modules/axios/lib/utils.js","./../core/settle":"../node_modules/axios/lib/core/settle.js","./../helpers/cookies":"../node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"../node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"../node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../node_modules/axios/lib/core/createError.js"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"./../utils":"../node_modules/axios/lib/utils.js","./../core/settle":"../node_modules/axios/lib/core/settle.js","./../helpers/cookies":"../node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"../node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"../node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"../node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"../node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"../node_modules/axios/lib/core/createError.js"}],"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -31337,7 +31337,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/xhr":"../node_modules/axios/lib/adapters/xhr.js","./adapters/http":"../node_modules/axios/lib/adapters/xhr.js","process":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/axios/lib/core/dispatchRequest.js":[function(require,module,exports) {
+},{"./utils":"../node_modules/axios/lib/utils.js","./helpers/normalizeHeaderName":"../node_modules/axios/lib/helpers/normalizeHeaderName.js","./adapters/xhr":"../node_modules/axios/lib/adapters/xhr.js","./adapters/http":"../node_modules/axios/lib/adapters/xhr.js","process":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"../node_modules/axios/lib/core/dispatchRequest.js":[function(require,module,exports) {
 'use strict';
 
 var utils = require('./../utils');
@@ -37239,7 +37239,7 @@ Button.displayName = 'Button';
 Button.defaultProps = defaultProps;
 var _default = Button;
 exports.default = _default;
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./SafeAnchor":"../node_modules/react-bootstrap/esm/SafeAnchor.js"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","classnames":"../node_modules/classnames/index.js","react":"../node_modules/react/index.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./SafeAnchor":"../node_modules/react-bootstrap/esm/SafeAnchor.js"}],"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -37271,7 +37271,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -37306,12 +37306,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/login/Login.scss":[function(require,module,exports) {
+},{"./bundle-url":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"components/login/Login.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login/Login.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/login/Login.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37450,7 +37450,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration/Registration.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/registration/Registration.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37803,7 +37803,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/moviecard/MovieCard.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/moviecard/MovieCard.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37866,7 +37866,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movieview/MovieView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movieview/MovieView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37874,7 +37874,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -37892,10 +37892,6 @@ require("./MovieView.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 var MovieView = function MovieView(props) {
   var movie = props.movie,
       user = props.user,
@@ -37905,6 +37901,7 @@ var MovieView = function MovieView(props) {
   var movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
   var directors = movie.Directors;
   var actors = movie.Actors;
+  var history = (0, _reactRouterDom.useHistory)();
   return _react.default.createElement(_Container.default, {
     className: "movie-view border rounded",
     fluid: true
@@ -37988,7 +37985,10 @@ var MovieView = function MovieView(props) {
   }, _react.default.createElement(_Button.default, {
     block: true,
     className: "back-button d-block",
-    variant: "primary"
+    variant: "primary",
+    onClick: function onClick() {
+      return history.goBack();
+    }
   }, "Back")))));
 };
 
@@ -38026,7 +38026,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genreview/GenreView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/genreview/GenreView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38048,16 +38048,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var GenreView = function GenreView(props) {
   var genre = props.genre;
+  var history = (0, _reactRouterDom.useHistory)();
   return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, _react.default.createElement("h2", {
     className: "genre-name"
   }, genre.Name)), _react.default.createElement(_Card.default.Text, null, _react.default.createElement("p", {
     className: "value"
-  }, genre.Description)), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_Button.default, {
+  }, genre.Description)), _react.default.createElement(_Button.default, {
     className: "back-button float-right",
-    variant: "primary"
-  }, "Back to movies"))));
+    variant: "primary",
+    onClick: function onClick() {
+      return history.goBack();
+    }
+  }, "Back to movies")));
 };
 
 var _default = GenreView;
@@ -38067,7 +38069,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/directorview/DirectorView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/directorview/DirectorView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38091,6 +38093,7 @@ var DirectorView = function DirectorView(props) {
   var director = props.director;
   var directorBirthYear = new Date(director.BirthYear).getFullYear();
   var directorDeathYear = new Date(director.DeathYear).getFullYear();
+  var history = (0, _reactRouterDom.useHistory)();
   return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
     variant: "top",
     src: director.ImagePath
@@ -38100,12 +38103,13 @@ var DirectorView = function DirectorView(props) {
     className: "director-birth-death"
   }, "".concat(directorBirthYear, " - \n                    ").concat(directorDeathYear ? directorDeathYear : ''))), _react.default.createElement(_Card.default.Text, {
     className: "value"
-  }, director.Bio), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_Button.default, {
+  }, director.Bio), _react.default.createElement(_Button.default, {
     className: "back-button float-right",
-    variant: "primary"
-  }, "Back to movies"))));
+    variant: "primary",
+    onClick: function onClick() {
+      return history.goBack();
+    }
+  }, "Back")));
 };
 
 var _default = DirectorView;
@@ -38115,7 +38119,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/actorview/ActorView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/actorview/ActorView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38139,6 +38143,7 @@ var ActorView = function ActorView(props) {
   var actor = props.actor;
   var actorBirthYear = new Date(actor.BirthYear).getFullYear();
   var actorDeathYear = new Date(actor.DeathYear).getFullYear();
+  var history = (0, _reactRouterDom.useHistory)();
   return _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Img, {
     variant: "top",
     src: actor.ImagePath
@@ -38148,12 +38153,13 @@ var ActorView = function ActorView(props) {
     className: "actor-birth-death"
   }, "".concat(actorBirthYear, " - \n                    ").concat(actorDeathYear ? actorDeathYear : ''))), _react.default.createElement(_Card.default.Text, {
     className: "value"
-  }, actor.Bio), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_Button.default, {
+  }, actor.Bio), _react.default.createElement(_Button.default, {
     className: "back-button float-right",
-    variant: "primary"
-  }, "Back to movies"))));
+    variant: "primary",
+    onClick: function onClick() {
+      return history.goBack();
+    }
+  }, "Back")));
 };
 
 var _default = ActorView;
@@ -39348,7 +39354,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile/ProfileView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/profile/ProfileView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52317,13 +52323,11 @@ var ProfileDelete = function ProfileDelete(props) {
   }, _react.default.createElement(_Modal.default.Title, null, "Permanently delete account")), _react.default.createElement(_Modal.default.Body, null, "We are very sad to see you go but we hope myMusicalFlix brought you some joy."), _react.default.createElement(_Modal.default.Footer, null, _react.default.createElement(_Button.default, {
     variant: "secondary",
     onClick: handleClose
-  }, "Cancel"), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_Button.default, {
+  }, "Cancel"), _react.default.createElement(_Button.default, {
     variant: "primary",
     className: "modal-button",
     onClick: handleDeleteUser
-  }, "Confirm")))))));
+  }, "Confirm"))))));
 };
 
 var _default = ProfileDelete;
@@ -52333,7 +52337,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/mainview/MainView.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/mainview/MainView.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52431,6 +52435,18 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       favouriteMovies: [],
       onEdit: false,
       hasAccount: false
+    }, _this.onLoggedOut = function () {
+      var accessToken = localStorage.getItem('token');
+
+      if (accessToken !== null) {
+        localStorage.clear();
+
+        _this.setState({
+          movies: [],
+          user: null,
+          favouriteMovies: []
+        });
+      }
     }, _this.setEditOn = function () {
       _this.setState({
         onEdit: true
@@ -52517,20 +52533,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.getUser(authData.user._id, authData.token);
     }
   }, {
-    key: "onLoggedOut",
-    value: function onLoggedOut() {
-      var accessToken = localStorage.getItem('token');
-
-      if (accessToken !== null) {
-        localStorage.clear();
-        this.setState({
-          movies: [],
-          user: null,
-          favouriteMovies: []
-        }); // return <Redirect to="/" />; how do I add Redirect/Link to this function?
-      }
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var accessToken = localStorage.getItem('token');
@@ -52551,18 +52553,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        _this2.setState({
-          movies: response.data
+        // sort movies by alphabetical order
+        var sortedMovies = response.data.sort(function (a, b) {
+          if (a.Title < b.Title) return -1;
+          if (a.Title > b.Title) return 1;
+          return 0;
         });
-      }) // .then(() => {
-      //     // try to sort movies by alphabetical order
-      //     movies.sort((a, b) => {
-      //         if (a.Title < b.Title) return -1;
-      //         if (a.Title > b.Title) return 1;
-      //         return 0;
-      //     })
-      // })
-      .catch(function (error) {
+
+        _this2.setState({
+          movies: sortedMovies
+        });
+      }).catch(function (error) {
         return console.log(error + " error fetching movie list");
       });
     }
@@ -52790,6 +52791,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/users/:ID/delete",
         render: function render() {
+          if (!user) return _react.default.createElement(_reactRouterDom.Redirect, {
+            to: "/"
+          });
           return _react.default.createElement(_ProfileDelete.default, {
             user: user,
             setEditOn: _this4.setEditOn,
@@ -52831,7 +52835,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -52894,7 +52898,7 @@ var MyMusicalFlix = /*#__PURE__*/function (_React$Component) {
 
 
 _reactDom.default.render(_react.default.createElement(MyMusicalFlix, null), document.getElementById('root'));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./components/mainview/MainView":"components/mainview/MainView.jsx","./index.scss":"index.scss"}],"../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","./components/mainview/MainView":"components/mainview/MainView.jsx","./index.scss":"index.scss"}],"../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -52922,7 +52926,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63284" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57828" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -53098,5 +53102,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+},{}]},{},["../../../../.nvm/versions/node/v14.15.1/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -8,7 +8,7 @@ import './GenreView.scss';
 
 const GenreView = props => {
     const { genre } = props;
-
+    const history = useHistory();
 
     return (
         <Card>
@@ -19,9 +19,13 @@ const GenreView = props => {
                 <Card.Text>
                     <p className="value">{genre.Description}</p>
                 </Card.Text>
-                <Link to={"/"}>
-                    <Button className="back-button float-right" variant="primary">Back to movies</Button>
-                </Link>
+                <Button
+                    className="back-button float-right"
+                    variant="primary"
+                    onClick={() => history.goBack()}
+                >
+                    Back to movies
+                </Button>
             </Card.Body>
         </Card>
     );

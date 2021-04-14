@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
@@ -17,6 +17,8 @@ const MovieView = props => {
     const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
     const directors = movie.Directors;
     const actors = movie.Actors;
+
+    const history = useHistory();
 
     return (
         <Container className="movie-view border rounded" fluid>
@@ -92,7 +94,14 @@ const MovieView = props => {
                         </Button>
                     }
                     <Link to={'/'}>
-                        <Button block className="back-button d-block" variant="primary">Back</Button>
+                        <Button
+                            block
+                            className="back-button d-block"
+                            variant="primary"
+                            onClick={() => history.goBack()}
+                        >
+                            Back
+                        </Button>
                     </Link>
                 </Col>
             </Row>

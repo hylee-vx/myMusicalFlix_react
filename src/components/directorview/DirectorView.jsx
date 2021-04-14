@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -11,6 +11,8 @@ const DirectorView = props => {
 
     const directorBirthYear = new Date(director.BirthYear).getFullYear();
     const directorDeathYear = new Date(director.DeathYear).getFullYear();
+
+    const history = useHistory();
 
     return (
         <Card>
@@ -26,9 +28,13 @@ const DirectorView = props => {
                     </h5>
                 </Card.Subtitle>
                 <Card.Text className="value">{director.Bio}</Card.Text>
-                <Link to={"/"}>
-                    <Button className="back-button float-right" variant="primary">Back to movies</Button>
-                </Link>
+                <Button
+                    className="back-button float-right"
+                    variant="primary"
+                    onClick={() => history.goBack()}
+                >
+                    Back
+                    </Button>
             </Card.Body>
         </Card>
     );

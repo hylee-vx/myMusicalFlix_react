@@ -52,7 +52,7 @@ class MainView extends React.Component {
         this.getUser(authData.user._id, authData.token);
     }
 
-    onLoggedOut() {
+    onLoggedOut = () => {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             localStorage.clear();
@@ -61,7 +61,6 @@ class MainView extends React.Component {
                 user: null,
                 favouriteMovies: []
             });
-            // return <Redirect to="/" />; how do I add Redirect/Link to this function?
         }
     }
 
@@ -80,18 +79,14 @@ class MainView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
-                this.setState({
-                    movies: response.data
-                });
+                // sort movies by alphabetical order
+                const sortedMovies = response.data.sort((a, b) => {
+                    if (a.Title < b.Title) return -1;
+                    if (a.Title > b.Title) return 1;
+                    return 0;
+                })
+                this.setState({ movies: sortedMovies });
             })
-            // .then(() => {
-            //     // try to sort movies by alphabetical order
-            //     movies.sort((a, b) => {
-            //         if (a.Title < b.Title) return -1;
-            //         if (a.Title > b.Title) return 1;
-            //         return 0;
-            //     })
-            // })
             .catch(error => console.log(error + ` error fetching movie list`));
     }
 
@@ -301,9 +296,14 @@ class MainView extends React.Component {
                             <PasswordEdit user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} />
                         } />
 
-                        <Route exact path="/users/:ID/delete" render={() =>
-                            <ProfileDelete user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} onLoggedOut={this.onLoggedOut} />
-                        } />
+                        <Route exact path="/users/:ID/delete" render={() => {
+                            if (!user) return <Redirect to="/" />
+                            return <ProfileDelete
+                                user={user}
+                                setEditOn={this.setEditOn}
+                                setEditOff={this.setEditOff}
+                                onLoggedOut={this.onLoggedOut} />
+                        }} />
                     </Row >
                 </Container>
             </Router>

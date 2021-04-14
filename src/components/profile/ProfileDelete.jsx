@@ -90,20 +90,20 @@ const ProfileDelete = props => {
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                            <Link to={"/"}>
-                                <Button
-                                    variant="primary"
-                                    className="modal-button"
-                                    onClick={handleDeleteUser}
-                                >
-                                    Confirm
+                            {/* <Link to={"/"}> */}
+                            <Button
+                                variant="primary"
+                                className="modal-button"
+                                onClick={handleDeleteUser}
+                            >
+                                Confirm
                                 </Button>
-                            </Link>
+                            {/* </Link> */}
                         </Modal.Footer>
                     </Modal>
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 };
 
