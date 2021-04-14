@@ -24,7 +24,7 @@ const GenreView = props => {
                     variant="primary"
                     onClick={() => history.goBack()}
                 >
-                    Back to movies
+                    Back
                 </Button>
             </Card.Body>
         </Card>

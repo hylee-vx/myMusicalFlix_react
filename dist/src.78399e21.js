@@ -38059,7 +38059,7 @@ var GenreView = function GenreView(props) {
     onClick: function onClick() {
       return history.goBack();
     }
-  }, "Back to movies")));
+  }, "Back")));
 };
 
 var _default = GenreView;
@@ -52926,7 +52926,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57828" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54328" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
