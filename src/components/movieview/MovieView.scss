@@ -8,43 +8,78 @@
     --active: #701300;
 }
 
-h3 {
-    display: inline-block;
+img {
+    width: 100%;
 }
 
 .movie-view-header {
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .movie-release-year {
     font-weight: 400;
     font-style: italic;
-    margin-left: 0.5rem;
 }
 
 .movie-view-content {
     margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
 }
 
 .label {
-    font-size: 1.1rem;
     font-weight: 600;
+    margin-top: 0.7rem;
+    margin-bottom: 0.2rem;
 }
 
-.back-btn {
-    background-color: var(--secondary-color);
+.label:first-child {
+    margin-top: 0;
+}
+
+.value {
+    padding: 0;
+}
+
+.genre-name {
+    margin-bottom: 0.7rem;
+}
+
+.buttons {
+    padding: 0;
+}
+
+.favourite-movie-button, .back-button {
+    font-size: 1rem;
     border: none;
-    padding: 0.2rem 0.5rem;
+    padding: 0.5rem 0.5rem;
     margin-top: 0.8rem;
 }
 
-.back-btn:hover, .back-btn:focus {
+.back-button {
+    background-color: var(--secondary-color);
+}
+
+.add-movie {
+    background-color: var(--secondary-color);
+}
+
+.remove-movie {
+    background-color: var(--hover);
+}
+.favourite-movie-button {
+    margin-top: 1.5rem;
+}
+
+.add-movie:hover, .add-movie:focus, .back-button:hover, .back-button:focus {
     cursor: pointer;
     background-color: var(--hover);
 }
 
-.back-btn:active {
+.favourite-movie-button:active, .back-button:active {
     background-color: var(--active);
+}
+
+.remove-movie:hover, .remove-movie:focus {
+    cursor: pointer;
+    background-color: var(--secondary-color);
 }

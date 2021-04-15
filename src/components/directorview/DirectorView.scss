@@ -1,0 +1,39 @@
+:root {
+    --primary-color: #3e6391;
+    --secondary-color: #d29342;
+    --background-color: whitesmoke;
+    --primary-text-color: #0a3758;
+    --secondary-text-color: #008080;
+    --hover: #b84b35;
+    --active: #701300;
+}
+
+img {
+    width: 100%;
+}
+
+.director-birth-death {
+    font-weight: 400;
+    font-style: italic;
+}
+
+.value {
+    padding: 0;
+}
+
+.back-button {
+    font-size: 1rem;
+    background-color: var(--secondary-color);
+    border: none;
+    padding: 0.5rem 0.5rem;
+    margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+    cursor: pointer;
+    background-color: var(--hover);
+}
+
+.back-button:active {
+    background-color: var(--active);
+}

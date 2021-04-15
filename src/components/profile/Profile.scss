@@ -1,0 +1,95 @@
+:root {
+    --primary-color: #3e6391;
+    --secondary-color: #d29342;
+    --background-color: whitesmoke;
+    --primary-text-color: #0a3758;
+    --secondary-text-color: #008080;
+    --hover: #b84b35;
+    --active: #701300;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.profile-heading {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.profile-navbar {
+    margin-bottom: 1.5rem;
+}
+
+.nav-link {
+    color: var(--secondary-text-color);
+}
+
+.profile-form-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+}
+
+.profile-form-value {
+    margin-bottom: 0.9rem;
+}
+
+.subheading {
+    text-align: center;
+    margin-top: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.no-favourites-text {
+    text-align: center;
+}
+
+.favourites-body {
+    padding-bottom: 0;
+}
+
+.favourites-title {
+    height: 2.5rem;
+    color: var(--primary-text-color);
+    margin-bottom: 1.25rem;
+}
+
+.favourites-release-year {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--primary-text-color);
+}
+
+.card-footer {
+    background-color: #fff;
+}
+
+.favourites-button, .profile-button {
+    border: none;
+}
+
+.favourites-button {
+    background-color: var(--hover);
+}
+
+.favourites-button:hover, .favourites-button:focus {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+}
+
+.profile-button {
+    background-color: var(--secondary-color);
+    margin-top: 2rem;
+}
+
+.modal-button {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.modal-button:hover, .modal-button:focus{
+    cursor: pointer;
+    background-color: var(--hover);   
+}

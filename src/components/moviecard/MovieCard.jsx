@@ -1,27 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 import './MovieCard.scss';
 
-class MovieCard extends React.Component {
-    render() {
-        const { movie, onClick } = this.props;
-        const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
+const MovieCard = props => {
+    const { movie } = props;
+    const movieReleaseYear = new Date(movie.ReleaseYear).getFullYear();
 
-        return (
-            <Card>
-                <Card.Img variant="top" src={movie.ImagePath} />
-                <Card.Body>
-                    <Card.Title className="title">{movie.Title}</Card.Title>
-                    <Card.Subtitle className="release-year">{movieReleaseYear}</Card.Subtitle>
-                    <Card.Text className="description line-clamp">{movie.Description}</Card.Text>
-                    <Button className="more-details-btn float-right" onClick={() => onClick(movie)} variant="primary">More</Button>
-                </Card.Body>
-            </Card>
-        );
-    }
+    return (
+        <Card>
+            <Card.Img variant="top" src={movie.ImagePath} />
+            <Card.Body>
+                <Card.Title className="title">{movie.Title}</Card.Title>
+                <Card.Subtitle className="release-year">{movieReleaseYear}</Card.Subtitle>
+                <Card.Text className="description line-clamp">{movie.Description}</Card.Text>
+                <Link to={`/movies/${movie._id}`}>
+                    <Button className="more-details-btn float-right" variant="primary">More</Button>
+                </Link>
+            </Card.Body>
+        </Card>
+    );
 }
 
 MovieCard.propTypes = {
@@ -36,8 +38,7 @@ MovieCard.propTypes = {
         Actors: PropTypes.array,
         ImagePath: PropTypes.string.isRequired,
         Featured: PropTypes.bool
-    }).isRequired,
-    onClick: PropTypes.func.isRequired
+    }).isRequired
 };
 
 export default MovieCard;

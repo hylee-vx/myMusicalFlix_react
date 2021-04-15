@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,15 +17,21 @@ const Registration = props => {
     const [password, setPassword] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
 
-    const handleSubmit = event => {
+    const handleRegistration = event => {
         event.preventDefault();
-        props.onLoggedIn(username);
-    };
 
-    // switches account state to true to render Login view
-    const handleToggle = event => {
-        props.onToggleLoginRegistration();
-    }
+        axios.post('https://mymusicalFlix.herokuapp.com/users', {
+            Username: username,
+            Password: password,
+            Email: email,
+            DateOfBirth: dateOfBirth
+        })
+            .then(() => {
+                console.log(`successfully registered user`);
+                props.onRegistration();
+            })
+            .catch(error => console.log(`Error registering the user: ${error}`));
+    };
 
     return (
         <Container>
@@ -66,27 +75,35 @@ const Registration = props => {
                                 onChange={event => setDateOfBirth(event.target.value)}
                             />
                         </Form.Group>
-                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleSubmit}>Sign up</Button>
+                        <Button
+                            className="login-reg-button"
+                            variant="primary"
+                            block type="submit"
+                            onClick={handleRegistration}
+                        >
+                            Sign up
+                        </Button>
                     </Form>
                 </Col>
             </Row>
             <Row>
                 <Col sm={{ span: 6, offset: 3 }}>
-                    <p className="login-reg-toggle-text">I have an account!<span className="login-reg-toggle-click" onClick={handleToggle}>Sign in</span></p>
+                    <p className="login-reg-toggle-text">I have an account!<span className="login-reg-toggle-click">
+                        <Link to={"/login"}>
+                            <Button className="link-to-login" variant="link">
+                                Sign in
+                            </Button>
+                        </Link>
+                    </span></p>
                 </Col>
             </Row>
         </Container>
     );
-}
+};
 
 // triggers warning at initial render: no user details
 Registration.propTypes = {
-    username: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    dateOfBirth: PropTypes.string.isRequired,
-    onLoggedIn: PropTypes.func.isRequired,
-    onToggleLoginRegistration: PropTypes.func.isRequired
+    onRegistration: PropTypes.func.isRequired,
 };
 
 export default Registration;

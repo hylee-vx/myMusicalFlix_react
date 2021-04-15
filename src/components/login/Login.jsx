@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,15 +15,19 @@ const Login = props => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = event => {
+    const handleLogin = event => {
         event.preventDefault();
-        props.onLoggedIn(username);
-    };
 
-    // switches account state to false to render Registration view
-    const handleToggle = () => {
-        props.onToggleLoginRegistration();
-    }
+        axios.post('https://mymusicalflix.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        })
+            .then(response => {
+                const data = response.data;
+                props.onLoggedIn(data);
+            })
+            .catch(error => console.log(error + 'no such user'));
+    };
 
     return (
         <Container>
@@ -48,13 +55,19 @@ const Login = props => {
                                 onChange={event => setPassword(event.target.value)}
                             />
                         </Form.Group>
-                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleSubmit}>Sign in</Button>
+                        <Button className="login-reg-button" variant="primary" block type="submit" onClick={handleLogin}>Sign in</Button>
                     </Form>
                 </Col>
             </Row>
             <Row>
                 <Col sm={{ span: 6, offset: 3 }}>
-                    <p className="login-reg-toggle-text">New to MyMusicalFlix?<span className="login-reg-toggle-click" onClick={handleToggle}>Sign up</span></p>
+                    <p className="login-reg-toggle-text">New to MyMusicalFlix?<span className="login-reg-toggle-click">
+                        <Link to={"/users"}>
+                            <Button className="link-to-registration" variant="link">
+                                Sign up
+                            </Button>
+                        </Link>
+                    </span></p>
                 </Col>
             </Row>
         </Container >
@@ -63,10 +76,7 @@ const Login = props => {
 
 // triggers warning at initial render: no user details, toggle function not called
 Login.propTypes = {
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    onLoggedIn: PropTypes.func.isRequired,
-    onToggleLoginRegistration: PropTypes.func.isRequired
+    onLoggedIn: PropTypes.func.isRequired
 };
 
 export default Login;

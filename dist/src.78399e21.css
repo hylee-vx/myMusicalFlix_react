@@ -175,6 +175,15 @@ body {
 .more-details-btn:active {
   background-color: var(--active);
 }
+
+@media (max-width: 576px) {
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2.5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
 :root {
   --primary-color: #3e6391;
   --secondary-color: #d29342;
@@ -185,45 +194,284 @@ body {
   --active: #701300;
 }
 
-h3 {
-  display: inline-block;
+img {
+  width: 100%;
 }
 
 .movie-view-header {
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .movie-release-year {
   font-weight: 400;
   font-style: italic;
-  margin-left: 0.5rem;
 }
 
 .movie-view-content {
   margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .label {
-  font-size: 1.1rem;
   font-weight: 600;
+  margin-top: 0.7rem;
+  margin-bottom: 0.2rem;
 }
 
-.back-btn {
-  background-color: var(--secondary-color);
+.label:first-child {
+  margin-top: 0;
+}
+
+.value {
+  padding: 0;
+}
+
+.genre-name {
+  margin-bottom: 0.7rem;
+}
+
+.buttons {
+  padding: 0;
+}
+
+.favourite-movie-button, .back-button {
+  font-size: 1rem;
   border: none;
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 0.5rem;
   margin-top: 0.8rem;
 }
 
-.back-btn:hover, .back-btn:focus {
+.back-button {
+  background-color: var(--secondary-color);
+}
+
+.add-movie {
+  background-color: var(--secondary-color);
+}
+
+.remove-movie {
+  background-color: var(--hover);
+}
+
+.favourite-movie-button {
+  margin-top: 1.5rem;
+}
+
+.add-movie:hover, .add-movie:focus, .back-button:hover, .back-button:focus {
   cursor: pointer;
   background-color: var(--hover);
 }
 
-.back-btn:active {
+.favourite-movie-button:active, .back-button:active {
   background-color: var(--active);
+}
+
+.remove-movie:hover, .remove-movie:focus {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+.value {
+  padding: 0;
+}
+
+.back-button {
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-button:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+img {
+  width: 100%;
+}
+
+.director-birth-death {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.value {
+  padding: 0;
+}
+
+.back-button {
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-button:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+img {
+  width: 100%;
+}
+
+.actor-birth-death {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.value {
+  padding: 0;
+}
+
+.back-button {
+  font-size: 1rem;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.5rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.back-button:hover, .back-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.back-button:active {
+  background-color: var(--active);
+}
+:root {
+  --primary-color: #3e6391;
+  --secondary-color: #d29342;
+  --background-color: whitesmoke;
+  --primary-text-color: #0a3758;
+  --secondary-text-color: #008080;
+  --hover: #b84b35;
+  --active: #701300;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.profile-heading {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-navbar {
+  margin-bottom: 1.5rem;
+}
+
+.nav-link {
+  color: var(--secondary-text-color);
+}
+
+.profile-form-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.profile-form-value {
+  margin-bottom: 0.9rem;
+}
+
+.subheading {
+  text-align: center;
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.no-favourites-text {
+  text-align: center;
+}
+
+.favourites-body {
+  padding-bottom: 0;
+}
+
+.favourites-title {
+  height: 2.5rem;
+  color: var(--primary-text-color);
+  margin-bottom: 1.25rem;
+}
+
+.favourites-release-year {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--primary-text-color);
+}
+
+.card-footer {
+  background-color: #fff;
+}
+
+.favourites-button, .profile-button {
+  border: none;
+}
+
+.favourites-button {
+  background-color: var(--hover);
+}
+
+.favourites-button:hover, .favourites-button:focus {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+}
+
+.profile-button {
+  background-color: var(--secondary-color);
+  margin-top: 2rem;
+}
+
+.modal-button {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.modal-button:hover, .modal-button:focus {
+  cursor: pointer;
+  background-color: var(--hover);
 }
 :root {
   --primary-color: #3e6391;
@@ -243,6 +491,28 @@ body {
   margin: 2rem;
 }
 
+.navbar {
+  border-bottom: 2px solid var(--primary-text-color);
+  margin-bottom: 1.2rem;
+}
+
+.navbar-light .navbar-brand {
+  font-size: 1.5rem;
+  color: var(--primary-text-color);
+}
+
+.btn-link {
+  color: var(--secondary-text-color);
+}
+
+.btn-link:hover, .btn-link:focus {
+  color: var(--hover);
+}
+
+.btn-link:active {
+  color: var(--active);
+}
+
 .col-sm-9 {
   padding: 0;
 }
@@ -253,12 +523,15 @@ body {
 
 @media (max-width: 576px) {
   body {
-    font-size: 14px;
-    margin: 2.5rem;
+    margin: 0.7rem;
   }
 
   h1 {
     font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
   }
 
   h3 {
@@ -266,9 +539,18 @@ body {
     font-size: 1.3rem;
   }
 
+  h5 {
+    font-size: 1.1rem;
+  }
+
   .navbar {
     font-weight: 500;
     padding-left: 0;
+  }
+
+  .navbar-light .navbar-brand {
+    font-size: 1.2rem;
+    color: var(--primary-text-color);
   }
 
   .login-reg-heading {
@@ -280,9 +562,13 @@ body {
     margin-bottom: 0.6rem;
   }
 
-  label {
-    font-size: 1rem;
+  .label {
+    font-size: 1.1rem;
     margin-bottom: 0.3rem;
+  }
+
+  .value {
+    font-size: 0.9rem;
   }
 
   .login-reg-button {
@@ -295,12 +581,16 @@ body {
     padding: 0.9rem;
   }
 
+  .card-title {
+    margin-bottom: 0;
+  }
+
   .card-subtitle {
     line-height: 0.8rem;
   }
 
   .description {
-    height: 2.5rem;
+    height: 3rem;
   }
 
   .line-clamp {
