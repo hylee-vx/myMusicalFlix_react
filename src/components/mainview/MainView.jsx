@@ -1,10 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
+import { setMovies } from '../../actions';
+
+import MoviesList from '../movieslist/MoviesList';
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
-import MovieCard from '../moviecard/MovieCard';
+// import MovieCard from '../moviecard/MovieCard';
 import MovieView from '../movieview/MovieView';
 import GenreView from '../genreview/GenreView';
 import DirectorView from '../directorview/DirectorView';
@@ -14,7 +18,7 @@ import ProfileEdit from '../profile/ProfileEdit';
 import PasswordEdit from '../profile/PasswordEdit';
 import ProfileDelete from '../profile/ProfileDelete';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -26,7 +30,7 @@ import './MainView.scss';
 
 class MainView extends React.Component {
     state = {
-        movies: [],
+        // movies: [],
         user: null,
         favouriteMovies: [],
         onEdit: false,
@@ -85,7 +89,7 @@ class MainView extends React.Component {
                     if (a.Title > b.Title) return 1;
                     return 0;
                 })
-                this.setState({ movies: sortedMovies });
+                this.props.setMovies(sortedMovies);
             })
             .catch(error => console.log(error + ` error fetching movie list`));
     }
@@ -173,7 +177,8 @@ class MainView extends React.Component {
     }
 
     render() {
-        const { movies, user, favouriteMovies, onEdit, hasAccount } = this.state;
+        const { user, favouriteMovies, onEdit, hasAccount } = this.state;
+        const { movies } = this.props;
         if (!movies) return <div className="main-view" />;
 
         return (
@@ -219,11 +224,10 @@ class MainView extends React.Component {
                     <Row className="main-view justify-content-md-center">
                         <Route exact path='/' render={() => {
                             if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
-                            return movies.map(m =>
-                                <Col sm={6} md={3} xl={2} key={m._id}>
-                                    <MovieCard movie={m} />
-                                </Col>
-                            )
+
+                            // return <Col sm={6} md={3} xl={2} key={movies._id}>
+                            return <MoviesList movies={movies} key={movies._id} />
+                            // </Col>
                         }} />
 
                         <Route exact path="/users" render={() => {
@@ -311,25 +315,28 @@ class MainView extends React.Component {
     }
 }
 
-// triggers warning at initial render: empty movies array, no user details
-MainView.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string.isRequired,
-        ReleaseYear: PropTypes.string,
-        Description: PropTypes.string.isRequired,
-        Genre: PropTypes.shape({
-            Name: PropTypes.string.isRequired
-        }).isRequired,
-        Directors: PropTypes.array.isRequired,
-        Actors: PropTypes.array,
-        ImagePath: PropTypes.string.isRequired,
-        Featured: PropTypes.bool,
-    }).isRequired,
-    user: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        Username: PropTypes.string.isRequired,
-        Email: PropTypes.string.isRequired
-    }).isRequired
-};
+let mapStateToProps = state => ({ movies: state.movies });
 
-export default MainView;
+export default connect(mapStateToProps, { setMovies })(MainView);
+
+
+// // triggers warning at initial render: empty movies array, no user details
+// MainView.propTypes = {
+//     movie: PropTypes.shape({
+//         Title: PropTypes.string.isRequired,
+//         ReleaseYear: PropTypes.string,
+//         Description: PropTypes.string.isRequired,
+//         Genre: PropTypes.shape({
+//             Name: PropTypes.string.isRequired
+//         }).isRequired,
+//         Directors: PropTypes.array.isRequired,
+//         Actors: PropTypes.array,
+//         ImagePath: PropTypes.string.isRequired,
+//         Featured: PropTypes.bool,
+//     }).isRequired,
+//     user: PropTypes.shape({
+//         _id: PropTypes.string.isRequired,
+//         Username: PropTypes.string.isRequired,
+//         Email: PropTypes.string.isRequired
+//     }).isRequired
+// };

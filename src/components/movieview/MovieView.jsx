@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -109,33 +109,32 @@ const MovieView = props => {
     );
 };
 
-
-MovieView.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string.isRequired,
-        ReleaseYear: PropTypes.string,
-        Description: PropTypes.string.isRequired,
-        Genre: PropTypes.shape({
-            Name: PropTypes.string.isRequired
-        }).isRequired,
-        Directors: PropTypes.arrayOf(PropTypes.shape({
-            Name: PropTypes.string.isRequired
-        })).isRequired,
-        Actors: PropTypes.arrayOf(PropTypes.shape({
-            Name: PropTypes.string
-        })),
-        ImagePath: PropTypes.string.isRequired
-    }).isRequired,
-    user: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        Username: PropTypes.string.isRequired,
-        Email: PropTypes.string.isRequired,
-        FavouriteMovies: PropTypes.array.isRequired
-    }).isRequired,
-    favouriteMovies: PropTypes.array.isRequired,
-    updateProfile: PropTypes.func.isRequired,
-    handleAddFavourite: PropTypes.func.isRequired,
-    handleDeleteFavourite: PropTypes.func.isRequired
-};
-
 export default MovieView;
+
+// MovieView.propTypes = {
+    //     movie: PropTypes.shape({
+    //         Title: PropTypes.string.isRequired,
+    //         ReleaseYear: PropTypes.string,
+    //         Description: PropTypes.string.isRequired,
+    //         Genre: PropTypes.shape({
+    //             Name: PropTypes.string.isRequired
+    //         }).isRequired,
+    //         Directors: PropTypes.arrayOf(PropTypes.shape({
+    //             Name: PropTypes.string.isRequired
+    //         })).isRequired,
+    //         Actors: PropTypes.arrayOf(PropTypes.shape({
+    //             Name: PropTypes.string
+    //         })),
+    //         ImagePath: PropTypes.string.isRequired
+    //     }).isRequired,
+    //     user: PropTypes.shape({
+    //         _id: PropTypes.string.isRequired,
+    //         Username: PropTypes.string.isRequired,
+    //         Email: PropTypes.string.isRequired,
+    //         FavouriteMovies: PropTypes.array.isRequired
+    //     }).isRequired,
+    //     favouriteMovies: PropTypes.array.isRequired,
+    //     updateProfile: PropTypes.func.isRequired,
+    //     handleAddFavourite: PropTypes.func.isRequired,
+    //     handleDeleteFavourite: PropTypes.func.isRequired
+    // };
