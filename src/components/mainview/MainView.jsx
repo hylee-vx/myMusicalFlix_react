@@ -3,12 +3,11 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
-import { setMovies } from '../../actions';
+import { setMovies, setUser } from '../../actions';
 
 import MoviesList from '../movieslist/MoviesList';
 import Login from '../login/Login';
 import Registration from '../registration/Registration';
-// import MovieCard from '../moviecard/MovieCard';
 import MovieView from '../movieview/MovieView';
 import GenreView from '../genreview/GenreView';
 import DirectorView from '../directorview/DirectorView';
@@ -30,8 +29,6 @@ import './MainView.scss';
 
 class MainView extends React.Component {
     state = {
-        // movies: [],
-        user: null,
         favouriteMovies: [],
         onEdit: false,
         hasAccount: false
@@ -45,10 +42,6 @@ class MainView extends React.Component {
 
     onLoggedIn(authData) {
         console.log(authData);
-        this.setState({
-            username: authData.user.Username,
-            id: authData.user._id
-        });
 
         localStorage.setItem('token', authData.token);
         localStorage.setItem('userID', authData.user._id);
@@ -60,11 +53,9 @@ class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             localStorage.clear();
-            this.setState({
-                movies: [],
-                user: null,
-                favouriteMovies: []
-            });
+            this.props.setUser({});
+            this.props.setMovies([]);
+            this.setState({ favouriteMovies: [] });
         }
     }
 
@@ -100,17 +91,18 @@ class MainView extends React.Component {
         })
             .then(response => {
                 const data = response.data;
-                this.setState({
-                    user: {
-                        id: data._id,
-                        username: data.Username,
-                        email: data.Email,
-                        dateOfBirth:
-                            data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
-                        favouriteMovies: data.FavouriteMovies
-                    },
+                const user = {
+                    id: data._id,
+                    username: data.Username,
+                    email: data.Email,
+                    dateOfBirth:
+                        data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
                     favouriteMovies: data.FavouriteMovies
-                });
+                };
+                this.props.setUser(user);
+                this.setState({
+                    favouriteMovies: data.FavouriteMovies
+                })
             })
             .catch(error => console.log(error + ` error fetching user`));
     }
@@ -177,14 +169,14 @@ class MainView extends React.Component {
     }
 
     render() {
-        const { user, favouriteMovies, onEdit, hasAccount } = this.state;
-        const { movies } = this.props;
+        const { movies, user } = this.props;
+        const { favouriteMovies, onEdit, hasAccount } = this.state;
         if (!movies) return <div className="main-view" />;
 
         return (
             <Router>
                 <Container fluid>
-                    {user
+                    {Object.keys(user).length
                         ? <Navbar collapseOnSelect expand="sm" className="navbar">
                             <Navbar.Brand as={Link} to="/" onClick={() => this.setEditOff()}>myMusicalFlix</Navbar.Brand>
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -223,7 +215,7 @@ class MainView extends React.Component {
 
                     <Row className="main-view justify-content-md-center">
                         <Route exact path='/' render={() => {
-                            if (!user) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
+                            if (!Object.keys(user).length) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
 
                             // return <Col sm={6} md={3} xl={2} key={movies._id}>
                             return <MoviesList movies={movies} key={movies._id} />
@@ -315,9 +307,11 @@ class MainView extends React.Component {
     }
 }
 
-let mapStateToProps = state => ({ movies: state.movies });
+let mapStateToProps = state => ({
+    movies: state.movies, user: state.user
+});
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
 
 
 // // triggers warning at initial render: empty movies array, no user details

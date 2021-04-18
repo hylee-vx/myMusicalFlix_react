@@ -38059,11 +38059,13 @@ if ("development" !== "production") {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setFilter = exports.setMovies = exports.SET_FILTER = exports.SET_MOVIES = void 0;
+exports.setUser = exports.setFilter = exports.setMovies = exports.SET_USER = exports.SET_FILTER = exports.SET_MOVIES = void 0;
 var SET_MOVIES = 'SET_MOVIES';
 exports.SET_MOVIES = SET_MOVIES;
 var SET_FILTER = 'SET_FILTER';
 exports.SET_FILTER = SET_FILTER;
+var SET_USER = 'SET_USER';
+exports.SET_USER = SET_USER;
 
 var setMovies = function setMovies(value) {
   return {
@@ -38082,6 +38084,15 @@ var setFilter = function setFilter(value) {
 };
 
 exports.setFilter = setFilter;
+
+var setUser = function setUser(value) {
+  return {
+    type: SET_USER,
+    value: value
+  };
+};
+
+exports.setUser = setUser;
 },{}],"../node_modules/classnames/index.js":[function(require,module,exports) {
 var define;
 /*!
@@ -39937,7 +39948,7 @@ var MoviesList = function MoviesList(props) {
 
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter(function (m) {
-      return m.Title.includes(visibilityFilter);
+      return m.Title.toLowerCase().includes(visibilityFilter.toLowerCase());
     });
   }
 
@@ -54943,8 +54954,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _super.call.apply(_super, [this].concat(args)), _this.state = {
-      // movies: [],
-      user: null,
       favouriteMovies: [],
       onEdit: false,
       hasAccount: false
@@ -54954,9 +54963,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (accessToken !== null) {
         localStorage.clear();
 
+        _this.props.setUser({});
+
+        _this.props.setMovies([]);
+
         _this.setState({
-          movies: [],
-          user: null,
           favouriteMovies: []
         });
       }
@@ -55036,10 +55047,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
       console.log(authData);
-      this.setState({
-        username: authData.user.Username,
-        id: authData.user._id
-      });
       localStorage.setItem('token', authData.token);
       localStorage.setItem('userID', authData.user._id);
       this.getMovies(authData.token);
@@ -55089,15 +55096,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function (response) {
         var data = response.data;
+        var user = {
+          id: data._id,
+          username: data.Username,
+          email: data.Email,
+          dateOfBirth: data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
+          favouriteMovies: data.FavouriteMovies
+        };
+
+        _this3.props.setUser(user);
 
         _this3.setState({
-          user: {
-            id: data._id,
-            username: data.Username,
-            email: data.Email,
-            dateOfBirth: data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
-            favouriteMovies: data.FavouriteMovies
-          },
           favouriteMovies: data.FavouriteMovies
         });
       }).catch(function (error) {
@@ -55109,18 +55118,19 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
+      var _this$props = this.props,
+          movies = _this$props.movies,
+          user = _this$props.user;
       var _this$state = this.state,
-          user = _this$state.user,
           favouriteMovies = _this$state.favouriteMovies,
           onEdit = _this$state.onEdit,
           hasAccount = _this$state.hasAccount;
-      var movies = this.props.movies;
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
       return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Container.default, {
         fluid: true
-      }, user ? _react.default.createElement(_Navbar.default, {
+      }, Object.keys(user).length ? _react.default.createElement(_Navbar.default, {
         collapseOnSelect: true,
         expand: "sm",
         className: "navbar"
@@ -55163,7 +55173,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/",
         render: function render() {
-          if (!user) return _react.default.createElement(_Login.default, {
+          if (!Object.keys(user).length) return _react.default.createElement(_Login.default, {
             onLoggedIn: function onLoggedIn(user) {
               return _this4.onLoggedIn(user);
             }
@@ -55316,12 +55326,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    movies: state.movies
+    movies: state.movies,
+    user: state.user
   };
 };
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
-  setMovies: _actions.setMovies
+  setMovies: _actions.setMovies,
+  setUser: _actions.setUser
 })(MainView); // // triggers warning at initial render: empty movies array, no user details
 // MainView.propTypes = {
 //     movie: PropTypes.shape({
@@ -55383,9 +55395,23 @@ var movies = function movies() {
   }
 };
 
+var user = function user() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions.SET_USER:
+      return action.value;
+
+    default:
+      return state;
+  }
+};
+
 var moviesApp = (0, _redux.combineReducers)({
   visibilityFilter: visibilityFilter,
-  movies: movies
+  movies: movies,
+  user: user
 });
 var _default = moviesApp;
 exports.default = _default;
@@ -55492,7 +55518,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63988" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64004" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
