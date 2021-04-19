@@ -23,20 +23,18 @@ const MovieView = props => {
     return (
         <Container className="movie-view border rounded" fluid>
             <Row>
-                <Col xs={12} className="movie-view-header">
+                <Col xs="12" className="movie-view-header">
                     <h2 className="movie-title d-block">{movie.Title}</h2>
                     <h3 className="movie-release-year d-block">{`(${movieReleaseYear})`}</h3>
                 </Col>
             </Row>
 
             <Row className="movie-view-content">
-                <Col xs={12} sm={6}>
-                    <img className="movie-poster" src={movie.ImagePath} alt="" />
-
-
+                <Col xs="12" sm="6">
+                    <img className="movie-poster" src={movie.ImagePath} alt={`${movie.Title} movie poster`} />
                 </Col>
 
-                <Col xs={12} sm={6} className="movie-details">
+                <Col xs="12" sm="6" className="movie-details">
                     <div className="movie-description">
                         <h5 className="label">Description: </h5>
                         <p className="value">{movie.Description}</p>
@@ -93,16 +91,15 @@ const MovieView = props => {
                             Remove from favourites
                         </Button>
                     }
-                    <Link to={'/'}>
-                        <Button
-                            block
-                            className="back-button d-block"
-                            variant="primary"
-                            onClick={() => history.goBack()}
-                        >
-                            Back
+
+                    <Button
+                        block
+                        className="back-button d-block"
+                        variant="primary"
+                        onClick={() => history.goBack()}
+                    >
+                        Back
                         </Button>
-                    </Link>
                 </Col>
             </Row>
         </Container >

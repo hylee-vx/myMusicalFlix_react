@@ -1,15 +1,11 @@
-:root {
-    --primary-color: #3e6391;
-    --secondary-color: #d29342;
-    --background-color: whitesmoke;
-    --primary-text-color: #0a3758;
-    --secondary-text-color: #008080;
-    --hover: #b84b35;
-    --active: #701300;
-}
-
 img {
     width: 100%;
+}
+
+.director-view {
+    max-width: 800px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
 }
 
 .director-birth-death {
@@ -17,7 +13,7 @@ img {
     font-style: italic;
 }
 
-.value {
+.director-bio {
     padding: 0;
 }
 
@@ -26,7 +22,6 @@ img {
     background-color: var(--secondary-color);
     border: none;
     padding: 0.5rem 0.5rem;
-    margin-top: 0.8rem;
 }
 
 .back-button:hover, .back-button:focus {

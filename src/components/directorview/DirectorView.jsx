@@ -1,7 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 import './DirectorView.scss';
@@ -11,32 +13,38 @@ const DirectorView = props => {
 
     const directorBirthYear = new Date(director.BirthYear).getFullYear();
     const directorDeathYear = new Date(director.DeathYear).getFullYear();
+    const directorBirthDeath = `${directorBirthYear} - ${(directorDeathYear ? directorDeathYear : '')}`;
 
     const history = useHistory();
 
     return (
-        <Card>
-            <Card.Img variant="top" src={director.ImagePath} />
-            <Card.Body>
-                <Card.Title>
+        <Container className="director-view border rounded" fluid>
+            <Row>
+                <Col xs="12" sm="6">
+                    <img className="director-image" src={director.ImagePath} alt={`photo of ${director.Name}`} />
+                </Col>
+
+                <Col xs="12" sm="6">
                     <h2 className="director-name">{director.Name}</h2>
-                </Card.Title>
-                <Card.Subtitle>
-                    <h5 className="director-birth-death">
-                        {`${directorBirthYear} - 
-                    ${(directorDeathYear ? directorDeathYear : '')}`}
-                    </h5>
-                </Card.Subtitle>
-                <Card.Text className="value">{director.Bio}</Card.Text>
-                <Button
-                    className="back-button float-right"
-                    variant="primary"
-                    onClick={() => history.goBack()}
-                >
-                    Back
-                    </Button>
-            </Card.Body>
-        </Card>
+                    <h3 className="director-birth-death">{directorBirthDeath}</h3>
+                    <p className="director-bio">{director.Bio}</p>
+                </Col>
+            </Row>
+
+            <Row className="float-right">
+                <Col className="buttons">
+                    <Button
+                        block
+                        className="back-button d-block"
+                        variant="primary"
+                        onClick={() => history.goBack()}
+                    >
+                        Back
+                        </Button>
+                </Col>
+            </Row>
+        </Container>
+
     );
 };
 

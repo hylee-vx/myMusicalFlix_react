@@ -57,6 +57,8 @@ class MainView extends React.Component {
             this.props.setMovies([]);
             this.setState({ favouriteMovies: [] });
         }
+        // redirect below not working
+        // return <Redirect to="/" />
     }
 
     componentDidMount() {
@@ -121,6 +123,7 @@ class MainView extends React.Component {
 
     updateProfile = updatedUser => {
         this.setState({
+            onEdit: false,
             user: updatedUser,
             favouriteMovies: updatedUser.FavouriteMovies
         });
@@ -175,7 +178,7 @@ class MainView extends React.Component {
 
         return (
             <Router>
-                <Container fluid>
+                <Container fluid className="main-view">
                     {Object.keys(user).length
                         ? <Navbar collapseOnSelect expand="sm" className="navbar">
                             <Navbar.Brand as={Link} to="/" onClick={() => this.setEditOff()}>myMusicalFlix</Navbar.Brand>
@@ -213,94 +216,82 @@ class MainView extends React.Component {
                         </Navbar>
                         : null}
 
-                    <Row className="main-view justify-content-md-center">
-                        <Route exact path='/' render={() => {
-                            if (!Object.keys(user).length) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
+                    <Route exact path='/' render={() => {
+                        if (!Object.keys(user).length) return <Login onLoggedIn={user => this.onLoggedIn(user)} />
 
-                            // return <Col sm={6} md={3} xl={2} key={movies._id}>
-                            return <MoviesList movies={movies} key={movies._id} />
-                            // </Col>
-                        }} />
+                        return <MoviesList movies={movies} key={movies._id} />
+                    }} />
 
-                        <Route exact path="/users" render={() => {
-                            if (!hasAccount) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
-                            return <Redirect to="/" />
-                        }} />
+                    <Route exact path="/users" render={() => {
+                        if (!hasAccount) return <Registration onRegistration={newUser => this.onRegistration(newUser)} />
+                        return <Redirect to="/" />
+                    }} />
 
-                        <Route exact path='/movies/:movieId' render={({ match }) =>
-                            <Col sm={12} md={9}>
-                                <MovieView
-                                    movie={movies.find(m =>
-                                        m._id === match.params.movieId)}
-                                    user={user}
-                                    favouriteMovies={favouriteMovies}
-                                    updateProfile={updatedUser => this.updateProfile(updatedUser)}
-                                    handleAddFavourite={(user, movieID) => this.handleAddFavourite(user, movieID)}
-                                    handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
-                                />
-                            </Col>
-                        } />
+                    <Route exact path='/movies/:movieId' render={({ match }) =>
+                        <MovieView
+                            movie={movies.find(m =>
+                                m._id === match.params.movieId)}
+                            user={user}
+                            favouriteMovies={favouriteMovies}
+                            updateProfile={updatedUser => this.updateProfile(updatedUser)}
+                            handleAddFavourite={(user, movieID) => this.handleAddFavourite(user, movieID)}
+                            handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
+                        />
+                    } />
 
-                        <Route exact path='/genres/:name' render={({ match }) =>
-                            <Col lg={9}>
-                                <GenreView genre={movies.find(m =>
-                                    m.Genre.Name === match.params.name).Genre} />
-                            </Col>
-                        } />
+                    <Route exact path='/genres/:name' render={({ match }) =>
+                        <GenreView genre={movies.find(m =>
+                            m.Genre.Name === match.params.name).Genre} />
+                    } />
 
-                        <Route exact path="/directors/:name" render={({ match }) =>
-                            <Col lg={9}>
-                                <DirectorView director={movies.reduce((director, movie) => !director
-                                    ? movie.Directors.find(d =>
-                                        d.Name === match.params.name)
-                                    : director, null)} />
-                            </Col>
-                        } />
+                    <Route exact path="/directors/:name" render={({ match }) =>
+                        <DirectorView director={movies.reduce((director, movie) => !director
+                            ? movie.Directors.find(d =>
+                                d.Name === match.params.name)
+                            : director, null)} />
+                    } />
 
-                        <Route exact path="/actors/:name" render={({ match }) =>
-                            <Col lg={9}>
-                                <ActorView actor={movies.reduce((actor, movie) =>
-                                    !actor
-                                        ? movie.Actors.find(a =>
-                                            a.Name === match.params.name)
-                                        : actor, null)} />
-                            </Col>
-                        } />
+                    <Route exact path="/actors/:name" render={({ match }) =>
+                        <ActorView actor={movies.reduce((actor, movie) =>
+                            !actor
+                                ? movie.Actors.find(a =>
+                                    a.Name === match.params.name)
+                                : actor, null)} />
+                    } />
 
-                        <Route exact path="/users/:ID" render={() => {
-                            if (!onEdit) {
-                                return <ProfileView
-                                    user={user}
-                                    movies={movies}
-                                    favouriteMovies={favouriteMovies}
-                                    setEditOn={this.setEditOn}
-                                    setEditOff={this.setEditOff} />
-                            } else {
-                                return <ProfileEdit
-                                    user={user}
-                                    movies={movies}
-                                    favouriteMovies={favouriteMovies}
-                                    setEditOn={this.setEditOff}
-                                    setEditOff={this.setEditOff}
-                                    updateProfile={updatedUser => this.updateProfile(updatedUser)}
-                                    handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
-                                />
-                            }
-                        }} />
-
-                        <Route exact path="/users/:ID/password" render={() =>
-                            <PasswordEdit user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} />
-                        } />
-
-                        <Route exact path="/users/:ID/delete" render={() => {
-                            if (!user) return <Redirect to="/" />
-                            return <ProfileDelete
+                    <Route exact path="/users/:ID" render={() => {
+                        if (!onEdit) {
+                            return <ProfileView
                                 user={user}
+                                movies={movies}
+                                favouriteMovies={favouriteMovies}
                                 setEditOn={this.setEditOn}
+                                setEditOff={this.setEditOff} />
+                        } else {
+                            return <ProfileEdit
+                                user={user}
+                                movies={movies}
+                                favouriteMovies={favouriteMovies}
+                                setEditOn={this.setEditOff}
                                 setEditOff={this.setEditOff}
-                                onLoggedOut={this.onLoggedOut} />
-                        }} />
-                    </Row >
+                                updateProfile={updatedUser => this.updateProfile(updatedUser)}
+                                handleDeleteFavourite={(user, movieID) => this.handleDeleteFavourite(user, movieID)}
+                            />
+                        }
+                    }} />
+
+                    <Route exact path="/users/:ID/password" render={() =>
+                        <PasswordEdit user={user} setEditOn={this.setEditOn} setEditOff={this.setEditOff} />
+                    } />
+
+                    <Route exact path="/users/:ID/delete" render={() => {
+                        if (!user) return <Redirect to="/" />
+                        return <ProfileDelete
+                            user={user}
+                            setEditOn={this.setEditOn}
+                            setEditOff={this.setEditOff}
+                            onLoggedOut={this.onLoggedOut} />
+                    }} />
                 </Container>
             </Router>
         );
