@@ -13,14 +13,12 @@ import './index.scss';
 const store = createStore(moviesApp, devToolsEnhancer());
 
 //main component
-class MyMusicalFlix extends React.Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <MainView />
-            </Provider>
-        );
-    }
+const MyMusicalFlix = () => {
+    return (
+        <Provider store={store}>
+            <MainView />
+        </Provider>
+    );
 }
 
 //tells React to render app in the root DOM element

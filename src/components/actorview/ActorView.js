@@ -19,7 +19,7 @@ const ActorView = props => {
 
 
     return (
-        <Container className="actor view border rounded" fluid>
+        <Container className="actor-view border rounded" fluid>
             <Row>
                 <Col xs="12" sm="6">
                     <img className="actor-image" src={actor.ImagePath} alt={`photo of ${actor.Name}`} />
