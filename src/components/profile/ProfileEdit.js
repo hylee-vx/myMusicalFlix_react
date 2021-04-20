@@ -9,21 +9,20 @@ import Nav from 'react-bootstrap/Nav';
 import NavLink from 'react-bootstrap/NavLink';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Card } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 
 import './Profile.scss';
 
 const ProfileEdit = props => {
     const [user, setUser] = useState(props.user);
     if (!user) return null;
-    // const [favouriteMovies, setFavouriteMovies] = useState(props.favouriteMovies);
+
     const { movies, favouriteMovies = [] } = props;
 
     const handleInputChange = event => {
         const { name, value } = event.target;
 
         setUser({ ...user, [name]: value });
-        console.log(user.username, user.id);
     };
 
     const handleUpdateUser = () => {
@@ -45,9 +44,11 @@ const ProfileEdit = props => {
                 setUser({
                     username: data.Username,
                     email: data.Email,
-                    dateOfBirth: data.DateOfBirth.slice(0, 10),
+                    dateOfBirth:
+                        data.DateOfBirth ? data.DateOfBirth.slice(0, 10) : null,
                     favouriteMovies: data.FavouriteMovies
                 });
+                console.log(`successfully update user ${user.username}`);
             })
             .catch(error => console.log(error + ` error updating user ${user.username}`));
     };

@@ -1,15 +1,11 @@
-:root {
-    --primary-color: #3e6391;
-    --secondary-color: #d29342;
-    --background-color: whitesmoke;
-    --primary-text-color: #0a3758;
-    --secondary-text-color: #008080;
-    --hover: #b84b35;
-    --active: #701300;
-}
-
 img {
     width: 100%;
+}
+
+.actor-view {
+    max-width: 800px;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
 }
 
 .actor-birth-death {
@@ -17,7 +13,7 @@ img {
     font-style: italic;
 }
 
-.value {
+.actor-bio {
     padding: 0;
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
@@ -26,19 +26,19 @@ const MovieCard = props => {
     );
 }
 
-MovieCard.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string.isRequired,
-        ReleaseYear: PropTypes.string,
-        Description: PropTypes.string.isRequired,
-        Genre: PropTypes.shape({
-            Name: PropTypes.string.isRequired
-        }).isRequired,
-        Directors: PropTypes.array.isRequired,
-        Actors: PropTypes.array,
-        ImagePath: PropTypes.string.isRequired,
-        Featured: PropTypes.bool
-    }).isRequired
-};
-
 export default MovieCard;
+
+// MovieCard.propTypes = {
+//     movie: PropTypes.shape({
+//         Title: PropTypes.string.isRequired,
+//         ReleaseYear: PropTypes.string,
+//         Description: PropTypes.string.isRequired,
+//         Genre: PropTypes.shape({
+//             Name: PropTypes.string.isRequired
+//         }).isRequired,
+//         Directors: PropTypes.array.isRequired,
+//         Actors: PropTypes.array,
+//         ImagePath: PropTypes.string.isRequired,
+//         Featured: PropTypes.bool
+//     }).isRequired
+// };

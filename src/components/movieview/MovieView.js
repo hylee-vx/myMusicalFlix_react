@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -23,20 +23,18 @@ const MovieView = props => {
     return (
         <Container className="movie-view border rounded" fluid>
             <Row>
-                <Col xs={12} className="movie-view-header">
+                <Col xs="12" className="movie-view-header">
                     <h2 className="movie-title d-block">{movie.Title}</h2>
                     <h3 className="movie-release-year d-block">{`(${movieReleaseYear})`}</h3>
                 </Col>
             </Row>
 
             <Row className="movie-view-content">
-                <Col xs={12} sm={6}>
-                    <img className="movie-poster" src={movie.ImagePath} alt="" />
-
-
+                <Col xs="12" sm="6">
+                    <img className="movie-poster" src={movie.ImagePath} alt={`${movie.Title} movie poster`} />
                 </Col>
 
-                <Col xs={12} sm={6} className="movie-details">
+                <Col xs="12" sm="6" className="movie-details">
                     <div className="movie-description">
                         <h5 className="label">Description: </h5>
                         <p className="value">{movie.Description}</p>
@@ -93,49 +91,47 @@ const MovieView = props => {
                             Remove from favourites
                         </Button>
                     }
-                    <Link to={'/'}>
-                        <Button
-                            block
-                            className="back-button d-block"
-                            variant="primary"
-                            onClick={() => history.goBack()}
-                        >
-                            Back
+
+                    <Button
+                        block
+                        className="back-button d-block"
+                        variant="primary"
+                        onClick={() => history.goBack()}
+                    >
+                        Back
                         </Button>
-                    </Link>
                 </Col>
             </Row>
         </Container >
     );
 };
 
-
-MovieView.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string.isRequired,
-        ReleaseYear: PropTypes.string,
-        Description: PropTypes.string.isRequired,
-        Genre: PropTypes.shape({
-            Name: PropTypes.string.isRequired
-        }).isRequired,
-        Directors: PropTypes.arrayOf(PropTypes.shape({
-            Name: PropTypes.string.isRequired
-        })).isRequired,
-        Actors: PropTypes.arrayOf(PropTypes.shape({
-            Name: PropTypes.string
-        })),
-        ImagePath: PropTypes.string.isRequired
-    }).isRequired,
-    user: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        Username: PropTypes.string.isRequired,
-        Email: PropTypes.string.isRequired,
-        FavouriteMovies: PropTypes.array.isRequired
-    }).isRequired,
-    favouriteMovies: PropTypes.array.isRequired,
-    updateProfile: PropTypes.func.isRequired,
-    handleAddFavourite: PropTypes.func.isRequired,
-    handleDeleteFavourite: PropTypes.func.isRequired
-};
-
 export default MovieView;
+
+// MovieView.propTypes = {
+    //     movie: PropTypes.shape({
+    //         Title: PropTypes.string.isRequired,
+    //         ReleaseYear: PropTypes.string,
+    //         Description: PropTypes.string.isRequired,
+    //         Genre: PropTypes.shape({
+    //             Name: PropTypes.string.isRequired
+    //         }).isRequired,
+    //         Directors: PropTypes.arrayOf(PropTypes.shape({
+    //             Name: PropTypes.string.isRequired
+    //         })).isRequired,
+    //         Actors: PropTypes.arrayOf(PropTypes.shape({
+    //             Name: PropTypes.string
+    //         })),
+    //         ImagePath: PropTypes.string.isRequired
+    //     }).isRequired,
+    //     user: PropTypes.shape({
+    //         _id: PropTypes.string.isRequired,
+    //         Username: PropTypes.string.isRequired,
+    //         Email: PropTypes.string.isRequired,
+    //         FavouriteMovies: PropTypes.array.isRequired
+    //     }).isRequired,
+    //     favouriteMovies: PropTypes.array.isRequired,
+    //     updateProfile: PropTypes.func.isRequired,
+    //     handleAddFavourite: PropTypes.func.isRequired,
+    //     handleDeleteFavourite: PropTypes.func.isRequired
+    // };

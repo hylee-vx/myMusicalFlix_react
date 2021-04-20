@@ -1,20 +1,14 @@
-:root {
-    --primary-color: #3e6391;
-    --secondary-color: #d29342;
-    --background-color: whitesmoke;
-    --primary-text-color: #0a3758;
-    --secondary-text-color: #008080;
-    --hover: #b84b35;
-    --active: #701300;
-}
-
 img {
     width: 100%;
 }
 
-.movie-view-header {
-    margin-top: 1.5rem;
+.movie-view {
+    max-width: 800px;
 }
+
+// .movie-view-header {
+//     margin-top: 1.5rem;
+// }
 
 .movie-release-year {
     font-weight: 400;
@@ -23,7 +17,6 @@ img {
 
 .movie-view-content {
     margin-top: 0.8rem;
-    margin-bottom: 1.5rem;
 }
 
 .label {

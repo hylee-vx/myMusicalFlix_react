@@ -1,3 +1,58 @@
+.card {
+  padding: 0;
+  margin-top: 1rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+
+.title {
+  height: 2.5rem;
+  color: var(--primary-text-color);
+  margin-bottom: 1.25rem;
+}
+
+.release-year {
+  height: 2rem;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--primary-text-color);
+}
+
+.description {
+  height: 4.5rem;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.more-details-btn {
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.2rem 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.more-details-btn:hover, .more-details-btn:focus {
+  cursor: pointer;
+  background-color: var(--hover);
+}
+
+.more-details-btn:active {
+  background-color: var(--active);
+}
+
+@media (max-width: 576px) {
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2.5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
 :root {
   --primary-color: #3e6391;
   --secondary-color: #d29342;
@@ -115,91 +170,12 @@ body {
 .login-reg-toggle-click:active {
   color: var(--active);
 }
-:root {
-  --primary-color: #3e6391;
-  --secondary-color: #d29342;
-  --background-color: whitesmoke;
-  --primary-text-color: #0a3758;
-  --secondary-text-color: #008080;
-  --hover: #b84b35;
-  --active: #701300;
-}
-
-body {
-  background-color: var(--background-color);
-}
-
-.card {
-  padding: 0;
-  margin-top: 0.8rem;
-  margin-left: 0.3rem;
-  margin-right: 0.3rem;
-}
-
-.title {
-  height: 2.5rem;
-  color: var(--primary-text-color);
-  margin-bottom: 1.25rem;
-}
-
-.release-year {
-  height: 2rem;
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--primary-text-color);
-}
-
-.description {
-  height: 4.5rem;
-}
-
-.line-clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.more-details-btn {
-  background-color: var(--secondary-color);
-  border: none;
-  padding: 0.2rem 0.5rem;
-  margin-top: 0.8rem;
-}
-
-.more-details-btn:hover, .more-details-btn:focus {
-  cursor: pointer;
-  background-color: var(--hover);
-}
-
-.more-details-btn:active {
-  background-color: var(--active);
-}
-
-@media (max-width: 576px) {
-  .line-clamp {
-    display: -webkit-box;
-    -webkit-line-clamp: 2.5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-}
-:root {
-  --primary-color: #3e6391;
-  --secondary-color: #d29342;
-  --background-color: whitesmoke;
-  --primary-text-color: #0a3758;
-  --secondary-text-color: #008080;
-  --hover: #b84b35;
-  --active: #701300;
-}
-
 img {
   width: 100%;
 }
 
-.movie-view-header {
-  margin-top: 1.5rem;
+.movie-view {
+  max-width: 800px;
 }
 
 .movie-release-year {
@@ -209,7 +185,6 @@ img {
 
 .movie-view-content {
   margin-top: 0.8rem;
-  margin-bottom: 1.5rem;
 }
 
 .label {
@@ -300,18 +275,14 @@ img {
 .back-button:active {
   background-color: var(--active);
 }
-:root {
-  --primary-color: #3e6391;
-  --secondary-color: #d29342;
-  --background-color: whitesmoke;
-  --primary-text-color: #0a3758;
-  --secondary-text-color: #008080;
-  --hover: #b84b35;
-  --active: #701300;
-}
-
 img {
   width: 100%;
+}
+
+.director-view {
+  max-width: 800px;
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .director-birth-death {
@@ -319,7 +290,7 @@ img {
   font-style: italic;
 }
 
-.value {
+.director-bio {
   padding: 0;
 }
 
@@ -328,7 +299,6 @@ img {
   background-color: var(--secondary-color);
   border: none;
   padding: 0.5rem 0.5rem;
-  margin-top: 0.8rem;
 }
 
 .back-button:hover, .back-button:focus {
@@ -339,18 +309,14 @@ img {
 .back-button:active {
   background-color: var(--active);
 }
-:root {
-  --primary-color: #3e6391;
-  --secondary-color: #d29342;
-  --background-color: whitesmoke;
-  --primary-text-color: #0a3758;
-  --secondary-text-color: #008080;
-  --hover: #b84b35;
-  --active: #701300;
-}
-
 img {
   width: 100%;
+}
+
+.actor-view {
+  max-width: 800px;
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .actor-birth-death {
@@ -358,7 +324,7 @@ img {
   font-style: italic;
 }
 
-.value {
+.actor-bio {
   padding: 0;
 }
 
@@ -488,12 +454,16 @@ img {
 }
 
 body {
-  margin: 2rem;
+  margin: 1rem;
+}
+
+.container-fluid {
+  padding: 1rem;
 }
 
 .navbar {
   border-bottom: 2px solid var(--primary-text-color);
-  margin-bottom: 1.2rem;
+  margin-bottom: 2rem;
 }
 
 .navbar-light .navbar-brand {
@@ -562,9 +532,9 @@ body {
     margin-bottom: 0.6rem;
   }
 
-  .label {
+  .label:first-child {
     font-size: 1.1rem;
-    margin-bottom: 0.3rem;
+    margin-top: 0.5rem;
   }
 
   .value {
@@ -606,11 +576,12 @@ body {
   .movie-view-header {
     display: block;
     margin-top: 0.5rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.3rem;
   }
 
   .movie-release-year {
     margin-left: 0;
+    margin-bottom: 0;
   }
 
   .movie-poster {
@@ -619,6 +590,14 @@ body {
 
   .movie-view-content {
     margin-bottom: 0;
+  }
+
+  .director-name, .director-bio, .actor-name, .actor-bio {
+    margin-top: 0.8rem;
+  }
+
+  .back-button {
+    align-self: flex-end;
   }
 }
 .my-musical-flix {

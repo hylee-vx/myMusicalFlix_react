@@ -89,7 +89,7 @@ const Registration = props => {
             <Row>
                 <Col sm={{ span: 6, offset: 3 }}>
                     <p className="login-reg-toggle-text">I have an account!<span className="login-reg-toggle-click">
-                        <Link to={"/login"}>
+                        <Link to={"/"}>
                             <Button className="link-to-login" variant="link">
                                 Sign in
                             </Button>

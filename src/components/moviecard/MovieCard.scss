@@ -1,20 +1,6 @@
-:root {
-    --primary-color: #3e6391;
-    --secondary-color: #d29342;
-    --background-color: whitesmoke;
-    --primary-text-color: #0a3758;
-    --secondary-text-color: #008080;
-    --hover: #b84b35;
-    --active: #701300;
-}
-
-body {
-    background-color: var(--background-color);
-}
-
 .card {
     padding: 0;
-    margin-top: 0.8rem;
+    margin-top: 1rem;
     margin-left: 0.3rem;
     margin-right: 0.3rem;
 }
