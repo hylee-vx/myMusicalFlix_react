@@ -5,7 +5,7 @@ A single page React application connected to the [myMusicalFlix_api](https://git
 The application is built with the MERN technology stack (MongoDB, Express.js, React, Node.js) and handles data flow with Redux. It uses React Bootstrap throughout to style UI components.
 
 ## Key Features
-* Users can register a new account or sign in if already registere
+* Users can register a new account or sign in if already registered
 * The main view displays all movies with title, release year, movie poster and a brief description. Users can search for a movie by title and select a movie to see further details
 * For each movie, users can:
     * see the movie title, release year, movie poster, full movie description, director(s), key actors and genre
